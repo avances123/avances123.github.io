@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Fabio Rueda'
 SITENAME = u'Fabio Rueda'
-SITEURL = ''
-
+SITEURL = 'http://blog.fabio.rueda.guru'
+THEME="pelican-bootstrap3"
 PATH = 'content'
 
-TIMEZONE = 'Europe/Paris'
+TIMEZONE = 'Europe/Madrid'
 
 DEFAULT_LANG = u'es'
 
@@ -19,7 +19,6 @@ TRANSLATION_FEED_ATOM = None
 
 # Blogroll
 LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
          ('Jinja2', 'http://jinja.pocoo.org/'),
          ('You can modify those links in your config file', '#'),)
 
@@ -29,5 +28,6 @@ SOCIAL = (('You can add links in your config file', '#'),
 
 DEFAULT_PAGINATION = 10
 
+TWITTER_USERNAME="avances123"
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
