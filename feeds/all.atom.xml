@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/all.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2010-12-03T10:20:00+01:00</updated><entry><title>My First Review</title><link href="http://blog.fabio.rueda.guru/my-first-review.html" rel="alternate"></link><updated>2010-12-03T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2010-12-03:my-first-review.html</id><summary type="html">&lt;h3&gt;Following is a review of my favorite mechanical keyboard.&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/all.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-10-30T10:20:00+01:00</updated><entry><title>Protractor en legacy code</title><link href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html" rel="alternate"></link><updated>2014-10-30T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-30:protractor-en-legacy-code.html</id><summary type="html">&lt;h4&gt;Introduccion&lt;/h4&gt;
+&lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
+&lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
+&lt;h4&gt;WebdriverJs (Selenium)&lt;/h4&gt;
+&lt;h5&gt;TODO&lt;/h5&gt;
+&lt;h4&gt;Protractor&lt;/h4&gt;
+&lt;p&gt;Protractor es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica.&lt;/p&gt;
+&lt;p&gt;Lo instalamos en el sistema:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;protractor&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs&lt;/li&gt;
+&lt;li&gt;Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// conf.js&lt;/span&gt;
+&lt;span class="n"&gt;exports&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nl"&gt;seleniumAddress:&lt;/span&gt; &lt;span class="p"&gt;&amp;#39;&lt;/span&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:4444/wd/hub&amp;#39;,&lt;/span&gt;
+  &lt;span class="nl"&gt;specs:&lt;/span&gt; &lt;span class="p"&gt;[&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;&lt;span class="p"&gt;&amp;#39;],&lt;/span&gt;
+
+  &lt;span class="nl"&gt;onPrepare:&lt;/span&gt; &lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// implicit and page load timeouts&lt;/span&gt;
+    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;timeouts&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;pageLoadTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;20000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;timeouts&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;implicitlyWait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;10000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// for non-angular page&lt;/span&gt;
+    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ignoreSynchronization&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Maximized chrome window&lt;/span&gt;
+    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;maximize&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="tests"></category><category term="jasmine"></category><category term="node"></category><category term="js"></category><category term="javascript"></category></entry><entry><title>My First Review</title><link href="http://blog.fabio.rueda.guru/my-first-review.html" rel="alternate"></link><updated>2010-12-03T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2010-12-03:my-first-review.html</id><summary type="html">&lt;h3&gt;Following is a review of my favorite mechanical keyboard.&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;rebuild&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
     &lt;span class="n"&gt;clean&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;

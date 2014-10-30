@@ -2,7 +2,7 @@
 <html lang="es"
 >
 <head>
-    <title>Fabio Rueda</title>
+    <title>Protractor en legacy code - Fabio Rueda</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -10,18 +10,15 @@
 
 
 
-<link rel="canonical" href="http://blog.fabio.rueda.guru">
+<link rel="canonical" href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html">
+
         <meta name="author" content="Fabio Rueda" />
+        <meta name="keywords" content="tests,jasmine,node,js,javascript" />
+        <meta name="description" content="Introduccion Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test. Nos proponemos hacer tests sobre el codigo existente y ..." />
 
     <!-- Enable latex plugin -->
 
 
-    <!-- Open Graph tags -->
-        <meta property="og:site_name" content="Fabio Rueda" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Fabio Rueda"/>
-        <meta property="og:url" content="http://blog.fabio.rueda.guru"/>
-        <meta property="og:description" content="Fabio Rueda"/>
 
 
     <!-- Bootstrap -->
@@ -35,6 +32,8 @@
               title="Fabio Rueda ATOM Feed"/>
 
 
+        <link href="http://blog.fabio.rueda.guru/feeds/js.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Fabio Rueda js ATOM Feed"/>
 
 </head>
 <body>
@@ -53,7 +52,7 @@ Fabio Rueda            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
+                        <li class="active">
                             <a href="http://blog.fabio.rueda.guru/category/js.html">Js</a>
                         </li>
                         <li >
@@ -72,29 +71,80 @@ Fabio Rueda            </a>
     <div class="row">
         <div class="col-sm-9">
 
-            <article>
-                <h2><a href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html">Protractor en legacy code</a></h2>
-                <div class="summary"><h4>Introduccion</h4>
-<p>Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.</p>
-<p>Nos proponemos hacer tests sobre el codigo existente y ...</p>
-                    <a class="btn btn-default btn-xs" href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://blog.fabio.rueda.guru/my-first-review.html">My First Review</a></h2>
-                <div class="summary"><h3>Following is a review of my favorite mechanical keyboard.</h3>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">rebuild</span><span class="p">():</span>
-    <span class="n">clean</span><span class="p">()</span>
-    <span class="n">build</span><span class="p">()</span>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html"
+                       rel="bookmark"
+                       title="Permalink to Protractor en legacy code">
+                        Protractor en legacy code
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-10-30T10:20:00"> jue 30 octubre 2014</time>
+    </span>
 
-<span class="k">def</span> <span class="nf">regenerate</span><span class="p">():</span>
-    <span class="n">local</span><span class="p">(</span><span class="s">&#39;pelican -r -s pelicanconf.py&#39;</span><span class="p">)</span>
-</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://blog.fabio.rueda.guru/my-first-review.html">more ...</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://blog.fabio.rueda.guru/tag/tests.html">tests</a>
+        /
+	<a href="http://blog.fabio.rueda.guru/tag/jasmine.html">jasmine</a>
+        /
+	<a href="http://blog.fabio.rueda.guru/tag/node.html">node</a>
+        /
+	<a href="http://blog.fabio.rueda.guru/tag/js.html">js</a>
+        /
+	<a href="http://blog.fabio.rueda.guru/tag/javascript.html">javascript</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
+                <h4>Introduccion</h4>
+<p>Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.</p>
+<p>Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.</p>
+<h4>WebdriverJs (Selenium)</h4>
+<h5>TODO</h5>
+<h4>Protractor</h4>
+<p>Protractor es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica.</p>
+<p>Lo instalamos en el sistema:</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">protractor</span>
+</pre></div>
+
+
+<p>Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas</p>
+<ul>
+<li>Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs</li>
+<li>Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular</li>
+</ul>
+<div class="highlight"><pre><span class="c1">// conf.js</span>
+<span class="n">exports</span><span class="p">.</span><span class="k">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nl">seleniumAddress:</span> <span class="p">&#39;</span><span class="nl">http:</span><span class="c1">//localhost:4444/wd/hub&#39;,</span>
+  <span class="nl">specs:</span> <span class="p">[&#39;</span><span class="n">spec</span><span class="p">.</span><span class="n">js</span><span class="p">&#39;],</span>
+
+  <span class="nl">onPrepare:</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// implicit and page load timeouts</span>
+    <span class="n">browser</span><span class="p">.</span><span class="n">manage</span><span class="p">().</span><span class="n">timeouts</span><span class="p">().</span><span class="n">pageLoadTimeout</span><span class="p">(</span><span class="mh">20000</span><span class="p">);</span>
+    <span class="n">browser</span><span class="p">.</span><span class="n">manage</span><span class="p">().</span><span class="n">timeouts</span><span class="p">().</span><span class="n">implicitlyWait</span><span class="p">(</span><span class="mh">10000</span><span class="p">);</span>
+
+    <span class="c1">// for non-angular page</span>
+    <span class="n">browser</span><span class="p">.</span><span class="n">ignoreSynchronization</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+
+    <span class="c1">// Maximized chrome window</span>
+    <span class="n">browser</span><span class="p">.</span><span class="n">driver</span><span class="p">.</span><span class="n">manage</span><span class="p">().</span><span class="n">window</span><span class="p">().</span><span class="n">maximize</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3 well well-sm" id="sidebar">

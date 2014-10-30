@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fabio Rueda</title><link>http://blog.fabio.rueda.guru/</link><description></description><atom:link href="http://blog.fabio.rueda.guru/feeds/fabio-rueda.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 30 Oct 2014 10:20:00 +0100</lastBuildDate><item><title>Protractor en legacy code</title><link>http://blog.fabio.rueda.guru/protractor-en-legacy-code.html</link><description>&lt;h4&gt;Introduccion&lt;/h4&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/js.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-10-30T10:20:00+01:00</updated><entry><title>Protractor en legacy code</title><link href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html" rel="alternate"></link><updated>2014-10-30T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-30:protractor-en-legacy-code.html</id><summary type="html">&lt;h4&gt;Introduccion&lt;/h4&gt;
 &lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
 &lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
 &lt;h4&gt;WebdriverJs (Selenium)&lt;/h4&gt;
@@ -33,11 +33,4 @@
     &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;maximize&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Fabio Rueda</dc:creator><pubDate>Thu, 30 Oct 2014 10:20:00 +0100</pubDate><guid>tag:blog.fabio.rueda.guru,2014-10-30:protractor-en-legacy-code.html</guid><category>tests</category><category>jasmine</category><category>node</category><category>js</category><category>javascript</category></item><item><title>My First Review</title><link>http://blog.fabio.rueda.guru/my-first-review.html</link><description>&lt;h3&gt;Following is a review of my favorite mechanical keyboard.&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;rebuild&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-    &lt;span class="n"&gt;clean&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;regenerate&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-    &lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;pelican -r -s pelicanconf.py&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Fabio Rueda</dc:creator><pubDate>Fri, 03 Dec 2010 10:20:00 +0100</pubDate><guid>tag:blog.fabio.rueda.guru,2010-12-03:my-first-review.html</guid><category>test</category><category>kk</category></item></channel></rss>
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="tests"></category><category term="jasmine"></category><category term="node"></category><category term="js"></category><category term="javascript"></category></entry></feed>
