@@ -14,7 +14,7 @@
 
         <meta name="author" content="Fabio Rueda" />
         <meta name="keywords" content="test,kk" />
-        <meta name="description" content="Following is a review of my favorite mechanical keyboard. def rebuild(): clean() build() def regenerate(): local(&#39;pelican -r -s pelicanconf.py&#39;) def serve(): os.chdir(env.deploy_path) PORT = 8000 class AddressReuseTCPServer(SocketServer.TCPServer): allow_reuse_address = True server = AddressReuseTCPServer((&#39;&#39;, PORT), SimpleHTTPServer.SimpleHTTPRequestHandler) sys.stderr.write(&#39;Serving on port {0} ...\n&#39;.format(PORT ..." />
+        <meta name="description" content="Following is a review of my favorite mechanical keyboard. def rebuild(): clean() build() def regenerate(): local(&#39;pelican -r -s pelicanconf.py&#39;)" />
 
     <!-- Enable latex plugin -->
 
@@ -22,10 +22,10 @@
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="http://blog.fabio.rueda.guru/theme/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="http://blog.fabio.rueda.guru/theme/css/bootstrap.flatly.min.css" type="text/css"/>
     <link href="http://blog.fabio.rueda.guru/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="http://blog.fabio.rueda.guru/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="http://blog.fabio.rueda.guru/theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="http://blog.fabio.rueda.guru/theme/css/style.css" type="text/css"/>
 
         <link href="http://blog.fabio.rueda.guru/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
@@ -104,25 +104,6 @@ Fabio Rueda            </a>
 
 <span class="k">def</span> <span class="nf">regenerate</span><span class="p">():</span>
     <span class="n">local</span><span class="p">(</span><span class="s">&#39;pelican -r -s pelicanconf.py&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">deploy_path</span><span class="p">)</span>
-
-    <span class="n">PORT</span> <span class="o">=</span> <span class="mi">8000</span>
-    <span class="k">class</span> <span class="nc">AddressReuseTCPServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
-        <span class="n">allow_reuse_address</span> <span class="o">=</span> <span class="bp">True</span>
-
-    <span class="n">server</span> <span class="o">=</span> <span class="n">AddressReuseTCPServer</span><span class="p">((</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">PORT</span><span class="p">),</span> <span class="n">SimpleHTTPServer</span><span class="o">.</span><span class="n">SimpleHTTPRequestHandler</span><span class="p">)</span>
-
-    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Serving on port {0} ...</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">PORT</span><span class="p">))</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">reserve</span><span class="p">():</span>
-    <span class="n">build</span><span class="p">()</span>
-    <span class="n">serve</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">preview</span><span class="p">():</span>
-    <span class="n">local</span><span class="p">(</span><span class="s">&#39;pelican -s publishconf.py&#39;</span><span class="p">)</span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -147,13 +128,13 @@ Fabio Rueda            </a>
                 <li class="list-group-item"><a href="http://blog.fabio.rueda.guru/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
                         <li class="list-group-item tag-4">
-                            <a href="http://blog.fabio.rueda.guru/tag/test.html">
-                                test
+                            <a href="http://blog.fabio.rueda.guru/tag/kk.html">
+                                kk
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://blog.fabio.rueda.guru/tag/kk.html">
-                                kk
+                            <a href="http://blog.fabio.rueda.guru/tag/test.html">
+                                test
                             </a>
                         </li>
                     </ul>
