@@ -30,3 +30,7 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+BOOTSTRAP_THEME = "flatly"
+PYGMENTS_STYLE = "monokai"
+GITHUB_URL="http://github.com/avances123"
