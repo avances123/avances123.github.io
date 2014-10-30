@@ -7,7 +7,7 @@ SITENAME = u'Fabio Rueda'
 SITEURL = ''
 
 PATH = 'content'
-
+THEME = "pelican-bootstrap3"
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = u'es'
@@ -18,14 +18,13 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (
+            ('Cloudtrum', 'http://www.cloudtrum.xyz'),
+        )
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (('Twitter', 'http://twitter.com/avances123'),
+          ('Google+', 'https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts'),)
 
 DEFAULT_PAGINATION = 10
 
