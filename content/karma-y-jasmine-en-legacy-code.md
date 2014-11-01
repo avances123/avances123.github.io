@@ -1,7 +1,7 @@
 Title: Protractor en legacy code
 Date: 2014-10-30 10:20
 Category: js
-Tags:tests,jasmine,node,js,javascript
+Tags:tests,jasmine,nodejs,js,javascript,e2e,selenium,protractor
 
 
 ### Introduccion
@@ -74,7 +74,12 @@ protractor conf.js
 ### Chrome y PhantomJS
 Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.
 
-Para eso usaremos phantomjs,
+Para eso usaremos phantomjs, como en los anteriores paquetes:
+```bash
+sudo npm install -g phantomjs
+```
+
+Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.
 
 
 [1]: http://docs.seleniumhq.org/projects/webdriver/
