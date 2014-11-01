@@ -18,16 +18,20 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (
+            ('Cloudtrum', 'http://www.cloudtrum.xyz'),
+        )
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (('Twitter', 'http://twitter.com/avances123'),
+          ('Google+', 'https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts'),)
 
 DEFAULT_PAGINATION = 10
 
 TWITTER_USERNAME="avances123"
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+BOOTSTRAP_THEME = "flatly"
+PYGMENTS_STYLE = "monokai"
+GITHUB_URL="http://github.com/avances123"
