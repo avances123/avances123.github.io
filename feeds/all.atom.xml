@@ -33,11 +33,4 @@
     &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;maximize&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="tests"></category><category term="jasmine"></category><category term="node"></category><category term="js"></category><category term="javascript"></category></entry><entry><title>My First Review</title><link href="http://blog.fabio.rueda.guru/my-first-review.html" rel="alternate"></link><updated>2010-12-03T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2010-12-03:my-first-review.html</id><summary type="html">&lt;h3&gt;Following is a review of my favorite mechanical keyboard.&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;rebuild&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-    &lt;span class="n"&gt;clean&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;regenerate&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-    &lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;pelican -r -s pelicanconf.py&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="test"></category><category term="kk"></category></entry></feed>
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="tests"></category><category term="jasmine"></category><category term="node"></category><category term="js"></category><category term="javascript"></category></entry></feed>
