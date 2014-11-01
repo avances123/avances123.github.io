@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/all.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-10-30T10:20:00+01:00</updated><entry><title>Protractor en legacy code</title><link href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html" rel="alternate"></link><updated>2014-10-30T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-30:protractor-en-legacy-code.html</id><summary type="html">&lt;h4&gt;Introduccion&lt;/h4&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/all.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-10-30T10:20:00+01:00</updated><entry><title>Protractor en legacy code</title><link href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html" rel="alternate"></link><updated>2014-10-30T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-30:protractor-en-legacy-code.html</id><summary type="html">&lt;h3&gt;Introduccion&lt;/h3&gt;
 &lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
 &lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
-&lt;h4&gt;WebdriverJs (Selenium)&lt;/h4&gt;
-&lt;h5&gt;TODO&lt;/h5&gt;
-&lt;h4&gt;Protractor&lt;/h4&gt;
-&lt;p&gt;Protractor es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica.&lt;/p&gt;
+&lt;h3&gt;WebdriverJs (Selenium)&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://docs.seleniumhq.org/projects/webdriver/"&gt;Selenium&lt;/a&gt; es un driver que automatiza interacciones con el explorador&lt;/p&gt;
+&lt;p&gt;Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo npm install -g webdriver-manager
+sudo webdriber-manager update 
+sudo webdriber-manager start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Protractor&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://www.npmjs.org/package/protractor"&gt;Protractor&lt;/a&gt; es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs&lt;/p&gt;
 &lt;p&gt;Lo instalamos en el sistema:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;protractor&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo npm install -g protractor
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -17,20 +24,47 @@
 &lt;li&gt;Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// conf.js&lt;/span&gt;
-&lt;span class="n"&gt;exports&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="nl"&gt;seleniumAddress:&lt;/span&gt; &lt;span class="p"&gt;&amp;#39;&lt;/span&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:4444/wd/hub&amp;#39;,&lt;/span&gt;
-  &lt;span class="nl"&gt;specs:&lt;/span&gt; &lt;span class="p"&gt;[&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;&lt;span class="p"&gt;&amp;#39;],&lt;/span&gt;
+&lt;span class="nx"&gt;exports&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;seleniumAddress&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;http://localhost:4444/wd/hub&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="nx"&gt;specs&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;spec.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
 
-  &lt;span class="nl"&gt;onPrepare:&lt;/span&gt; &lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;onPrepare&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="c1"&gt;// implicit and page load timeouts&lt;/span&gt;
-    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;timeouts&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;pageLoadTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;20000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;timeouts&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;implicitlyWait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;10000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;timeouts&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;pageLoadTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;20000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;timeouts&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;implicitlyWait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
     &lt;span class="c1"&gt;// for non-angular page&lt;/span&gt;
-    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ignoreSynchronization&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ignoreSynchronization&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
     &lt;span class="c1"&gt;// Maximized chrome window&lt;/span&gt;
-    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;maximize&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="nx"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;maximize&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="tests"></category><category term="jasmine"></category><category term="node"></category><category term="js"></category><category term="javascript"></category></entry></feed>
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Un test sencillo&lt;/h3&gt;
+&lt;p&gt;Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;describe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;angularjs homepage&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;it&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;should have a title&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;http://juliemr.github.io/protractor-demo/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="nx"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getTitle&lt;/span&gt;&lt;span class="p"&gt;()).&lt;/span&gt;&lt;span class="nx"&gt;toEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Super Calculator&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Y ejecutamos protractor:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;protractor conf.js
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Chrome y PhantomJS&lt;/h3&gt;
+&lt;p&gt;Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.&lt;/p&gt;
+&lt;p&gt;Para eso usaremos phantomjs, como en los anteriores paquetes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo npm install -g phantomjs
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.&lt;/p&gt;</summary><category term="tests"></category><category term="jasmine"></category><category term="nodejs"></category><category term="js"></category><category term="javascript"></category><category term="e2e"></category><category term="selenium"></category><category term="protractor"></category></entry></feed>

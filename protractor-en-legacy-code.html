@@ -13,7 +13,7 @@
 <link rel="canonical" href="http://blog.fabio.rueda.guru/protractor-en-legacy-code.html">
 
         <meta name="author" content="Fabio Rueda" />
-        <meta name="keywords" content="tests,jasmine,node,js,javascript" />
+        <meta name="keywords" content="tests,jasmine,nodejs,js,javascript,e2e,selenium,protractor" />
         <meta name="description" content="Introduccion Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test. Nos proponemos hacer tests sobre el codigo existente y ..." />
 
     <!-- Enable latex plugin -->
@@ -95,23 +95,36 @@ Fabio Rueda            </a>
         /
 	<a href="http://blog.fabio.rueda.guru/tag/jasmine.html">jasmine</a>
         /
-	<a href="http://blog.fabio.rueda.guru/tag/node.html">node</a>
+	<a href="http://blog.fabio.rueda.guru/tag/nodejs.html">nodejs</a>
         /
 	<a href="http://blog.fabio.rueda.guru/tag/js.html">js</a>
         /
 	<a href="http://blog.fabio.rueda.guru/tag/javascript.html">javascript</a>
+        /
+	<a href="http://blog.fabio.rueda.guru/tag/e2e.html">e2e</a>
+        /
+	<a href="http://blog.fabio.rueda.guru/tag/selenium.html">selenium</a>
+        /
+	<a href="http://blog.fabio.rueda.guru/tag/protractor.html">protractor</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h4>Introduccion</h4>
+                <h3>Introduccion</h3>
 <p>Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.</p>
 <p>Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.</p>
-<h4>WebdriverJs (Selenium)</h4>
-<h5>TODO</h5>
-<h4>Protractor</h4>
-<p>Protractor es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica.</p>
+<h3>WebdriverJs (Selenium)</h3>
+<p><a href="http://docs.seleniumhq.org/projects/webdriver/">Selenium</a> es un driver que automatiza interacciones con el explorador</p>
+<p>Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera</p>
+<div class="highlight"><pre>sudo npm install -g webdriver-manager
+sudo webdriber-manager update 
+sudo webdriber-manager start
+</pre></div>
+
+
+<h3>Protractor</h3>
+<p><a href="https://www.npmjs.org/package/protractor">Protractor</a> es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs</p>
 <p>Lo instalamos en el sistema:</p>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">protractor</span>
+<div class="highlight"><pre>sudo npm install -g protractor
 </pre></div>
 
 
@@ -121,23 +134,50 @@ Fabio Rueda            </a>
 <li>Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular</li>
 </ul>
 <div class="highlight"><pre><span class="c1">// conf.js</span>
-<span class="n">exports</span><span class="p">.</span><span class="k">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nl">seleniumAddress:</span> <span class="p">&#39;</span><span class="nl">http:</span><span class="c1">//localhost:4444/wd/hub&#39;,</span>
-  <span class="nl">specs:</span> <span class="p">[&#39;</span><span class="n">spec</span><span class="p">.</span><span class="n">js</span><span class="p">&#39;],</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">seleniumAddress</span><span class="o">:</span> <span class="s1">&#39;http://localhost:4444/wd/hub&#39;</span><span class="p">,</span>
+  <span class="nx">specs</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;spec.js&#39;</span><span class="p">],</span>
 
-  <span class="nl">onPrepare:</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">onPrepare</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// implicit and page load timeouts</span>
-    <span class="n">browser</span><span class="p">.</span><span class="n">manage</span><span class="p">().</span><span class="n">timeouts</span><span class="p">().</span><span class="n">pageLoadTimeout</span><span class="p">(</span><span class="mh">20000</span><span class="p">);</span>
-    <span class="n">browser</span><span class="p">.</span><span class="n">manage</span><span class="p">().</span><span class="n">timeouts</span><span class="p">().</span><span class="n">implicitlyWait</span><span class="p">(</span><span class="mh">10000</span><span class="p">);</span>
+    <span class="nx">browser</span><span class="p">.</span><span class="nx">manage</span><span class="p">().</span><span class="nx">timeouts</span><span class="p">().</span><span class="nx">pageLoadTimeout</span><span class="p">(</span><span class="mi">20000</span><span class="p">);</span>
+    <span class="nx">browser</span><span class="p">.</span><span class="nx">manage</span><span class="p">().</span><span class="nx">timeouts</span><span class="p">().</span><span class="nx">implicitlyWait</span><span class="p">(</span><span class="mi">10000</span><span class="p">);</span>
 
     <span class="c1">// for non-angular page</span>
-    <span class="n">browser</span><span class="p">.</span><span class="n">ignoreSynchronization</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+    <span class="nx">browser</span><span class="p">.</span><span class="nx">ignoreSynchronization</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
     <span class="c1">// Maximized chrome window</span>
-    <span class="n">browser</span><span class="p">.</span><span class="n">driver</span><span class="p">.</span><span class="n">manage</span><span class="p">().</span><span class="n">window</span><span class="p">().</span><span class="n">maximize</span><span class="p">();</span>
+    <span class="nx">browser</span><span class="p">.</span><span class="nx">driver</span><span class="p">.</span><span class="nx">manage</span><span class="p">().</span><span class="nb">window</span><span class="p">().</span><span class="nx">maximize</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<h3>Un test sencillo</h3>
+<p>Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:</p>
+<div class="highlight"><pre><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;angularjs homepage&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should have a title&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">browser</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;http://juliemr.github.io/protractor-demo/&#39;</span><span class="p">);</span>
+
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;Super Calculator&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>Y ejecutamos protractor:</p>
+<div class="highlight"><pre>protractor conf.js
+</pre></div>
+
+
+<h3>Chrome y PhantomJS</h3>
+<p>Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.</p>
+<p>Para eso usaremos phantomjs, como en los anteriores paquetes:</p>
+<div class="highlight"><pre>sudo npm install -g phantomjs
+</pre></div>
+
+
+<p>Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.</p>
             </div>
             <!-- /.entry-content -->
     <hr/>
@@ -191,13 +231,18 @@ Fabio Rueda            </a>
                 <li class="list-group-item"><a href="http://blog.fabio.rueda.guru/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
                         <li class="list-group-item tag-4">
+                            <a href="http://blog.fabio.rueda.guru/tag/protractor.html">
+                                protractor
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
                             <a href="http://blog.fabio.rueda.guru/tag/js.html">
                                 js
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://blog.fabio.rueda.guru/tag/node.html">
-                                node
+                            <a href="http://blog.fabio.rueda.guru/tag/nodejs.html">
+                                nodejs
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
@@ -211,8 +256,18 @@ Fabio Rueda            </a>
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
+                            <a href="http://blog.fabio.rueda.guru/tag/selenium.html">
+                                selenium
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
                             <a href="http://blog.fabio.rueda.guru/tag/javascript.html">
                                 javascript
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.fabio.rueda.guru/tag/e2e.html">
+                                e2e
                             </a>
                         </li>
                     </ul>
