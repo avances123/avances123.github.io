@@ -3,14 +3,18 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Fabio Rueda'
-SITENAME = u'Fabio Rueda'
+SITENAME = u'Mis POCs'
 SITEURL = ''
-THEME="pelican-bootstrap3"
+THEME="tema"
 PATH = 'content'
 
 TIMEZONE = 'Europe/Madrid'
 
 DEFAULT_LANG = u'es'
+
+
+PLUGINS = ['related_posts']
+
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -20,6 +24,9 @@ TRANSLATION_FEED_ATOM = None
 # Blogroll
 LINKS = (
             ('Cloudtrum', 'http://www.cloudtrum.xyz'),
+        )
+PROJECTS = (
+            ('fa-bitcoin','Cloudtrum', 'http://www.cloudtrum.xyz'),
         )
 
 # Social widget
@@ -35,3 +42,11 @@ TWITTER_USERNAME="avances123"
 BOOTSTRAP_THEME = "flatly"
 PYGMENTS_STYLE = "monokai"
 GITHUB_URL="http://github.com/avances123"
+CC_LICENSE="BY-NC-SA"
+DISPLAY_TAGS_ON_SIDEBAR=False
+TWITTER_WIDGET_ID="528594645018632192"
+AVATAR="https://lh5.googleusercontent.com/-arGkRvO4W7M/AAAAAAAAAAI/AAAAAAAAeDE/rLBXQaVKRbE/s120-c/photo.jpg"
+SHOW_ABOUTME=True
+ADDTHIS_PROFILE="ra-5455185a630e0def"
+DISPLAY_ARTICLE_INFO_ON_INDEX=True
+GITHUB_SHOW_USER_LINK=True
