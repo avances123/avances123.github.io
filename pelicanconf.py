@@ -12,8 +12,8 @@ TIMEZONE = 'Europe/Madrid'
 
 DEFAULT_LANG = u'es'
 
-
-PLUGINS = ['related_posts']
+PLUGIN_PATHS = ["plugins"]
+PLUGINS = ['related_posts','sitemap']
 
 
 # Feed generation is usually not desired when developing
@@ -36,15 +36,13 @@ SOCIAL = (('Twitter', 'http://twitter.com/avances123'),
 DEFAULT_PAGINATION = 10
 
 TWITTER_USERNAME="avances123"
-# Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
 
 BOOTSTRAP_THEME = "flatly"
 PYGMENTS_STYLE = "monokai"
 GITHUB_URL="http://github.com/avances123"
 CC_LICENSE="BY-NC-SA"
 DISPLAY_TAGS_ON_SIDEBAR=False
-TWITTER_WIDGET_ID="528594645018632192"
+#TWITTER_WIDGET_ID="528594645018632192"
 AVATAR="https://lh5.googleusercontent.com/-arGkRvO4W7M/AAAAAAAAAAI/AAAAAAAAeDE/rLBXQaVKRbE/s120-c/photo.jpg"
 SHOW_ABOUTME=True
 ADDTHIS_PROFILE="ra-5455185a630e0def"
