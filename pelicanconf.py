@@ -31,7 +31,8 @@ PROJECTS = (
 
 # Social widget
 SOCIAL = (('Twitter', 'http://twitter.com/avances123'),
-          ('Google+', 'https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts'),)
+          ('Google+', 'https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts'),
+          ('LinkedIn', 'https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394'),)
 
 DEFAULT_PAGINATION = 10
 
