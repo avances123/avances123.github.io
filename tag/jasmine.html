@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es"
->
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
     <title>jasmine - Mis POCs</title>
     <!-- Using the latest rendering mode for IE -->
@@ -24,6 +25,10 @@
         <meta property="og:url" content="http://blog.fabio.rueda.guru"/>
         <meta property="og:description" content="Mis POCs"/>
 
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@avances123">
+        <meta name="twitter:creator" content="@avances123">
+    <meta name="twitter:domain" content="http://blog.fabio.rueda.guru">
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://blog.fabio.rueda.guru/theme/css/bootstrap.flatly.min.css" type="text/css"/>
@@ -129,6 +134,12 @@ Mis POCs            </a>
         </li>
       </ul>
     </li>
+
+    <li class="list-group-item"><h4><a href="https://github.com/avances123"><i class="fa fa-github fa-lg"></i></a><span class="icon-label">Ultimos commits</span></h4>
+        <div id="gh_repos">
+            <p class="list-group-item">Status updating...</p>
+        </div>
+    </li>
             
 
         </ul>
@@ -158,6 +169,27 @@ Mis POCs            </a>
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
 <script src="http://blog.fabio.rueda.guru/theme/js/respond.min.js"></script>
 
+    <!-- GitHub JS -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (!window.jXHR) {
+                var jxhr = document.createElement('script');
+                jxhr.type = 'text/javascript';
+                jxhr.src = 'http://blog.fabio.rueda.guru/theme/js/jXHR.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(jxhr, s);
+            }
+
+            github.showRepos({
+                user: 'avances123',
+                count: 3,
+                skip_forks: false,
+                target: '#gh_repos'
+            });
+        });
+    </script>
+    <script src="http://blog.fabio.rueda.guru/theme/js/github.js" type="text/javascript"></script>
+    <!-- End GitHub JS Code -->
     <!-- Disqus -->
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
