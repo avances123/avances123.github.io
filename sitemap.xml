@@ -5,29 +5,36 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://blog.fabio.rueda.guru/index.html</loc>
-<lastmod>2014-11-04T16:15:56-00:00</lastmod>
+<lastmod>2014-11-04T17:28:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://blog.fabio.rueda.guru/archives.html</loc>
-<lastmod>2014-11-04T16:15:56-00:00</lastmod>
+<lastmod>2014-11-04T17:28:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://blog.fabio.rueda.guru/tags.html</loc>
-<lastmod>2014-11-04T16:15:56-00:00</lastmod>
+<lastmod>2014-11-04T17:28:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://blog.fabio.rueda.guru/categories.html</loc>
-<lastmod>2014-11-04T16:15:56-00:00</lastmod>
+<lastmod>2014-11-04T17:28:07-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://blog.fabio.rueda.guru/tablas-hash-en-cjavascript-y-python.html</loc>
+<lastmod>2014-10-31T10:20:00-00:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -60,6 +67,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://blog.fabio.rueda.guru/category/python.html</loc>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://blog.fabio.rueda.guru/tag/tests.html</loc>
 <lastmod>2014-10-30T10:20:00-00:15</lastmod>
 <changefreq>daily</changefreq>
@@ -74,8 +88,22 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://blog.fabio.rueda.guru/tag/diccionarios.html</loc>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://blog.fabio.rueda.guru/tag/nodejs.html</loc>
 <lastmod>2014-10-30T10:20:00-00:15</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://blog.fabio.rueda.guru/tag/python.html</loc>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -89,7 +117,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://blog.fabio.rueda.guru/tag/javascript.html</loc>
-<lastmod>2014-10-30T10:20:00-00:15</lastmod>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -102,8 +130,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://blog.fabio.rueda.guru/tag/c.html</loc>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://blog.fabio.rueda.guru/tag/js.html</loc>
-<lastmod>2014-10-30T10:20:00-00:15</lastmod>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -137,8 +172,22 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://blog.fabio.rueda.guru/tag/hash.html</loc>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://blog.fabio.rueda.guru/tag/comparativa.html</loc>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://blog.fabio.rueda.guru/author/fabio-rueda.html</loc>
-<lastmod>2014-10-30T10:20:00-00:15</lastmod>
+<lastmod>2014-10-31T10:20:00-00:15</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
