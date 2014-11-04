@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog de Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/postgresql.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-10-30T10:20:00+01:00</updated><entry><title>Haciendo la vida facil al psql</title><link href="http://blog.fabio.rueda.guru/haciendo-la-vida-facil-al-psql.html" rel="alternate"></link><updated>2014-10-30T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-30:haciendo-la-vida-facil-al-psql.html</id><summary type="html">&lt;p&gt;Para los que usamos el cliente psql, hay ciertas "mejoras" o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el &lt;a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc"&gt;mio&lt;/a&gt; si quieres!&lt;/p&gt;
+&lt;h4&gt;Distintos historicos&lt;/h4&gt;
+&lt;p&gt;Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;HISTFILE&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;psql_history&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DBNAME&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Aumentar las lineas de historico&lt;/h4&gt;
+&lt;p&gt;Almacenamos mas queries que por defecto&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;HISTSIZE&lt;/span&gt; &lt;span class="mi"&gt;20000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Mejoramos el prompt&lt;/h4&gt;
+&lt;p&gt;En la linea de comandos podremos ver a que base de datos y host estamos conectados:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;\set PROMPT1 &amp;#39;%M %n@%/%R%#%x &amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;El resultado es:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;[local] fabio@tests=# 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Coloreamos el null&lt;/h4&gt;
+&lt;p&gt;Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;\pset null &amp;#39;[NULL]&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;El resultado es:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;[local] fabio@tests=#&lt;/span&gt; &lt;span class="k"&gt;insert&lt;/span&gt; &lt;span class="k"&gt;into&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="k"&gt;values&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt;INSERT 0 1&lt;/span&gt;
+&lt;span class="gp"&gt;[local] fabio@tests=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt; id |  bar   &lt;/span&gt;
+&lt;span class="go"&gt;----+--------&lt;/span&gt;
+&lt;span class="go"&gt;  1 | [NULL]&lt;/span&gt;
+&lt;span class="go"&gt;(1 fila)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Demasiadas columnas para mi consola&lt;/h4&gt;
+&lt;p&gt;Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;\x auto
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Confirmar la salida&lt;/h4&gt;
+&lt;p&gt;Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;\set IGNOREEOF 3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;El resultado es este:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;local&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; fabio@tests&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="c"&gt;# Use «\q» para salir de psql.&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;local&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; fabio@tests&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="c"&gt;# Use «\q» para salir de psql.&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;local&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; fabio@tests&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="c"&gt;# \q&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="postgresql"></category><category term="pqgsl"></category><category term="dotfiles"></category></entry></feed>
