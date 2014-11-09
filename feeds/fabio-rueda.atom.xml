@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog de Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/fabio-rueda.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-10-31T10:20:00+01:00</updated><entry><title>Tablas hash en C,Javascript y Python</title><link href="http://blog.fabio.rueda.guru/tablas-hash-en-cjavascript-y-python.html" rel="alternate"></link><updated>2014-10-31T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-31:tablas-hash-en-cjavascript-y-python.html</id><summary type="html">&lt;p&gt;Un amigo necesitaba hacer una &lt;a href="http://es.wikipedia.org/wiki/Tabla_hash"&gt;funcion hash&lt;/a&gt; para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog de Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/fabio-rueda.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-11-09T10:20:00+01:00</updated><entry><title>El problema de las tres puertas</title><link href="http://blog.fabio.rueda.guru/el-problema-de-las-tres-puertas.html" rel="alternate"></link><updated>2014-11-09T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-11-09:el-problema-de-las-tres-puertas.html</id><summary type="html">&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
+&lt;p&gt;El enunciado es el siguiente:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras. Escoges una puerta, digamos la nº1, y el presentador, que sabe lo que hay detrás de las puertas, abre otra, digamos la nº3, que contiene una cabra. Entonces te pregunta: "¿No prefieres escoger la nº2?". ¿Es mejor para ti cambiar tu elección?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Puedes ver el &lt;a href="http://es.wikipedia.org/wiki/Problema_de_Monty_Hall"&gt;resultado teorico&lt;/a&gt; desde ya, pero aqui vamos a simularlo muchas veces a ver si es mejor quedarme con la puerta que elegí, o gano mas veces cambiando la puerta. Es un buen ejemplo como en unas pocas lineas de codigo, podemos simular un problema complejo para inferir la probabilidad de un evento. Solo basta con modelar el problema, hacerlo muchas veces y ver que pasa para hacerte una idea.&lt;/p&gt;
+&lt;p&gt;Esta funcion repite un numero &lt;code&gt;numTrials&lt;/code&gt; de veces el concurso, almacena los 3 posibles resultados:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stickWins&lt;/code&gt; Numero de veces que ganamos quedandonos con la puerta que elegimos la primera vez&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;switchWins&lt;/code&gt; Numero de veces que ganamos cambiando a la otra puerta que queda disponible&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;noWin&lt;/code&gt; Numero de veces que no ganamos&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Despues en cada experimento, colocaremos el premio en una de las tres puertas aleatoriamente, y elegiremos una puerta tambien aleatoriamente,&lt;/p&gt;
+&lt;p&gt;Usaremos una funcion para decidir que puerta abre monty, la hemos llamado &lt;code&gt;chooseFcn&lt;/code&gt; y se la pasaremos por parametro, asi podemos hacer un monty mas flexible.&lt;/p&gt;
+&lt;p&gt;Contabilizamos el resultado del experimento:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty &lt;strong&gt;sabia&lt;/strong&gt; donde estaba el premio y abria la otra puerta sin el)&lt;/li&gt;
+&lt;li&gt;Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos&lt;/li&gt;
+&lt;li&gt;Si monty no ha abierto la del premio, y no es la que elegimos previamente, esque hemos cambiado y ganado.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Aqui esta el experimento entero:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;simMontyHall&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numTrials&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;chooseFcn&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;stickWins&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;switchWins&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;noWin&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;prizeDoorChoices&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;guessChoices&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numTrials&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;prizeDoor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="n"&gt;guess&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="n"&gt;toOpen&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chooseFcn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;guess&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;prizeDoor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;toOpen&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;prizeDoor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;noWin&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+        &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;guess&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;prizeDoor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;stickWins&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;switchWins&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stickWins&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;switchWins&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;La funcion que determina el comportamiento de monty es la siguiente:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Si no he elegido la 1 ni tiene el premio, me da la 1&lt;/li&gt;
+&lt;li&gt;Lo mismo para la 2&lt;/li&gt;
+&lt;li&gt;Lo mismo para la 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;En general devuelve &lt;em&gt;la puerta que no tiene premio y no es la mia&lt;/em&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;montyChoose&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;guessDoor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;prizeDoor&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;guessDoor&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;prizeDoor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;guessDoor&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;prizeDoor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ya solo nos falta ejecutar el experimento muchas veces y ver los resultados, ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual? &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Resultados cuando monty elige una puerta" src="http://blog.fabio.rueda.guru/images/montyhall1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Queda claro que si te cambias tienes mas posibilidades de ganar. Pero que pasaria si monty abre una puerta &lt;strong&gt;sin conocer&lt;/strong&gt; lo que hay detras, es decir aleatoriamente? En ese caso podria abrir la que tiene el premio y tu, perder automaticamente. Veamos la funcion que lo implementa, es muy sencilla:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;randomChoose&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;guessDoor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;prizeDoor&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;guessDoor&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;guessDoor&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual? &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Resultados cuando monty elige una puerta" src="http://blog.fabio.rueda.guru/images/montyhall2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Podemos ver como si monty no conoce donde esta el premio, nos da igual plantarnos como cambiarnos.&lt;/p&gt;</summary><category term="python"></category><category term="probabilidad"></category><category term="matplotlib"></category><category term="montecarlo"></category><category term="random"></category></entry><entry><title>Tablas hash en C,Javascript y Python</title><link href="http://blog.fabio.rueda.guru/tablas-hash-en-cjavascript-y-python.html" rel="alternate"></link><updated>2014-10-31T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-31:tablas-hash-en-cjavascript-y-python.html</id><summary type="html">&lt;p&gt;Un amigo necesitaba hacer una &lt;a href="http://es.wikipedia.org/wiki/Tabla_hash"&gt;funcion hash&lt;/a&gt; para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.&lt;/p&gt;
 &lt;h3&gt;Descripcion del problema&lt;/h3&gt;
 &lt;p&gt;Tenemos un fichero de texto con miles de lineas del tipo:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;x|y  |z |v  |w         |value
