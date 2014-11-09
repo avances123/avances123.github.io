@@ -82,6 +82,10 @@ Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganar
 
 ![Resultados cuando monty elige una puerta]({filename}/images/montyhall2.png)
 
-Podemos ver como si monty no conoce donde esta el premio, nos da igual plantarnos como cambiarnos.
+
+## Un video del problema
+
+<iframe width="853" height="480" src="//www.youtube.com/embed/9vRUxbzJZ9Y?rel=0" frameborder="0" allowfullscreen></iframe>
+
 
 [1]: http://es.wikipedia.org/wiki/Problema_de_Monty_Hall
