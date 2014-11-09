@@ -17,7 +17,7 @@
 &lt;ul&gt;
 &lt;li&gt;Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty &lt;strong&gt;sabia&lt;/strong&gt; donde estaba el premio y abria la otra puerta sin el)&lt;/li&gt;
 &lt;li&gt;Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos&lt;/li&gt;
-&lt;li&gt;Si monty no ha abierto la del premio, y no es la que elegimos previamente, esque hemos cambiado y ganado.&lt;/li&gt;
+&lt;li&gt;Si monty no ha abierto la del premio, y no es la que elegimos previamente, significa que hemos cambiado y ganado.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Aqui esta el experimento entero:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;simMontyHall&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numTrials&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;chooseFcn&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
