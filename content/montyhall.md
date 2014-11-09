@@ -25,7 +25,7 @@ Contabilizamos el resultado del experimento:
 
 * Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty **sabia** donde estaba el premio y abria la otra puerta sin el)
 * Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos
-* Si monty no ha abierto la del premio, y no es la que elegimos previamente, esque hemos cambiado y ganado.
+* Si monty no ha abierto la del premio, y no es la que elegimos previamente, significa que hemos cambiado y ganado.
 
 Aqui esta el experimento entero:
 
