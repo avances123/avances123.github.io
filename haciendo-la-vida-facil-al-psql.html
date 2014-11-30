@@ -113,13 +113,13 @@ Blog de Fabio Rueda            </a>
                 <p>Para los que usamos el cliente psql, hay ciertas "mejoras" o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el <a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc">mio</a> si quieres!</p>
 <h4>Distintos historicos</h4>
 <p>Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.</p>
-<div class="highlight"><pre><span class="err">\</span><span class="n">set</span> <span class="n">HISTFILE</span> <span class="o">~/</span><span class="p">.</span><span class="n">psql_history</span><span class="o">-</span> <span class="o">:</span><span class="n">DBNAME</span>
+<div class="highlight"><pre>\set HISTFILE ~/.psql_history- :DBNAME
 </pre></div>
 
 
 <h4>Aumentar las lineas de historico</h4>
 <p>Almacenamos mas queries que por defecto</p>
-<div class="highlight"><pre><span class="err">\</span><span class="n">set</span> <span class="n">HISTSIZE</span> <span class="mi">20000</span>
+<div class="highlight"><pre>\set HISTSIZE 20000
 </pre></div>
 
 
@@ -170,6 +170,12 @@ Blog de Fabio Rueda            </a>
 </pre></div>
             </div>
             <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="http://blog.fabio.rueda.guru/busquedas-de-texto-en-postgresql.html">Busquedas de texto en postgresql</a></li>
+    </ul>
+</section>
     <hr />
     <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style">

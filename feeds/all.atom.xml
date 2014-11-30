@@ -1,5 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog de Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/all.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-11-09T10:20:00+01:00</updated><entry><title>El problema de las tres puertas</title><link href="http://blog.fabio.rueda.guru/el-problema-de-las-tres-puertas.html" rel="alternate"></link><updated>2014-11-09T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-11-09:el-problema-de-las-tres-puertas.html</id><summary type="html">&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog de Fabio Rueda</title><link href="http://blog.fabio.rueda.guru/" rel="alternate"></link><link href="http://blog.fabio.rueda.guru/feeds/all.atom.xml" rel="self"></link><id>http://blog.fabio.rueda.guru/</id><updated>2014-11-30T10:20:00+01:00</updated><entry><title>Busquedas de texto en postgresql</title><link href="http://blog.fabio.rueda.guru/busquedas-de-texto-en-postgresql.html" rel="alternate"></link><updated>2014-11-30T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-11-30:busquedas-de-texto-en-postgresql.html</id><summary type="html">&lt;p&gt;Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo &lt;em&gt;camion&lt;/em&gt; sin acento y no me sale "camión", bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de &lt;a href="http://www.postgresql.org/docs/9.3/static/textsearch.html"&gt;full text search&lt;/a&gt; que nos ofrece. Os adelanto que este es un ejemplo sencillisimo de todo lo que soporta.&lt;/p&gt;
+&lt;h3&gt;Tengo una columna con texto donde quiero buscar&lt;/h3&gt;
+&lt;p&gt;El caso de uso mas común, tengo una tabla con texto, y al buscar puedo usar LIKE o incluso ILIKE, pero eso no nos hace encontrar las palabras como un humano quiere realmente, no vamos a lograr hacer el &lt;em&gt;quiso decir&lt;/em&gt; de google, pero al menos vamos a poder buscar entre texto con o sin acentos, mayusculas, nexos y cosas asi que nos molestan.&lt;/p&gt;
+&lt;p&gt;Vamos a crear una base de datos y una tabla de prueba:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;DATABASE&lt;/span&gt; &lt;span class="n"&gt;tss&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+     &lt;span class="n"&gt;texto&lt;/span&gt;   &lt;span class="nb"&gt;text&lt;/span&gt;
+&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ahora insertamos texto de ejemplo:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;En un lugar de la Mancha&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;de cuyo nombre no quiero acordarme,&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;no ha mucho que vivía&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;un hidalgo de los de lanza en astillero&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;adarga antigua&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rocín flaco y galgo corredor.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Podemos buscar texto de manera precaria:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;texto&lt;/span&gt; &lt;span class="k"&gt;like&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;mancha&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt; texto &lt;/span&gt;
+&lt;span class="go"&gt;-------&lt;/span&gt;
+&lt;span class="go"&gt;(0 filas)&lt;/span&gt;
+
+&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;texto&lt;/span&gt; &lt;span class="k"&gt;like&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;%mancha%&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt; texto &lt;/span&gt;
+&lt;span class="go"&gt;-------&lt;/span&gt;
+&lt;span class="go"&gt;(0 filas)&lt;/span&gt;
+
+&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;texto&lt;/span&gt; &lt;span class="k"&gt;ilike&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;%mancha%&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt;          texto           &lt;/span&gt;
+&lt;span class="go"&gt;--------------------------&lt;/span&gt;
+&lt;span class="go"&gt; En un lugar de la Mancha&lt;/span&gt;
+&lt;span class="go"&gt;(1 fila)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y si quiere buscar &lt;em&gt;rocín&lt;/em&gt; sin acento? Vamos a hacerlo bien.&lt;/p&gt;
+&lt;h3&gt;Full-text search en nuestra columna&lt;/h3&gt;
+&lt;p&gt;Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;texto&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt;               to_tsvector                &lt;/span&gt;
+&lt;span class="go"&gt;------------------------------------------&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;lug&amp;#39;:3 &amp;#39;manch&amp;#39;:6&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;acord&amp;#39;:6 &amp;#39;cuy&amp;#39;:2 &amp;#39;nombr&amp;#39;:3 &amp;#39;quier&amp;#39;:5&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;viv&amp;#39;:5&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;astiller&amp;#39;:8 &amp;#39;hidalg&amp;#39;:2 &amp;#39;lanz&amp;#39;:6&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;adarg&amp;#39;:1 &amp;#39;antigu&amp;#39;:2&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;corredor&amp;#39;:5 &amp;#39;flac&amp;#39;:2 &amp;#39;galg&amp;#39;:4 &amp;#39;rocin&amp;#39;:1&lt;/span&gt;
+&lt;span class="go"&gt;(6 filas)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Muy raro todo no?, &lt;strong&gt;En un lugar de la Mancha&lt;/strong&gt; se ha convertido en &lt;strong&gt;'lug':3 'manch':6&lt;/strong&gt; . Un tsvector es una lista de lexemas, digamos de palabras que pueden derivar en nuestra palabra real u otras parecidas, Hemos &lt;strong&gt;normalizado&lt;/strong&gt; nuestras palabras, es decir, las hemos puesto en minusculas, quitado los plurales, etc. Los numeros asociados, es la posicion de estas palabras en nuestro string original, En un &lt;strong&gt;lug&lt;/strong&gt;(3) de la &lt;strong&gt;manch&lt;/strong&gt;(6)&lt;/p&gt;
+&lt;p&gt;TODO Poner en que lenguaje esta el postgresql&lt;/p&gt;
+&lt;h3&gt;Pasarle una busqueda&lt;/h3&gt;
+&lt;p&gt;Ahora que tenemos nuestros textos &lt;em&gt;arreglados&lt;/em&gt; para las busquedas, podemos meter un string en la caja de busqueda, podemos meter cualquier cosa, y queremos que nos salgan los resultados razonables, para ello nuestra busqueda debemos arreglarla tambien, para ello usaremos el tipo tsquery. Este tipo, esta pensado para operar contra tsvectors como los que hemos creado antes, un ejemplo es:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;to_tsquery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;vivir&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="go"&gt; to_tsquery &lt;/span&gt;
+&lt;span class="go"&gt;------------&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;viv&amp;#39;&lt;/span&gt;
+&lt;span class="go"&gt;(1 fila)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Sacando resultados&lt;/h3&gt;
+&lt;p&gt;Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nuestro where usaremos el operador @@ (uno de los &lt;a href="http://www.postgresql.org/docs/9.3/static/functions-textsearch.html"&gt;muchos&lt;/a&gt; que hay disponibles) entre nuestra tabla pasada a tsvector y nuestra busqueda pasada a tsquery&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;textos&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;texto&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;@@&lt;/span&gt; &lt;span class="n"&gt;to_tsquery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;vivir&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="go"&gt;         texto         &lt;/span&gt;
+&lt;span class="go"&gt;-----------------------&lt;/span&gt;
+&lt;span class="go"&gt; no ha mucho que vivía&lt;/span&gt;
+&lt;span class="go"&gt;(1 fila)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Ranking&lt;/h3&gt;
+&lt;p&gt;Un motor de busqueda bueno, nos ordenara los resultados por relevancia, segun nos acerquemos mas a lo que queremos buscar. Postgresql tambien nos ofrece &lt;a href="http://www.postgresql.org/docs/9.3/static/textsearch-controls.html#TEXTSEARCH-RANKING"&gt;esta funcionalidad&lt;/a&gt;, por ejemplo, si tenemos un blog, queremos que al buscar , el titulo tengas mas relevancia que el contenido, vamos a verlo:&lt;/p&gt;
+&lt;p&gt;Creamos una tabla con datos:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;titulo&lt;/span&gt; &lt;span class="nb"&gt;varchar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;200&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;contenido&lt;/span&gt; &lt;span class="nb"&gt;text&lt;/span&gt;
+&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="go"&gt;INSERT INTO blog VALUES (&amp;#39;Molan las busquedas en postgresql&amp;#39;,&amp;#39;Estoy escribiendo un contenido del post sin la palabra maldita&amp;#39;);&lt;/span&gt;
+&lt;span class="go"&gt;INSERT INTO blog VALUES (&amp;#39;Molan las busquedas en nuestra db&amp;#39;,&amp;#39;Estoy escribiendo un contenido del post que usa postgresql para buscar&amp;#39;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra &lt;em&gt;postgresql&lt;/em&gt; en el titulo, y otro post la tiene en el contenido.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;titulo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contenido&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt;                                            ?column?                                            &lt;/span&gt;
+&lt;span class="go"&gt;------------------------------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;busqued&amp;#39;:3 &amp;#39;conten&amp;#39;:9 &amp;#39;escrib&amp;#39;:7 &amp;#39;maldit&amp;#39;:15 &amp;#39;mol&amp;#39;:1 &amp;#39;palabr&amp;#39;:14 &amp;#39;post&amp;#39;:11 &amp;#39;postgresql&amp;#39;:5&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;busc&amp;#39;:17 &amp;#39;busqued&amp;#39;:3 &amp;#39;conten&amp;#39;:10 &amp;#39;db&amp;#39;:6 &amp;#39;escrib&amp;#39;:8 &amp;#39;mol&amp;#39;:1 &amp;#39;post&amp;#39;:12 &amp;#39;postgresql&amp;#39;:15 &amp;#39;usa&amp;#39;:14&lt;/span&gt;
+&lt;span class="go"&gt;(2 filas)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Con la funcion &lt;strong&gt;setweight&lt;/strong&gt; podemos decir que relevancia tiene un tsvector, hay pesos desde la 'D' hasta la 'A', modificamos la consulta para ponerle mas peso al titulo que al contenido:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;titulo&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;A&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contenido&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;B&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="go"&gt;                                                ?column?                                                 &lt;/span&gt;
+&lt;span class="go"&gt;---------------------------------------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;busqued&amp;#39;:3A &amp;#39;conten&amp;#39;:9B &amp;#39;escrib&amp;#39;:7B &amp;#39;maldit&amp;#39;:15B &amp;#39;mol&amp;#39;:1A &amp;#39;palabr&amp;#39;:14B &amp;#39;post&amp;#39;:11B &amp;#39;postgresql&amp;#39;:5A&lt;/span&gt;
+&lt;span class="go"&gt; &amp;#39;busc&amp;#39;:17B &amp;#39;busqued&amp;#39;:3A &amp;#39;conten&amp;#39;:10B &amp;#39;db&amp;#39;:6A &amp;#39;escrib&amp;#39;:8B &amp;#39;mol&amp;#39;:1A &amp;#39;post&amp;#39;:12B &amp;#39;postgresql&amp;#39;:15B &amp;#39;usa&amp;#39;:14B&lt;/span&gt;
+&lt;span class="go"&gt;(2 filas)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ahora vemos como a los numeros de los lexemas, les ha agregado la relevancia. Ahora vamos a buscar y a ordenar los resultados, para nuestro ORDER BY usaremos la funcion ts_rank.&lt;/p&gt;
+&lt;p&gt;Nos importa mas el titulo:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt; 
+&lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;titulo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;||&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contenido&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;@@&lt;/span&gt; &lt;span class="n"&gt;to_tsquery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;postgresql&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="k"&gt;order&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;ts_rank&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;titulo&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;D&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contenido&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;A&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;to_tsquery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;postgresql&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="go"&gt;              titulo               |                               contenido                                &lt;/span&gt;
+&lt;span class="go"&gt;-----------------------------------+------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class="go"&gt; Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita&lt;/span&gt;
+&lt;span class="go"&gt; Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar&lt;/span&gt;
+&lt;span class="go"&gt;(2 filas)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nos importa mas el contenido:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt; 
+&lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;titulo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;||&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contenido&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;@@&lt;/span&gt; &lt;span class="n"&gt;to_tsquery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;postgresql&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="k"&gt;order&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;ts_rank&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;titulo&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;A&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;contenido&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;D&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;to_tsquery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;postgresql&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="go"&gt;              titulo               |                               contenido                                &lt;/span&gt;
+&lt;span class="go"&gt;-----------------------------------+------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class="go"&gt; Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar&lt;/span&gt;
+&lt;span class="go"&gt; Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita&lt;/span&gt;
+&lt;span class="go"&gt;(2 filas)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Usando indices&lt;/h3&gt;
+&lt;p&gt;Vaya turron de consultas las dos ultimas no?, ademas de enfarragoso, algo ineficiente, como en postgresql se pueden definir indices sobre funciones , podemos pasar lo anterior a un indice &lt;a href="http://www.postgresql.org/docs/9.3/static/textsearch-indexes.html"&gt;gin&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;INDEX&lt;/span&gt; &lt;span class="n"&gt;blog_posts_idx&lt;/span&gt; &lt;span class="k"&gt;ON&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt; 
+&lt;span class="k"&gt;USING&lt;/span&gt; &lt;span class="n"&gt;gin&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt; &lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;spanish&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;titulo&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;B&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;setweight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to_tsvector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;spanish&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;contenido&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;A&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Hemos creado un indice con la misma funcionalidad que en el anterior ejemplo, esta vez, hemos especificado a tsvector que nuestro idioma del post es español, (podriamos especificar distintos idiomas tambien). Asi nos creara el texto normalizado para nuestro idioma de manera correcta. (and o with en español no lo eliminara, seran palabras &lt;em&gt;importantes&lt;/em&gt; en español).&lt;/p&gt;
+&lt;h3&gt;Mispelling&lt;/h3&gt;
+&lt;p&gt;Queria buscar Quijote pero he puesto "qijote", deberia salir igual no? Para esto, tenemos &lt;a href="http://www.postgresql.org/docs/9.3/static/pgtrgm.html"&gt;una extension&lt;/a&gt; que podemos ponerla en nuestra db asi:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;EXTENSION&lt;/span&gt; &lt;span class="n"&gt;pg_trgm&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Esta extension nos da una funcion que nos da un float entre 0 y 1 llamada similarity:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;similarity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Quijote&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Quijote&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="go"&gt; similarity &lt;/span&gt;
+&lt;span class="go"&gt;------------&lt;/span&gt;
+&lt;span class="go"&gt;          1&lt;/span&gt;
+&lt;span class="go"&gt;(1 fila)&lt;/span&gt;
+
+&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;similarity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Quijote&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Quijota&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="go"&gt; similarity &lt;/span&gt;
+&lt;span class="go"&gt;------------&lt;/span&gt;
+&lt;span class="go"&gt;        0.6&lt;/span&gt;
+&lt;span class="go"&gt;(1 fila)&lt;/span&gt;
+
+&lt;span class="gp"&gt;ts=#&lt;/span&gt; &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;similarity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Quijote&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;nada que ver&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="go"&gt; similarity &lt;/span&gt;
+&lt;span class="go"&gt;------------&lt;/span&gt;
+&lt;span class="go"&gt;   0.105263&lt;/span&gt;
+&lt;span class="go"&gt;(1 fila)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Gracias a esta funcion, podremos buscar entre lexemas de nuestra tabla parecidos, pero eso sera en otro post.&lt;/p&gt;
+&lt;h4&gt;Fuentes&lt;/h4&gt;
+&lt;p&gt;Me he inspirado, si no a veces copiado de este fantastico &lt;a href="http://blog.lostpropertyhq.com/postgres-full-text-search-is-good-enough/"&gt;post&lt;/a&gt; acerca de este tema&lt;/p&gt;</summary><category term="postgresql"></category><category term="ts"></category><category term="texto"></category><category term="busqueda"></category></entry><entry><title>El problema de las tres puertas</title><link href="http://blog.fabio.rueda.guru/el-problema-de-las-tres-puertas.html" rel="alternate"></link><updated>2014-11-09T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-11-09:el-problema-de-las-tres-puertas.html</id><summary type="html">&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
 &lt;p&gt;El enunciado es el siguiente:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras. Escoges una puerta, digamos la nº1, y el presentador, que sabe lo que hay detrás de las puertas, abre otra, digamos la nº3, que contiene una cabra. Entonces te pregunta: "¿No prefieres escoger la nº2?". ¿Es mejor para ti cambiar tu elección?&lt;/p&gt;
@@ -309,13 +481,13 @@
 &lt;p&gt;Aunque no con este codigo (modificado para la explicacion), se hicieron pruebas de los tres lenguajes, siendo vencedor C (con toda optimizacion del codigo posible), y muy cerca quedo &lt;a href="http://pypy.org/"&gt;pypy&lt;/a&gt; con su funcion built-in de hashear tuplas, mas de tres veces mas lento quedo el cpython 2.7, y javascript en nodejs.&lt;/p&gt;</summary><category term="C"></category><category term="js"></category><category term="javascript"></category><category term="python"></category><category term="hash"></category><category term="diccionarios"></category><category term="comparativa"></category></entry><entry><title>Haciendo la vida facil al psql</title><link href="http://blog.fabio.rueda.guru/haciendo-la-vida-facil-al-psql.html" rel="alternate"></link><updated>2014-10-30T10:20:00+01:00</updated><author><name>Fabio Rueda</name></author><id>tag:blog.fabio.rueda.guru,2014-10-30:haciendo-la-vida-facil-al-psql.html</id><summary type="html">&lt;p&gt;Para los que usamos el cliente psql, hay ciertas "mejoras" o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el &lt;a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc"&gt;mio&lt;/a&gt; si quieres!&lt;/p&gt;
 &lt;h4&gt;Distintos historicos&lt;/h4&gt;
 &lt;p&gt;Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;HISTFILE&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;psql_history&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;DBNAME&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;\set HISTFILE ~/.psql_history- :DBNAME
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h4&gt;Aumentar las lineas de historico&lt;/h4&gt;
 &lt;p&gt;Almacenamos mas queries que por defecto&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;HISTSIZE&lt;/span&gt; &lt;span class="mi"&gt;20000&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;\set HISTSIZE 20000
 &lt;/pre&gt;&lt;/div&gt;
 
 
