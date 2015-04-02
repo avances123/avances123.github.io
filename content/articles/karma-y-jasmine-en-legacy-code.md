@@ -1,6 +1,6 @@
 Title: Protractor en legacy code
 Date: 2014-10-30 10:20
-Category: js
+Category: javascript
 Tags:tests,jasmine,nodejs,js,javascript,e2e,selenium,protractor
 
 
