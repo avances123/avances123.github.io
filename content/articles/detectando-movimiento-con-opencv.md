@@ -2,6 +2,7 @@ Title: Detectando movimiento con opencv
 Date: 2015-04-04 10:20
 Category: python
 Tags:python,opencv,numpy,matplotlib
+Status: draft
 
 ## Introduccion
 
