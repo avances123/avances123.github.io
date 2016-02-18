@@ -5,7 +5,8 @@ from __future__ import unicode_literals
 AUTHOR = u'Fabio Rueda'
 SITENAME = u'Blog de Fabio Rueda'
 SITEURL = ''
-THEME="tuxlite_tbs"
+# THEME = "temas/tuxlite_tbs"
+THEME = "temas/fabiete"
 PATH = 'content'
 
 TIMEZONE = 'Europe/Madrid'
@@ -13,7 +14,7 @@ TIMEZONE = 'Europe/Madrid'
 DEFAULT_LANG = u'es'
 
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ['related_posts','sitemap']
+PLUGINS = ['related_posts', 'sitemap']
 
 
 # Feed generation is usually not desired when developing
@@ -60,3 +61,11 @@ AVATAR="https://lh5.googleusercontent.com/-arGkRvO4W7M/AAAAAAAAAAI/AAAAAAAAeDE/r
 SHOW_ABOUTME=True
 ADDTHIS_PROFILE="ra-5455185a630e0def"
 DISPLAY_ARTICLE_INFO_ON_INDEX=True
+
+
+from functools import partial
+JINJA_FILTERS = {
+    'sort_by_article_count': partial(
+        sorted,
+        key=lambda tags: len(tags[1]),
+        reverse=True)} # reversed for descending order

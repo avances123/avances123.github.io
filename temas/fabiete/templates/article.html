@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+        <div class="page-header">
+            <h1>{{ article.title }}</h1>
+        </div>
+        {% include "metadata.html" %}
+
+        <div>{{ article.content }}</div>
+        <hr>
+
+    {% if DISQUS_SITENAME %}
+        <h2>Commentarios</h2>
+        {% include "disqus.html" %}
+    {% endif %}
+{% endblock %}
