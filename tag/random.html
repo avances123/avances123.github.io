@@ -39,10 +39,10 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-            
+
         </ul>
         </div>
-        
+
     </div>
     </div>
 </div>
@@ -52,117 +52,40 @@
     <div class="row">
 
         <div class="span9">
-        
 
-        
+
 
 
     <div class='article'>
-        <div class="content-title">
-            <a href="http://blog.fabio.xyz/el-problema-de-las-tres-puertas.html"><h1>El problema de las tres puertas</h1></a>
-dom 09 noviembre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <a href="http://blog.fabio.xyz/el-problema-de-las-tres-puertas.html"><h2>El problema de las tres puertas</h2></a>
+        <div class= "well small"> 
 
 
- 
-        </div>
-        
-        <div><p>Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el <strong>problema de las tres puertas</strong>, o de <strong>monty hall</strong>. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que <strong>no son independientes</strong> pero lo parecen.</p>
-<p>El enunciado es el siguiente:</p>
-<blockquote>
-<p>Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras. Escoges una puerta, digamos la nº1, y el presentador, que sabe lo que hay detrás de las puertas, abre otra, digamos la nº3, que contiene una cabra. Entonces te pregunta: "¿No prefieres escoger la nº2?". ¿Es mejor para ti cambiar tu elección?</p>
-</blockquote>
-<p>Puedes ver el <a href="http://es.wikipedia.org/wiki/Problema_de_Monty_Hall">resultado teorico</a> desde ya, pero aqui vamos a simularlo muchas veces a ver si es mejor quedarme con la puerta que elegí, o gano mas veces cambiando la puerta. Es un buen ejemplo como en unas pocas lineas de codigo, podemos simular un problema complejo para inferir la probabilidad de un evento. Solo basta con modelar el problema, hacerlo muchas veces y ver que pasa para hacerte una idea.</p>
-<p>Esta funcion repite un numero <code>numTrials</code> de veces el concurso, almacena los 3 posibles resultados:</p>
-<ul>
-<li><code>stickWins</code> Numero de veces que ganamos quedandonos con la puerta que elegimos la primera vez</li>
-<li><code>switchWins</code> Numero de veces que ganamos cambiando a la otra puerta que queda disponible</li>
-<li><code>noWin</code> Numero de veces que no ganamos</li>
-</ul>
-<p>Despues en cada experimento, colocaremos el premio en una de las tres puertas aleatoriamente, y elegiremos una puerta tambien aleatoriamente,</p>
-<p>Usaremos una funcion para decidir que puerta abre monty, la hemos llamado <code>chooseFcn</code> y se la pasaremos por parametro, asi podemos hacer un monty mas flexible.</p>
-<p>Contabilizamos el resultado del experimento:</p>
-<ul>
-<li>Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty <strong>sabia</strong> donde estaba el premio y abria la otra puerta sin el)</li>
-<li>Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos</li>
-<li>Si monty no ha abierto la del premio, y no es la que elegimos previamente, significa que hemos cambiado y ganado.</li>
-</ul>
-<p>Aqui esta el experimento entero:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simMontyHall</span><span class="p">(</span><span class="n">numTrials</span><span class="p">,</span><span class="n">chooseFcn</span><span class="p">):</span>
-    <span class="n">stickWins</span><span class="p">,</span> <span class="n">switchWins</span><span class="p">,</span> <span class="n">noWin</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">prizeDoorChoices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">guessChoices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numTrials</span><span class="p">):</span>
-        <span class="n">prizeDoor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-        <span class="n">guess</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-        <span class="n">toOpen</span> <span class="o">=</span> <span class="n">chooseFcn</span><span class="p">(</span><span class="n">guess</span><span class="p">,</span> <span class="n">prizeDoor</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">toOpen</span> <span class="o">==</span> <span class="n">prizeDoor</span><span class="p">:</span>
-            <span class="n">noWin</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">prizeDoor</span><span class="p">:</span>
-            <span class="n">stickWins</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">switchWins</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">stickWins</span><span class="p">,</span> <span class="n">switchWins</span><span class="p">)</span>
-</pre></div>
+
+Categoria: <a href="http://blog.fabio.xyz/category/python.html">python</a>
+
+<br/>
 
 
-<p>La funcion que determina el comportamiento de monty es la siguiente:</p>
-<ul>
-<li>Si no he elegido la 1 ni tiene el premio, me da la 1</li>
-<li>Lo mismo para la 2</li>
-<li>Lo mismo para la 3</li>
-</ul>
-<p>En general devuelve <em>la puerta que no tiene premio y no es la mia</em></p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">montyChoose</span><span class="p">(</span><span class="n">guessDoor</span><span class="p">,</span> <span class="n">prizeDoor</span><span class="p">):</span>
-    <span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">guessDoor</span> <span class="ow">and</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">prizeDoor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="mi">2</span> <span class="o">!=</span> <span class="n">guessDoor</span> <span class="ow">and</span> <span class="mi">2</span> <span class="o">!=</span> <span class="n">prizeDoor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">2</span>
-    <span class="k">return</span> <span class="mi">3</span>
-</pre></div>
-
-
-<p>Ya solo nos falta ejecutar el experimento muchas veces y ver los resultados, ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual? </p>
-<p><img alt="Resultados cuando monty elige una puerta adrede" src="http://blog.fabio.xyz/images/montyhall1.png" /></p>
-<p>Queda claro que si te cambias tienes mas posibilidades de ganar. Pero que pasaria si monty abre una puerta <strong>sin conocer</strong> lo que hay detras, es decir aleatoriamente? En ese caso podria abrir la que tiene el premio y tu, perder automaticamente. Veamos la funcion que lo implementa, es muy sencilla:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">randomChoose</span><span class="p">(</span><span class="n">guessDoor</span><span class="p">,</span> <span class="n">prizeDoor</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">guessDoor</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-    <span class="k">if</span> <span class="n">guessDoor</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
-</pre></div>
-
-
-<p>Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual? </p>
-<p><img alt="Resultados cuando monty elige una puerta aleatoriamente" src="http://blog.fabio.xyz/images/montyhall2.png" /></p></div>
-        <hr />
+    Tags: <a href="http://blog.fabio.xyz/tag/python.html">python</a> <a href="http://blog.fabio.xyz/tag/probabilidad.html">probabilidad</a> <a href="http://blog.fabio.xyz/tag/matplotlib.html">matplotlib</a> <a href="http://blog.fabio.xyz/tag/montecarlo.html">montecarlo</a> <a href="http://blog.fabio.xyz/tag/random.html">random</a>  </div>
+        <div class="summary"><p>Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el <strong>problema de las tres puertas</strong>, o de <strong>monty hall</strong>. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que <strong>no son independientes</strong> pero lo parecen.</p>
+<p>El enunciado ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/el-problema-de-las-tres-puertas.html">leer mas</a></div>
     </div>
-		
-<div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
-    <li class="active"><a href="http://blog.fabio.xyz/tag/random.html">1</a></li>
 
-    <li class="next disabled"><a href="#">&rarr; Next</a></li>
 
-</ul>
-</div>
- 
+
   
         </div>
-        
+
         <div class="span3">
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Site
+                <li class="nav-header">
+                Navegacion
                 </li>
-            
+
                 <li><a href="http://blog.fabio.xyz/archives.html">Archives</a>
                 <li><a href="http://blog.fabio.xyz/tags.html">Tags</a>
 
@@ -176,54 +99,41 @@ by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio 
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Categories
+                <li class="nav-header">
+                Categorias
                 </li>
-                
+
                 <li><a href="http://blog.fabio.xyz/category/javascript.html">javascript</a></li>
                 <li><a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a></li>
                 <li><a href="http://blog.fabio.xyz/category/python.html">python</a></li>
-                   
             </ul>
             </div>
 
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Links
-                </li>
-            
-                <li><a href="http://www.cloudtrum.xyz">Cloudtrum</a></li>
-            </ul>
-            </div>
 
 
             <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
+                <li class="nav-header">
                 Social
                 </li>
-           
+
                 <li><a href="http://twitter.com/avances123">Twitter</a></li>
-                <li><a href="https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts">Google+</a></li>
                 <li><a href="https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394">LinkedIn</a></li>
+                <li><a href="http://github.com/avances123">Github</a></li>
+                <li><a href="http://www.last.fm/user/avances123">last.fm</a></li>
+                <li><a href="http://stackoverflow.com/users/472866/avances123">stackoverflow</a></li>
             </ul>
             </div>
             </div>
 
-        </div>  
-    </div>     </div> 
-<footer>
-<br />
-<p><a href="http://blog.fabio.xyz">Blog de Fabio Rueda</a> &copy; Fabio Rueda 2014</p>
-</footer>
+        </div>     </div>     </div> 
+
 
 </div> <!-- /container -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://blog.fabio.xyz/theme/bootstrap-collapse.js"></script>
 <script>var _gaq=[['_setAccount','UA-18805523-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
- 
 </body>
 </html>

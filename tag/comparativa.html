@@ -39,10 +39,10 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-            
+
         </ul>
         </div>
-        
+
     </div>
     </div>
 </div>
@@ -52,288 +52,39 @@
     <div class="row">
 
         <div class="span9">
-        
 
-        
+
 
 
     <div class='article'>
-        <div class="content-title">
-            <a href="http://blog.fabio.xyz/tablas-hash-en-cjavascript-y-python.html"><h1>Tablas hash en C,Javascript y Python</h1></a>
-vie 31 octubre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <a href="http://blog.fabio.xyz/tablas-hash-en-cjavascript-y-python.html"><h2>Tablas hash en C,Javascript y Python</h2></a>
+        <div class= "well small"> 
 
 
- 
-        </div>
-        
-        <div><p>Un amigo necesitaba hacer una <a href="http://es.wikipedia.org/wiki/Tabla_hash">funcion hash</a> para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.</p>
-<h3>Descripcion del problema</h3>
-<p>Tenemos un fichero de texto con miles de lineas del tipo:</p>
-<div class="highlight"><pre><span></span>x|y  |z |v  |w         |value
-9|100|33|100|2014010100|1
-9|100|33|100|2014010106|5
-</pre></div>
+
+Categoria: <a href="http://blog.fabio.xyz/category/python.html">Python</a>
+
+<br/>
 
 
-<p>Nuestro objectivo es crear una tabla hash para poder buscar segun los campos de arriba, excepto el ultimo, que es el valor que queremos extraer. Es decir la clave de busqueda seran los valores <em>x,y,z,v,w</em> y el valor el campo <em>value</em></p>
-<h3>Javascript</h3>
-<p>En javascript un diccionario, es un <a href="http://ecma262-5.com/ELS5_HTML.htm#Section_8.6">objeto</a>, es decir llenariamos un objeto cuyas propiedades son nuestras claves, no entiendo mucho la implementacion de los objetos/diccionarios en javascript asi que cualquier comentario clarificador lo agradeceria mucho.</p>
-<p>Creamos las claves concatenando los numeros como un string y le asignamos su valor.</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">csv</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fast-csv&quot;</span><span class="p">),</span>
-    <span class="nx">table</span> <span class="o">=</span> <span class="p">{};</span>
-
-<span class="nx">csv</span><span class="p">.</span><span class="nx">fromPath</span><span class="p">(</span><span class="s2">&quot;problema.txt&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">headers</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">delimiter</span><span class="o">:</span> <span class="s1">&#39;|&#39;</span> <span class="p">})</span>
- <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;record&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
-    <span class="nx">table</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">z</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">v</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">w</span><span class="p">]</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">value</span>
- <span class="p">})</span>
-</pre></div>
-
-
-<p>Y recorremos el diccionario:</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">table</span><span class="p">);</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">m</span> <span class="o">&lt;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">m</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
- <span class="nx">value</span> <span class="o">=</span> <span class="nx">table</span><span class="p">[</span><span class="nx">keys</span><span class="p">[</span><span class="nx">m</span><span class="p">]];</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Cabe repetir que lejos de entender la implementacion interna de los objetos en javascript, no parece que sea una tabla hash sino un array asociativo, no podemos decidir una funcion hash especifica para nuestro problema.</p>
-<h3>Python</h3>
-<p>En python los <a href="http://hg.python.org/cpython/file/52f68c95e025/Objects/dictobject.c">diccionarios</a> son tablas hash, ademas, nuestras claves no tienen por que ser tipos basicos, si lo fueran seria bastante parecido al ejemplo de javascript, excepto que son tablas hash reales,aqui esta la implementacion de tuplas como claves. Cualquier objeto puede ser una clave de un diccionario, basta con que cumpla una serie de requisitos en su definicion, debemos especificar un par de cosas:</p>
-<ul>
-<li>
-<p>Como sabremos que un objeto es igual a otro, para ello usaremos el metodo eq en su clase, necesitamos saberlo para decidir cuando hay una colision</p>
-</li>
-<li>
-<p>Definiremos un metodo <a href="https://docs.python.org/2/reference/datamodel.html#object.__hash__">hash</a> para aplicar cualquier funcion que queramos en la construccion/lectura del diccionario. </p>
-</li>
-</ul>
-<p>Vamos a definir nuestra clase para las claves de busqueda:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Key</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">z</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">v</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">w</span>
-
-    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        En esta funcion debemos devolver un entero, sera nuestra funcion hash</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="n">req</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">req</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">req</span><span class="o">.</span><span class="n">z</span><span class="p">,</span><span class="n">req</span><span class="o">.</span><span class="n">v</span><span class="p">,</span><span class="n">req</span><span class="o">.</span><span class="n">w</span><span class="p">))</span>
-</pre></div>
-
-
-<p>Como podemos ver, la funcion hash, nos permite contruir nuestra tabla hash con facilidad, otros ejemplos de funciones hash para este problema:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-  <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">req</span><span class="o">.</span><span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1572869</span>
-
-<span class="k">def</span> <span class="nf">integer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-  <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="c1"># el hash de un entero en python es el propio numero</span>
-</pre></div>
-
-
-<p>Favoreciendonos del lenguaje y de este metodo hash, podemos cambiar su definicion en tiempo de ejecucion, esto nos servira para comparar muchas funciones hash de manera sencilla, pero eso sera en otro post aparte.</p>
-<p>Leemos todas las claves</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dict_scan</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</pre></div>
-
-
-<h3>C</h3>
-<p>En C no existe la estructura diccionario dentro del lenguaje, lo tenemos que hacer nosotros, esto tiene como ventaja que tenemos un control absoluto de como se tiene que comportar, ademas del rendimiento insuperable que tiene un lenguaje compilado como C. No hace falta que igual de insuperable es el tiempo que nos cuesta implementar este problema comparado con los otros dos contendientes, digamos que tenemos tiempo infinito para hacerlo.</p>
-<p>La creacion de la estructura de datos la tabla hash es la siguiente:</p>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;sys/time.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
-
-<span class="cp">#define TAMHASH 1572869</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="o">*</span><span class="n">datos</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">num_datos</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">datos_t</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">k</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
-  <span class="kt">int</span> <span class="n">v</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">hash_datos_t</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span>
-<span class="p">{</span>
-  <span class="n">hash_datos_t</span> <span class="o">*</span><span class="n">datos</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">num_datos</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">num_max_datos</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">hash_node_t</span><span class="p">;</span>
-</pre></div>
-
-
-<p>La funcion hash es totalmente como nosotros queramos</p>
-<div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">hash_key</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">z</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">v</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span> <span class="o">%</span> <span class="n">TAMHASH</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Creamos un hash vacio</p>
-<div class="highlight"><pre><span></span><span class="n">hash_node_t</span> <span class="o">*</span><span class="nf">hash_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">hash_node_t</span> <span class="o">*</span><span class="n">hash</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-
-  <span class="n">hash</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">hash_node_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">TAMHASH</span><span class="p">);</span>
-  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">TAMHASH</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">datos</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">hash_datos_t</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">num_datos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">num_max_datos</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="k">return</span> <span class="n">hash</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Lo llenamos</p>
-<div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="k">static</span> <span class="kt">void</span> <span class="nf">hash_add</span><span class="p">(</span><span class="n">hash_node_t</span> <span class="o">*</span><span class="n">hash</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">valor</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">ind</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-
-  <span class="n">ind</span> <span class="o">=</span> <span class="n">hash_key</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
-
-  <span class="c1">// comprobamos si existe</span>
-  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_datos</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-      <span class="k">break</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_datos</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="c1">// no se ha encontrado la información</span>
-    <span class="c1">// creamos un elemento nuevo</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_datos</span> <span class="o">==</span> <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_max_datos</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="c1">// si hemos llegado al máximo ampliamos</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_max_datos</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span> <span class="o">=</span> <span class="n">realloc</span><span class="p">(</span><span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">,</span>
-        <span class="k">sizeof</span><span class="p">(</span><span class="n">hash_datos_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_max_datos</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="c1">//memcpy(hash[ind].datos[i].k, p, sizeof(int)*5);</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">valor</span><span class="p">;</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_datos</span><span class="o">++</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span>
-  <span class="p">{</span>
-    <span class="c1">// lo hemos encontrado.</span>
-    <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">v</span> <span class="o">=</span> <span class="n">valor</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// Metemos cada linea en el hash con la funcion de arriba</span>
-<span class="k">for</span><span class="p">(</span><span class="n">linea</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">linea</span> <span class="o">&lt;</span> <span class="n">datos</span><span class="o">-&gt;</span><span class="n">num_datos</span><span class="p">;</span> <span class="n">linea</span><span class="o">+=</span><span class="mi">6</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">hash_add</span><span class="p">(</span><span class="n">hash</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">datos</span><span class="o">-&gt;</span><span class="n">datos</span><span class="p">[</span><span class="n">linea</span><span class="p">],</span> <span class="n">datos</span><span class="o">-&gt;</span><span class="n">datos</span><span class="p">[</span><span class="n">linea</span> <span class="o">+</span> <span class="mi">5</span><span class="p">]);</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Y lo leemos</p>
-<div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">hash_get</span><span class="p">(</span><span class="n">hash_node_t</span> <span class="o">*</span><span class="n">hash</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">ind</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-
-  <span class="n">ind</span> <span class="o">=</span> <span class="n">hash_key</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
-
-  <span class="c1">// comprobamos si existe</span>
-  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">num_datos</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&amp;&amp;</span>
-      <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">k</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-    <span class="p">{</span>
-      <span class="n">ret</span> <span class="o">=</span> <span class="n">hash</span><span class="p">[</span><span class="n">ind</span><span class="p">].</span><span class="n">datos</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">v</span><span class="p">;</span>
-      <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// consultando datos</span>
-<span class="k">for</span><span class="p">(</span><span class="n">linea</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">linea</span> <span class="o">&lt;</span> <span class="n">datos</span><span class="o">-&gt;</span><span class="n">num_datos</span><span class="p">;</span> <span class="n">linea</span><span class="o">+=</span><span class="mi">6</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">v</span> <span class="o">=</span> <span class="n">hash_get</span><span class="p">(</span><span class="n">hash</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">datos</span><span class="o">-&gt;</span><span class="n">datos</span><span class="p">[</span><span class="n">linea</span><span class="p">]);</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h3>Metodo de resolucion de colisiones</h3>
-<p>En el caso de C, la tabla hash esta creada con un metodo de resolucion de colisiones del tipo <a href="http://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists">Separate chaining with linked lists</a>, mientras que el metodo que python usa es <a href="http://en.wikipedia.org/wiki/Hash_table#Open_addressing">Open addressing</a>, En esta grafica se ve como se comportan los dos metodos segun lo llena que esta la tabla (load factor), ordenadas menores es mejor.</p>
-<p><img alt="Grafica collision compare" src="http://upload.wikimedia.org/wikipedia/commons/1/1c/Hash_table_average_insertion_time.png" /></p>
-<h3>Rendimiento</h3>
-<p>Aunque no con este codigo (modificado para la explicacion), se hicieron pruebas de los tres lenguajes, siendo vencedor C (con toda optimizacion del codigo posible), y muy cerca quedo <a href="http://pypy.org/">pypy</a> con su funcion built-in de hashear tuplas, mas de tres veces mas lento quedo el cpython 2.7, y javascript en nodejs.</p></div>
-        <hr />
+    Tags: <a href="http://blog.fabio.xyz/tag/c.html">C</a> <a href="http://blog.fabio.xyz/tag/js.html">js</a> <a href="http://blog.fabio.xyz/tag/javascript.html">javascript</a> <a href="http://blog.fabio.xyz/tag/python.html">python</a> <a href="http://blog.fabio.xyz/tag/hash.html">hash</a> <a href="http://blog.fabio.xyz/tag/diccionarios.html">diccionarios</a> <a href="http://blog.fabio.xyz/tag/comparativa.html">comparativa</a>  </div>
+        <div class="summary"><p>Un amigo necesitaba hacer una <a href="http://es.wikipedia.org/wiki/Tabla_hash">funcion hash</a> para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/tablas-hash-en-cjavascript-y-python.html">leer mas</a></div>
     </div>
-		
-<div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
-    <li class="active"><a href="http://blog.fabio.xyz/tag/comparativa.html">1</a></li>
 
-    <li class="next disabled"><a href="#">&rarr; Next</a></li>
 
-</ul>
-</div>
- 
+
   
         </div>
-        
+
         <div class="span3">
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Site
+                <li class="nav-header">
+                Navegacion
                 </li>
-            
+
                 <li><a href="http://blog.fabio.xyz/archives.html">Archives</a>
                 <li><a href="http://blog.fabio.xyz/tags.html">Tags</a>
 
@@ -347,54 +98,41 @@ by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio 
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Categories
+                <li class="nav-header">
+                Categorias
                 </li>
-                
+
                 <li><a href="http://blog.fabio.xyz/category/javascript.html">javascript</a></li>
                 <li><a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a></li>
                 <li><a href="http://blog.fabio.xyz/category/python.html">python</a></li>
-                   
             </ul>
             </div>
 
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Links
-                </li>
-            
-                <li><a href="http://www.cloudtrum.xyz">Cloudtrum</a></li>
-            </ul>
-            </div>
 
 
             <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
+                <li class="nav-header">
                 Social
                 </li>
-           
+
                 <li><a href="http://twitter.com/avances123">Twitter</a></li>
-                <li><a href="https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts">Google+</a></li>
                 <li><a href="https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394">LinkedIn</a></li>
+                <li><a href="http://github.com/avances123">Github</a></li>
+                <li><a href="http://www.last.fm/user/avances123">last.fm</a></li>
+                <li><a href="http://stackoverflow.com/users/472866/avances123">stackoverflow</a></li>
             </ul>
             </div>
             </div>
 
-        </div>  
-    </div>     </div> 
-<footer>
-<br />
-<p><a href="http://blog.fabio.xyz">Blog de Fabio Rueda</a> &copy; Fabio Rueda 2014</p>
-</footer>
+        </div>     </div>     </div> 
+
 
 </div> <!-- /container -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://blog.fabio.xyz/theme/bootstrap-collapse.js"></script>
 <script>var _gaq=[['_setAccount','UA-18805523-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
- 
 </body>
 </html>

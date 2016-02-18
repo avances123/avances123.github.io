@@ -39,10 +39,10 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-            
+
         </ul>
         </div>
-        
+
     </div>
     </div>
 </div>
@@ -52,106 +52,41 @@
     <div class="row">
 
         <div class="span9">
-        
 
-        
+
 
 
     <div class='article'>
-        <div class="content-title">
-            <a href="http://blog.fabio.xyz/haciendo-la-vida-facil-al-psql.html"><h1>Haciendo la vida facil al psql</h1></a>
-jue 30 octubre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <a href="http://blog.fabio.xyz/haciendo-la-vida-facil-al-psql.html"><h2>Haciendo la vida facil al psql</h2></a>
+        <div class= "well small"> 
 
 
- 
-        </div>
-        
-        <div><p>Para los que usamos el cliente psql, hay ciertas "mejoras" o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el <a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc">mio</a> si quieres!</p>
+
+Categoria: <a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a>
+
+<br/>
+
+
+    Tags: <a href="http://blog.fabio.xyz/tag/postgresql.html">postgresql</a> <a href="http://blog.fabio.xyz/tag/pqgsl.html">pqgsl</a> <a href="http://blog.fabio.xyz/tag/dotfiles.html">dotfiles</a>  </div>
+        <div class="summary"><p>Para los que usamos el cliente psql, hay ciertas "mejoras" o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el <a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc">mio</a> si quieres!</p>
 <h4>Distintos historicos</h4>
-<p>Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.</p>
-<div class="highlight"><pre><span></span>\set HISTFILE ~/.psql_history- :DBNAME
-</pre></div>
-
-
-<h4>Aumentar las lineas de historico</h4>
-<p>Almacenamos mas queries que por defecto</p>
-<div class="highlight"><pre><span></span>\set HISTSIZE 20000
-</pre></div>
-
-
-<h4>Mejoramos el prompt</h4>
-<p>En la linea de comandos podremos ver a que base de datos y host estamos conectados:</p>
-<div class="highlight"><pre><span></span>\set PROMPT1 &#39;%M %n@%/%R%#%x &#39;
-</pre></div>
-
-
-<p>El resultado es:</p>
-<div class="highlight"><pre><span></span>[local] fabio@tests=# 
-</pre></div>
-
-
-<h4>Coloreamos el null</h4>
-<p>Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:</p>
-<div class="highlight"><pre><span></span>\pset null &#39;[NULL]&#39;
-</pre></div>
-
-
-<p>El resultado es:</p>
-<div class="highlight"><pre><span></span><span class="gp">[local] fabio@tests=#</span> <span class="k">insert</span> <span class="k">into</span> <span class="n">foo</span> <span class="k">values</span> <span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="k">null</span><span class="p">)</span> <span class="p">;</span>
-<span class="go">INSERT 0 1</span>
-<span class="gp">[local] fabio@tests=#</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">foo</span><span class="p">;</span>
-<span class="go"> id |  bar   </span>
-<span class="go">----+--------</span>
-<span class="go">  1 | [NULL]</span>
-<span class="go">(1 fila)</span>
-</pre></div>
-
-
-<h4>Demasiadas columnas para mi consola</h4>
-<p>Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:</p>
-<div class="highlight"><pre><span></span>\x auto
-</pre></div>
-
-
-<h4>Confirmar la salida</h4>
-<p>Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.</p>
-<div class="highlight"><pre><span></span>\set IGNOREEOF 3
-</pre></div>
-
-
-<p>El resultado es este:</p>
-<div class="highlight"><pre><span></span><span class="o">[</span>local<span class="o">]</span> fabio@tests<span class="o">=</span><span class="c1"># Use «\q» para salir de psql.</span>
-<span class="o">[</span>local<span class="o">]</span> fabio@tests<span class="o">=</span><span class="c1"># Use «\q» para salir de psql.</span>
-<span class="o">[</span>local<span class="o">]</span> fabio@tests<span class="o">=</span><span class="c1"># \q</span>
-</pre></div></div>
-        <hr />
+<p>Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/haciendo-la-vida-facil-al-psql.html">leer mas</a></div>
     </div>
-		
-<div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
-    <li class="active"><a href="http://blog.fabio.xyz/tag/dotfiles.html">1</a></li>
 
-    <li class="next disabled"><a href="#">&rarr; Next</a></li>
 
-</ul>
-</div>
- 
+
   
         </div>
-        
+
         <div class="span3">
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Site
+                <li class="nav-header">
+                Navegacion
                 </li>
-            
+
                 <li><a href="http://blog.fabio.xyz/archives.html">Archives</a>
                 <li><a href="http://blog.fabio.xyz/tags.html">Tags</a>
 
@@ -165,54 +100,41 @@ by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio 
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Categories
+                <li class="nav-header">
+                Categorias
                 </li>
-                
+
                 <li><a href="http://blog.fabio.xyz/category/javascript.html">javascript</a></li>
                 <li><a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a></li>
                 <li><a href="http://blog.fabio.xyz/category/python.html">python</a></li>
-                   
             </ul>
             </div>
 
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Links
-                </li>
-            
-                <li><a href="http://www.cloudtrum.xyz">Cloudtrum</a></li>
-            </ul>
-            </div>
 
 
             <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
+                <li class="nav-header">
                 Social
                 </li>
-           
+
                 <li><a href="http://twitter.com/avances123">Twitter</a></li>
-                <li><a href="https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts">Google+</a></li>
                 <li><a href="https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394">LinkedIn</a></li>
+                <li><a href="http://github.com/avances123">Github</a></li>
+                <li><a href="http://www.last.fm/user/avances123">last.fm</a></li>
+                <li><a href="http://stackoverflow.com/users/472866/avances123">stackoverflow</a></li>
             </ul>
             </div>
             </div>
 
-        </div>  
-    </div>     </div> 
-<footer>
-<br />
-<p><a href="http://blog.fabio.xyz">Blog de Fabio Rueda</a> &copy; Fabio Rueda 2014</p>
-</footer>
+        </div>     </div>     </div> 
+
 
 </div> <!-- /container -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://blog.fabio.xyz/theme/bootstrap-collapse.js"></script>
 <script>var _gaq=[['_setAccount','UA-18805523-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
- 
 </body>
 </html>

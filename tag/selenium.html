@@ -39,10 +39,10 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-            
+
         </ul>
         </div>
-        
+
     </div>
     </div>
 </div>
@@ -52,117 +52,41 @@
     <div class="row">
 
         <div class="span9">
-        
 
-        
+
 
 
     <div class='article'>
-        <div class="content-title">
-            <a href="http://blog.fabio.xyz/protractor-en-legacy-code.html"><h1>Protractor en legacy code</h1></a>
-jue 30 octubre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <a href="http://blog.fabio.xyz/protractor-en-legacy-code.html"><h2>Protractor en legacy code</h2></a>
+        <div class= "well small"> 
 
 
- 
-        </div>
-        
-        <div><h3>Introduccion</h3>
+
+Categoria: <a href="http://blog.fabio.xyz/category/javascript.html">javascript</a>
+
+<br/>
+
+
+    Tags: <a href="http://blog.fabio.xyz/tag/tests.html">tests</a> <a href="http://blog.fabio.xyz/tag/jasmine.html">jasmine</a> <a href="http://blog.fabio.xyz/tag/nodejs.html">nodejs</a> <a href="http://blog.fabio.xyz/tag/js.html">js</a> <a href="http://blog.fabio.xyz/tag/javascript.html">javascript</a> <a href="http://blog.fabio.xyz/tag/e2e.html">e2e</a> <a href="http://blog.fabio.xyz/tag/selenium.html">selenium</a> <a href="http://blog.fabio.xyz/tag/protractor.html">protractor</a>  </div>
+        <div class="summary"><h3>Introduccion</h3>
 <p>Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.</p>
-<p>Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.</p>
-<h3>WebdriverJs (Selenium)</h3>
-<p><a href="http://docs.seleniumhq.org/projects/webdriver/">Selenium</a> es un driver que automatiza interacciones con el explorador</p>
-<p>Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera</p>
-<div class="highlight"><pre><span></span>sudo npm install -g webdriver-manager
-sudo webdriber-manager update 
-sudo webdriber-manager start
-</pre></div>
-
-
-<h3>Protractor</h3>
-<p><a href="https://www.npmjs.org/package/protractor">Protractor</a> es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs</p>
-<p>Lo instalamos en el sistema:</p>
-<div class="highlight"><pre><span></span>sudo npm install -g protractor
-</pre></div>
-
-
-<p>Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas</p>
-<ul>
-<li>Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs</li>
-<li>Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular</li>
-</ul>
-<div class="highlight"><pre><span></span><span class="c1">// conf.js</span>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">seleniumAddress</span><span class="o">:</span> <span class="s1">&#39;http://localhost:4444/wd/hub&#39;</span><span class="p">,</span>
-  <span class="nx">specs</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;spec.js&#39;</span><span class="p">],</span>
-
-  <span class="nx">onPrepare</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// implicit and page load timeouts</span>
-    <span class="nx">browser</span><span class="p">.</span><span class="nx">manage</span><span class="p">().</span><span class="nx">timeouts</span><span class="p">().</span><span class="nx">pageLoadTimeout</span><span class="p">(</span><span class="mi">20000</span><span class="p">);</span>
-    <span class="nx">browser</span><span class="p">.</span><span class="nx">manage</span><span class="p">().</span><span class="nx">timeouts</span><span class="p">().</span><span class="nx">implicitlyWait</span><span class="p">(</span><span class="mi">10000</span><span class="p">);</span>
-
-    <span class="c1">// for non-angular page</span>
-    <span class="nx">browser</span><span class="p">.</span><span class="nx">ignoreSynchronization</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-
-    <span class="c1">// Maximized chrome window</span>
-    <span class="nx">browser</span><span class="p">.</span><span class="nx">driver</span><span class="p">.</span><span class="nx">manage</span><span class="p">().</span><span class="nb">window</span><span class="p">().</span><span class="nx">maximize</span><span class="p">();</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h3>Un test sencillo</h3>
-<p>Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:</p>
-<div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;angularjs homepage&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should have a title&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">browser</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;http://juliemr.github.io/protractor-demo/&#39;</span><span class="p">);</span>
-
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;Super Calculator&#39;</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-</pre></div>
-
-
-<p>Y ejecutamos protractor:</p>
-<div class="highlight"><pre><span></span>protractor conf.js
-</pre></div>
-
-
-<h3>Chrome y PhantomJS</h3>
-<p>Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.</p>
-<p>Para eso usaremos phantomjs, como en los anteriores paquetes:</p>
-<div class="highlight"><pre><span></span>sudo npm install -g phantomjs
-</pre></div>
-
-
-<p>Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.</p></div>
-        <hr />
+<p>Nos proponemos hacer tests sobre el codigo existente y ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/protractor-en-legacy-code.html">leer mas</a></div>
     </div>
-		
-<div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
-    <li class="active"><a href="http://blog.fabio.xyz/tag/selenium.html">1</a></li>
 
-    <li class="next disabled"><a href="#">&rarr; Next</a></li>
 
-</ul>
-</div>
- 
+
   
         </div>
-        
+
         <div class="span3">
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Site
+                <li class="nav-header">
+                Navegacion
                 </li>
-            
+
                 <li><a href="http://blog.fabio.xyz/archives.html">Archives</a>
                 <li><a href="http://blog.fabio.xyz/tags.html">Tags</a>
 
@@ -176,54 +100,41 @@ sudo webdriber-manager start
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Categories
+                <li class="nav-header">
+                Categorias
                 </li>
-                
+
                 <li><a href="http://blog.fabio.xyz/category/javascript.html">javascript</a></li>
                 <li><a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a></li>
                 <li><a href="http://blog.fabio.xyz/category/python.html">python</a></li>
-                   
             </ul>
             </div>
 
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Links
-                </li>
-            
-                <li><a href="http://www.cloudtrum.xyz">Cloudtrum</a></li>
-            </ul>
-            </div>
 
 
             <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
+                <li class="nav-header">
                 Social
                 </li>
-           
+
                 <li><a href="http://twitter.com/avances123">Twitter</a></li>
-                <li><a href="https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts">Google+</a></li>
                 <li><a href="https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394">LinkedIn</a></li>
+                <li><a href="http://github.com/avances123">Github</a></li>
+                <li><a href="http://www.last.fm/user/avances123">last.fm</a></li>
+                <li><a href="http://stackoverflow.com/users/472866/avances123">stackoverflow</a></li>
             </ul>
             </div>
             </div>
 
-        </div>  
-    </div>     </div> 
-<footer>
-<br />
-<p><a href="http://blog.fabio.xyz">Blog de Fabio Rueda</a> &copy; Fabio Rueda 2014</p>
-</footer>
+        </div>     </div>     </div> 
+
 
 </div> <!-- /container -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://blog.fabio.xyz/theme/bootstrap-collapse.js"></script>
 <script>var _gaq=[['_setAccount','UA-18805523-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
- 
 </body>
 </html>

@@ -39,10 +39,10 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-            
+
         </ul>
         </div>
-        
+
     </div>
     </div>
 </div>
@@ -52,276 +52,114 @@
     <div class="row">
 
         <div class="span9">
-        
 
-        
+
 
 
     <div class='article'>
-        <div class="content-title">
-            <a href="http://blog.fabio.xyz/busquedas-de-texto-en-postgresql.html"><h1>Busquedas de texto en postgresql</h1></a>
-dom 30 noviembre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <a href="http://blog.fabio.xyz/busquedas-de-texto-en-postgresql.html"><h2>Busquedas de texto en postgresql</h2></a>
+        <div class= "well small"> 
 
 
- 
-        </div>
-        
-        <div><p>Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo <em>camion</em> sin acento y no me sale "camión", bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de <a href="http://www.postgresql.org/docs/9.3/static/textsearch.html">full text search</a> que nos ofrece. Os adelanto que este es un ejemplo sencillisimo de todo lo que soporta.</p>
-<h3>Tengo una columna con texto donde quiero buscar</h3>
-<p>El caso de uso mas común, tengo una tabla con texto, y al buscar puedo usar LIKE o incluso ILIKE, pero eso no nos hace encontrar las palabras como un humano quiere realmente, no vamos a lograr hacer el <em>quiso decir</em> de google, pero al menos vamos a poder buscar entre texto con o sin acentos, mayusculas, nexos y cosas asi que nos molestan.</p>
-<p>Vamos a crear una base de datos y una tabla de prueba:</p>
-<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">tss</span><span class="p">;</span>
-<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">textos</span> <span class="p">(</span>
-     <span class="n">texto</span>   <span class="nb">text</span>
-<span class="p">);</span>
-</pre></div>
+
+Categoria: <a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a>
+
+<br/>
 
 
-<p>Ahora insertamos texto de ejemplo:</p>
-<div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">textos</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;En un lugar de la Mancha&#39;</span><span class="p">);</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">textos</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;de cuyo nombre no quiero acordarme,&#39;</span><span class="p">);</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">textos</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;no ha mucho que vivía&#39;</span><span class="p">);</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">textos</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;un hidalgo de los de lanza en astillero&#39;</span><span class="p">);</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">textos</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;adarga antigua&#39;</span><span class="p">);</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">textos</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;rocín flaco y galgo corredor.&#39;</span><span class="p">);</span>
-</pre></div>
-
-
-<p>Podemos buscar texto de manera precaria:</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">textos</span> <span class="k">where</span> <span class="n">texto</span> <span class="k">like</span> <span class="s1">&#39;mancha&#39;</span><span class="p">;</span>
-<span class="go"> texto </span>
-<span class="go">-------</span>
-<span class="go">(0 filas)</span>
-
-<span class="gp">ts=#</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">textos</span> <span class="k">where</span> <span class="n">texto</span> <span class="k">like</span> <span class="s1">&#39;%mancha%&#39;</span><span class="p">;</span>
-<span class="go"> texto </span>
-<span class="go">-------</span>
-<span class="go">(0 filas)</span>
-
-<span class="gp">ts=#</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">textos</span> <span class="k">where</span> <span class="n">texto</span> <span class="k">ilike</span> <span class="s1">&#39;%mancha%&#39;</span><span class="p">;</span>
-<span class="go">          texto           </span>
-<span class="go">--------------------------</span>
-<span class="go"> En un lugar de la Mancha</span>
-<span class="go">(1 fila)</span>
-</pre></div>
-
-
-<p>Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y si quiere buscar <em>rocín</em> sin acento? Vamos a hacerlo bien.</p>
-<h3>Full-text search en nuestra columna</h3>
-<p>Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="n">to_tsvector</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span> <span class="k">from</span> <span class="n">textos</span> <span class="p">;</span>
-<span class="go">               to_tsvector                </span>
-<span class="go">------------------------------------------</span>
-<span class="go"> &#39;lug&#39;:3 &#39;manch&#39;:6</span>
-<span class="go"> &#39;acord&#39;:6 &#39;cuy&#39;:2 &#39;nombr&#39;:3 &#39;quier&#39;:5</span>
-<span class="go"> &#39;viv&#39;:5</span>
-<span class="go"> &#39;astiller&#39;:8 &#39;hidalg&#39;:2 &#39;lanz&#39;:6</span>
-<span class="go"> &#39;adarg&#39;:1 &#39;antigu&#39;:2</span>
-<span class="go"> &#39;corredor&#39;:5 &#39;flac&#39;:2 &#39;galg&#39;:4 &#39;rocin&#39;:1</span>
-<span class="go">(6 filas)</span>
-</pre></div>
-
-
-<p>Muy raro todo no?, <strong>En un lugar de la Mancha</strong> se ha convertido en <strong>'lug':3 'manch':6</strong> . Un tsvector es una lista de lexemas, digamos de palabras que pueden derivar en nuestra palabra real u otras parecidas, Hemos <strong>normalizado</strong> nuestras palabras, es decir, las hemos puesto en minusculas, quitado los plurales, etc. Los numeros asociados, es la posicion de estas palabras en nuestro string original, En un <strong>lug</strong>(3) de la <strong>manch</strong>(6)</p>
-<p>TODO Poner en que lenguaje esta el postgresql</p>
-<h3>Pasarle una busqueda</h3>
-<p>Ahora que tenemos nuestros textos <em>arreglados</em> para las busquedas, podemos meter un string en la caja de busqueda, podemos meter cualquier cosa, y queremos que nos salgan los resultados razonables, para ello nuestra busqueda debemos arreglarla tambien, para ello usaremos el tipo tsquery. Este tipo, esta pensado para operar contra tsvectors como los que hemos creado antes, un ejemplo es:</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="n">to_tsquery</span><span class="p">(</span><span class="s1">&#39;vivir&#39;</span><span class="p">);</span>
-<span class="go"> to_tsquery </span>
-<span class="go">------------</span>
-<span class="go"> &#39;viv&#39;</span>
-<span class="go">(1 fila)</span>
-</pre></div>
-
-
-<h3>Sacando resultados</h3>
-<p>Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nuestro where usaremos el operador @@ (uno de los <a href="http://www.postgresql.org/docs/9.3/static/functions-textsearch.html">muchos</a> que hay disponibles) entre nuestra tabla pasada a tsvector y nuestra busqueda pasada a tsquery</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">textos</span> <span class="k">where</span> <span class="n">to_tsvector</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span> <span class="o">@@</span> <span class="n">to_tsquery</span><span class="p">(</span><span class="s1">&#39;vivir&#39;</span><span class="p">);</span>
-<span class="go">         texto         </span>
-<span class="go">-----------------------</span>
-<span class="go"> no ha mucho que vivía</span>
-<span class="go">(1 fila)</span>
-</pre></div>
-
-
-<h3>Ranking</h3>
-<p>Un motor de busqueda bueno, nos ordenara los resultados por relevancia, segun nos acerquemos mas a lo que queremos buscar. Postgresql tambien nos ofrece <a href="http://www.postgresql.org/docs/9.3/static/textsearch-controls.html#TEXTSEARCH-RANKING">esta funcionalidad</a>, por ejemplo, si tenemos un blog, queremos que al buscar , el titulo tengas mas relevancia que el contenido, vamos a verlo:</p>
-<p>Creamos una tabla con datos:</p>
-<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">blog</span><span class="p">(</span>
-    <span class="n">titulo</span> <span class="nb">varchar</span><span class="p">(</span><span class="mf">200</span><span class="p">),</span>
-    <span class="n">contenido</span> <span class="nb">text</span>
-<span class="p">);</span>
-<span class="go">INSERT INTO blog VALUES (&#39;Molan las busquedas en postgresql&#39;,&#39;Estoy escribiendo un contenido del post sin la palabra maldita&#39;);</span>
-<span class="go">INSERT INTO blog VALUES (&#39;Molan las busquedas en nuestra db&#39;,&#39;Estoy escribiendo un contenido del post que usa postgresql para buscar&#39;);</span>
-</pre></div>
-
-
-<p>Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra <em>postgresql</em> en el titulo, y otro post la tiene en el contenido.</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="n">to_tsvector</span><span class="p">(</span><span class="n">titulo</span><span class="p">)</span> <span class="o">||</span> <span class="n">to_tsvector</span><span class="p">(</span><span class="n">contenido</span><span class="p">)</span> <span class="k">from</span> <span class="n">blog</span><span class="p">;</span>
-<span class="go">                                            ?column?                                            </span>
-<span class="go">------------------------------------------------------------------------------------------------</span>
-<span class="go"> &#39;busqued&#39;:3 &#39;conten&#39;:9 &#39;escrib&#39;:7 &#39;maldit&#39;:15 &#39;mol&#39;:1 &#39;palabr&#39;:14 &#39;post&#39;:11 &#39;postgresql&#39;:5</span>
-<span class="go"> &#39;busc&#39;:17 &#39;busqued&#39;:3 &#39;conten&#39;:10 &#39;db&#39;:6 &#39;escrib&#39;:8 &#39;mol&#39;:1 &#39;post&#39;:12 &#39;postgresql&#39;:15 &#39;usa&#39;:14</span>
-<span class="go">(2 filas)</span>
-</pre></div>
-
-
-<p>Con la funcion <strong>setweight</strong> podemos decir que relevancia tiene un tsvector, hay pesos desde la 'D' hasta la 'A', modificamos la consulta para ponerle mas peso al titulo que al contenido:</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">titulo</span><span class="p">),</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">contenido</span><span class="p">),</span><span class="s1">&#39;B&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">blog</span><span class="p">;</span>
-<span class="go">                                                ?column?                                                 </span>
-<span class="go">---------------------------------------------------------------------------------------------------------</span>
-<span class="go"> &#39;busqued&#39;:3A &#39;conten&#39;:9B &#39;escrib&#39;:7B &#39;maldit&#39;:15B &#39;mol&#39;:1A &#39;palabr&#39;:14B &#39;post&#39;:11B &#39;postgresql&#39;:5A</span>
-<span class="go"> &#39;busc&#39;:17B &#39;busqued&#39;:3A &#39;conten&#39;:10B &#39;db&#39;:6A &#39;escrib&#39;:8B &#39;mol&#39;:1A &#39;post&#39;:12B &#39;postgresql&#39;:15B &#39;usa&#39;:14B</span>
-<span class="go">(2 filas)</span>
-</pre></div>
-
-
-<p>Ahora vemos como a los numeros de los lexemas, les ha agregado la relevancia. Ahora vamos a buscar y a ordenar los resultados, para nuestro ORDER BY usaremos la funcion ts_rank.</p>
-<p>Nos importa mas el titulo:</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">blog</span> 
-<span class="k">where</span> <span class="n">to_tsvector</span><span class="p">(</span><span class="n">titulo</span><span class="p">)</span><span class="o">||</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">contenido</span><span class="p">)</span> <span class="o">@@</span> <span class="n">to_tsquery</span><span class="p">(</span><span class="s1">&#39;postgresql&#39;</span><span class="p">)</span> 
-<span class="k">order</span> <span class="k">by</span> <span class="n">ts_rank</span><span class="p">(</span><span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">titulo</span><span class="p">),</span><span class="s1">&#39;D&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">contenido</span><span class="p">),</span><span class="s1">&#39;A&#39;</span><span class="p">),</span><span class="n">to_tsquery</span><span class="p">(</span><span class="s1">&#39;postgresql&#39;</span><span class="p">));</span>
-<span class="go">              titulo               |                               contenido                                </span>
-<span class="go">-----------------------------------+------------------------------------------------------------------------</span>
-<span class="go"> Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita</span>
-<span class="go"> Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar</span>
-<span class="go">(2 filas)</span>
-</pre></div>
-
-
-<p>Nos importa mas el contenido:</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">blog</span> 
-<span class="k">where</span> <span class="n">to_tsvector</span><span class="p">(</span><span class="n">titulo</span><span class="p">)</span><span class="o">||</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">contenido</span><span class="p">)</span> <span class="o">@@</span> <span class="n">to_tsquery</span><span class="p">(</span><span class="s1">&#39;postgresql&#39;</span><span class="p">)</span> 
-<span class="k">order</span> <span class="k">by</span> <span class="n">ts_rank</span><span class="p">(</span><span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">titulo</span><span class="p">),</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="n">contenido</span><span class="p">),</span><span class="s1">&#39;D&#39;</span><span class="p">),</span><span class="n">to_tsquery</span><span class="p">(</span><span class="s1">&#39;postgresql&#39;</span><span class="p">));</span>
-<span class="go">              titulo               |                               contenido                                </span>
-<span class="go">-----------------------------------+------------------------------------------------------------------------</span>
-<span class="go"> Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar</span>
-<span class="go"> Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita</span>
-<span class="go">(2 filas)</span>
-</pre></div>
-
-
-<h3>Usando indices</h3>
-<p>Vaya turron de consultas las dos ultimas no?, ademas de enfarragoso, algo ineficiente, como en postgresql se pueden definir indices sobre funciones , podemos pasar lo anterior a un indice <a href="http://www.postgresql.org/docs/9.3/static/textsearch-indexes.html">gin</a>:</p>
-<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">blog_posts_idx</span> <span class="k">ON</span> <span class="n">blog</span> 
-<span class="k">USING</span> <span class="n">gin</span><span class="p">((</span> <span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="s1">&#39;spanish&#39;</span><span class="p">,</span><span class="n">titulo</span><span class="p">),</span><span class="s1">&#39;B&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="n">setweight</span><span class="p">(</span><span class="n">to_tsvector</span><span class="p">(</span><span class="s1">&#39;spanish&#39;</span><span class="p">,</span><span class="n">contenido</span><span class="p">),</span><span class="s1">&#39;A&#39;</span><span class="p">))</span> <span class="p">);</span>
-</pre></div>
-
-
-<p>Hemos creado un indice con la misma funcionalidad que en el anterior ejemplo, esta vez, hemos especificado a tsvector que nuestro idioma del post es español, (podriamos especificar distintos idiomas tambien). Asi nos creara el texto normalizado para nuestro idioma de manera correcta. (and o with en español no lo eliminara, seran palabras <em>importantes</em> en español).</p>
-<h3>Mispelling</h3>
-<p>Queria buscar Quijote pero he puesto "qijote", deberia salir igual no? Para esto, tenemos <a href="http://www.postgresql.org/docs/9.3/static/pgtrgm.html">una extension</a> que podemos ponerla en nuestra db asi:</p>
-<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">EXTENSION</span> <span class="n">pg_trgm</span><span class="p">;</span>
-</pre></div>
-
-
-<p>Esta extension nos da una funcion que nos da un float entre 0 y 1 llamada similarity:</p>
-<div class="highlight"><pre><span></span><span class="gp">ts=#</span> <span class="k">select</span> <span class="n">similarity</span><span class="p">(</span><span class="s1">&#39;Quijote&#39;</span><span class="p">,</span> <span class="s1">&#39;Quijote&#39;</span><span class="p">);</span>
-<span class="go"> similarity </span>
-<span class="go">------------</span>
-<span class="go">          1</span>
-<span class="go">(1 fila)</span>
-
-<span class="gp">ts=#</span> <span class="k">select</span> <span class="n">similarity</span><span class="p">(</span><span class="s1">&#39;Quijote&#39;</span><span class="p">,</span> <span class="s1">&#39;Quijota&#39;</span><span class="p">);</span>
-<span class="go"> similarity </span>
-<span class="go">------------</span>
-<span class="go">        0.6</span>
-<span class="go">(1 fila)</span>
-
-<span class="gp">ts=#</span> <span class="k">select</span> <span class="n">similarity</span><span class="p">(</span><span class="s1">&#39;Quijote&#39;</span><span class="p">,</span> <span class="s1">&#39;nada que ver&#39;</span><span class="p">);</span>
-<span class="go"> similarity </span>
-<span class="go">------------</span>
-<span class="go">   0.105263</span>
-<span class="go">(1 fila)</span>
-</pre></div>
-
-
-<p>Gracias a esta funcion, podremos buscar entre lexemas de nuestra tabla parecidos, pero eso sera en otro post.</p>
-<h4>Fuentes</h4>
-<p>Me he inspirado, si no a veces copiado de este fantastico <a href="http://blog.lostpropertyhq.com/postgres-full-text-search-is-good-enough/">post</a> acerca de este tema</p></div>
-        <hr />
+    Tags: <a href="http://blog.fabio.xyz/tag/postgresql.html">postgresql</a> <a href="http://blog.fabio.xyz/tag/ts.html">ts</a> <a href="http://blog.fabio.xyz/tag/texto.html">texto</a> <a href="http://blog.fabio.xyz/tag/busqueda.html">busqueda</a>  </div>
+        <div class="summary"><p>Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo <em>camion</em> sin acento y no me sale "camión", bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de <a href="http://www.postgresql.org/docs/9.3/static/textsearch.html">full text search</a> que nos ofrece. Os adelanto que ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/busquedas-de-texto-en-postgresql.html">leer mas</a></div>
     </div>
-		
 
- 
-        
 
- 
+
+
+
+
 
     <div class='article'>
         <a href="http://blog.fabio.xyz/el-problema-de-las-tres-puertas.html"><h2>El problema de las tres puertas</h2></a>
-        <div class= "well small"> dom 09 noviembre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <div class= "well small"> 
 
 
- </div>
+
+Categoria: <a href="http://blog.fabio.xyz/category/python.html">python</a>
+
+<br/>
+
+
+    Tags: <a href="http://blog.fabio.xyz/tag/python.html">python</a> <a href="http://blog.fabio.xyz/tag/probabilidad.html">probabilidad</a> <a href="http://blog.fabio.xyz/tag/matplotlib.html">matplotlib</a> <a href="http://blog.fabio.xyz/tag/montecarlo.html">montecarlo</a> <a href="http://blog.fabio.xyz/tag/random.html">random</a>  </div>
         <div class="summary"><p>Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el <strong>problema de las tres puertas</strong>, o de <strong>monty hall</strong>. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que <strong>no son independientes</strong> pero lo parecen.</p>
-<p>El enunciado ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/el-problema-de-las-tres-puertas.html">read more</a></div>
-    </div>	
-				
+<p>El enunciado ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/el-problema-de-las-tres-puertas.html">leer mas</a></div>
+    </div>
 
- 
-        
 
- 
+
+
+
+
 
     <div class='article'>
         <a href="http://blog.fabio.xyz/tablas-hash-en-cjavascript-y-python.html"><h2>Tablas hash en C,Javascript y Python</h2></a>
-        <div class= "well small"> vie 31 octubre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <div class= "well small"> 
 
 
- </div>
-        <div class="summary"><p>Un amigo necesitaba hacer una <a href="http://es.wikipedia.org/wiki/Tabla_hash">funcion hash</a> para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/tablas-hash-en-cjavascript-y-python.html">read more</a></div>
-    </div>	
-				
 
- 
-        
+Categoria: <a href="http://blog.fabio.xyz/category/python.html">Python</a>
 
- 
+<br/>
+
+
+    Tags: <a href="http://blog.fabio.xyz/tag/c.html">C</a> <a href="http://blog.fabio.xyz/tag/js.html">js</a> <a href="http://blog.fabio.xyz/tag/javascript.html">javascript</a> <a href="http://blog.fabio.xyz/tag/python.html">python</a> <a href="http://blog.fabio.xyz/tag/hash.html">hash</a> <a href="http://blog.fabio.xyz/tag/diccionarios.html">diccionarios</a> <a href="http://blog.fabio.xyz/tag/comparativa.html">comparativa</a>  </div>
+        <div class="summary"><p>Un amigo necesitaba hacer una <a href="http://es.wikipedia.org/wiki/Tabla_hash">funcion hash</a> para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/tablas-hash-en-cjavascript-y-python.html">leer mas</a></div>
+    </div>
+
+
+
+
+
+
 
     <div class='article'>
         <a href="http://blog.fabio.xyz/haciendo-la-vida-facil-al-psql.html"><h2>Haciendo la vida facil al psql</h2></a>
-        <div class= "well small"> jue 30 octubre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <div class= "well small"> 
 
 
- </div>
+
+Categoria: <a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a>
+
+<br/>
+
+
+    Tags: <a href="http://blog.fabio.xyz/tag/postgresql.html">postgresql</a> <a href="http://blog.fabio.xyz/tag/pqgsl.html">pqgsl</a> <a href="http://blog.fabio.xyz/tag/dotfiles.html">dotfiles</a>  </div>
         <div class="summary"><p>Para los que usamos el cliente psql, hay ciertas "mejoras" o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el <a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc">mio</a> si quieres!</p>
 <h4>Distintos historicos</h4>
-<p>Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/haciendo-la-vida-facil-al-psql.html">read more</a></div>
-    </div>	
-				
+<p>Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/haciendo-la-vida-facil-al-psql.html">leer mas</a></div>
+    </div>
 
- 
-        
 
- 
+
+
+
+
 
     <div class='article'>
         <a href="http://blog.fabio.xyz/protractor-en-legacy-code.html"><h2>Protractor en legacy code</h2></a>
-        <div class= "well small"> jue 30 octubre 2014
-
-by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio Rueda</a>
- 
+        <div class= "well small"> 
 
 
- </div>
+
+Categoria: <a href="http://blog.fabio.xyz/category/javascript.html">javascript</a>
+
+<br/>
+
+
+    Tags: <a href="http://blog.fabio.xyz/tag/tests.html">tests</a> <a href="http://blog.fabio.xyz/tag/jasmine.html">jasmine</a> <a href="http://blog.fabio.xyz/tag/nodejs.html">nodejs</a> <a href="http://blog.fabio.xyz/tag/js.html">js</a> <a href="http://blog.fabio.xyz/tag/javascript.html">javascript</a> <a href="http://blog.fabio.xyz/tag/e2e.html">e2e</a> <a href="http://blog.fabio.xyz/tag/selenium.html">selenium</a> <a href="http://blog.fabio.xyz/tag/protractor.html">protractor</a>  </div>
         <div class="summary"><h3>Introduccion</h3>
 <p>Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.</p>
-<p>Nos proponemos hacer tests sobre el codigo existente y ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/protractor-en-legacy-code.html">read more</a></div>
-    </div>	
-				
+<p>Nos proponemos hacer tests sobre el codigo existente y ...</p> <a class="btn btn-info xsmall" href="http://blog.fabio.xyz/protractor-en-legacy-code.html">leer mas</a></div>
+    </div>
+
 <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>
@@ -332,18 +170,19 @@ by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio 
 
 </ul>
 </div>
- 
+
+
   
         </div>
-        
+
         <div class="span3">
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Site
+                <li class="nav-header">
+                Navegacion
                 </li>
-            
+
                 <li><a href="http://blog.fabio.xyz/archives.html">Archives</a>
                 <li><a href="http://blog.fabio.xyz/tags.html">Tags</a>
 
@@ -357,54 +196,41 @@ by <a class="url fn" href="http://blog.fabio.xyz/author/fabio-rueda.html">Fabio 
 
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Categories
+                <li class="nav-header">
+                Categorias
                 </li>
-                
+
                 <li><a href="http://blog.fabio.xyz/category/javascript.html">javascript</a></li>
                 <li><a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a></li>
                 <li><a href="http://blog.fabio.xyz/category/python.html">python</a></li>
-                   
             </ul>
             </div>
 
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header"> 
-                Links
-                </li>
-            
-                <li><a href="http://www.cloudtrum.xyz">Cloudtrum</a></li>
-            </ul>
-            </div>
 
 
             <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
-                <li class="nav-header"> 
+                <li class="nav-header">
                 Social
                 </li>
-           
+
                 <li><a href="http://twitter.com/avances123">Twitter</a></li>
-                <li><a href="https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts">Google+</a></li>
                 <li><a href="https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394">LinkedIn</a></li>
+                <li><a href="http://github.com/avances123">Github</a></li>
+                <li><a href="http://www.last.fm/user/avances123">last.fm</a></li>
+                <li><a href="http://stackoverflow.com/users/472866/avances123">stackoverflow</a></li>
             </ul>
             </div>
             </div>
 
-        </div>  
-    </div>     </div> 
-<footer>
-<br />
-<p><a href="http://blog.fabio.xyz">Blog de Fabio Rueda</a> &copy; Fabio Rueda 2014</p>
-</footer>
+        </div>     </div>     </div> 
+
 
 </div> <!-- /container -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://blog.fabio.xyz/theme/bootstrap-collapse.js"></script>
 <script>var _gaq=[['_setAccount','UA-18805523-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
- 
 </body>
 </html>
