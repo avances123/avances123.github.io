@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Blog de Fabio Rueda</title>
-    <meta name="description" content="">
+    <meta name="description" content="Blog sobre python, postgresql, gis y mas cosas. Fabio Rueda">
     <meta name="author" content="Fabio Rueda">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,59 +13,46 @@
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="http://blog.fabio.xyz/theme/bootstrap.min.css" rel="stylesheet">
-    <link href="http://blog.fabio.xyz/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="http://blog.fabio.xyz/theme/local.css" rel="stylesheet">
-    <link href="http://blog.fabio.xyz/theme/pygments.css" rel="stylesheet">
-
-    <!-- So Firefox can bookmark->"abo this site" -->
-        <link href="http://blog.fabio.xyz/feeds/all.atom.xml" rel="alternate" title="Blog de Fabio Rueda" type="application/atom+xml">
+    <link href="http://blog.fabio.xyz/theme/pygment.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="navbar">
-    <div class="navbar-inner">
-    <div class="container">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
 
-         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-         </a>
-
-        <a class="brand" href="http://blog.fabio.xyz">Blog de Fabio Rueda</a>
-
-        <div class="nav-collapse">
-        <ul class="nav">
-
-        </ul>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://blog.fabio.xyz">Blog de Fabio Rueda</a>
         </div>
 
-    </div>
     </div>
 </div>
 
 <div class="container">
-    <div class="content">
     <div class="row">
 
-        <div class="span9">
-    <div class='article'>
-        <div class="content-title">
+        <div class="col-md-9">
+        <div class="page-header">
             <h1>Detectando movimiento con opencv</h1>
+        </div>
+
+<div class="panel panel-default" id="metadata">
+  <div class="panel-body">
+    <p>Categoria: <a href="http://blog.fabio.xyz/category/python.html">python</a></p>
+        Tags: <span class="badge"><a href="http://blog.fabio.xyz/tag/python.html">python</a></span><span class="badge"><a href="http://blog.fabio.xyz/tag/opencv.html">opencv</a></span><span class="badge"><a href="http://blog.fabio.xyz/tag/numpy.html">numpy</a></span><span class="badge"><a href="http://blog.fabio.xyz/tag/matplotlib.html">matplotlib</a></span>  </div>
+</div>
 
 
 
 
-Categoria: <a href="http://blog.fabio.xyz/category/python.html">python</a>
+
+
 
 <br/>
-
-
-    Tags: <a href="http://blog.fabio.xyz/tag/python.html">python</a> <a href="http://blog.fabio.xyz/tag/opencv.html">opencv</a> <a href="http://blog.fabio.xyz/tag/numpy.html">numpy</a> <a href="http://blog.fabio.xyz/tag/matplotlib.html">matplotlib</a>         </div>
-	
         <div><h2>Introduccion</h2>
 <p>Me he pillao una serpiente, eso es asi, es una <a href="http://es.wikipedia.org/wiki/Thamnophis_sirtalis">Thamnophis Sirtalis</a>. Lleva en su terrario 3 dias y aun esta muy asustada, el caso es que se me ocurrio una de mis frikadas con este asunto, es bastante sencilla.</p>
 <p>Tambien me he pillado un <a href="http://www.hardkernel.com/main/products/prdt_info.php">odroid C1</a>. Lo tendre encendido siempre, y lo uso como servidor casero, para la VPN, para el torrent, lo tipico.</p>
@@ -91,11 +78,9 @@ ln -fs <span class="k">$(</span>ls -1 2015* <span class="p">|</span> tail -n1<sp
 <h2>Detectando movimiento</h2>
 <p>Estos primeros dias , la culebra esta muy asustada, tiene un tronco hueco donde poderse esconder y alli pasa el 95% de su tiempo, como es rollazo estar mirando a ver que produce, he pensado en aprender algo sobre la tipico problema de detector de movimiento, hacer algo asi, y que me avise si sale del tronco o si bebe agua, esa es la idea.</p>
 <p>Segun <a href="https://blog.cedric.ws/opencv-simple-motion-detection">he leido</a>, para detectar el movimiento, usaremos la tecnica "Differential Images" que consiste en restar una imagen a otra anterior</p></div>
-	
         <hr>
 
-<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-text="Detectando movimiento con opencv" data-via="avances123">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-        <h2>Comments</h2>
+        <h2>Commentarios</h2>
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'avances123'; 
@@ -108,65 +93,51 @@ ln -fs <span class="k">$(</span>ls -1 2015* <span class="p">|</span> tail -n1<sp
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
         </div>
 
-        <div class="span3">
+        <div class="col-md-3">
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header">
-                Navegacion
-                </li>
+            <div class="well">
+                <h4>Navegacion</h4>
+                <ul class="nav nav-pills nav-stacked">
 
-                <li><a href="http://blog.fabio.xyz/archives.html">Archives</a>
-                <li><a href="http://blog.fabio.xyz/tags.html">Tags</a>
+                    <li><a href="http://blog.fabio.xyz/archives.html">Archives</a>
+                    <li><a href="http://blog.fabio.xyz/tags.html">Tags</a>
 
-
-
-                <li><a href="http://blog.fabio.xyz/feeds/all.atom.xml" rel="alternate">Atom feed</a></li>
-
-            </ul>
+                </ul>
             </div>
 
 
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header">
-                Categorias
-                </li>
+            <div class="well">
+                <h4>Categorias</h4>
+                <ul class="nav nav-pills nav-stacked">
 
-                <li><a href="http://blog.fabio.xyz/category/javascript.html">javascript</a></li>
-                <li><a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a></li>
-                <li><a href="http://blog.fabio.xyz/category/python.html">python</a></li>
-            </ul>
+                    <li><a href="http://blog.fabio.xyz/category/javascript.html">javascript</a></li>
+                    <li><a href="http://blog.fabio.xyz/category/postgresql.html">postgresql</a></li>
+                    <li><a href="http://blog.fabio.xyz/category/python.html">python</a></li>
+                </ul>
             </div>
 
 
 
 
-            <div class="social">
-            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-            <ul class="nav nav-list">
-                <li class="nav-header">
-                Social
-                </li>
-
-                <li><a href="http://twitter.com/avances123">Twitter</a></li>
-                <li><a href="https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394">LinkedIn</a></li>
-                <li><a href="http://github.com/avances123">Github</a></li>
-                <li><a href="http://www.last.fm/user/avances123">last.fm</a></li>
-                <li><a href="http://stackoverflow.com/users/472866/avances123">stackoverflow</a></li>
-            </ul>
-            </div>
+            <div class="well">
+                <h4>Social</h4>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="http://twitter.com/avances123">Twitter</a></li>
+                    <li><a href="https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394">LinkedIn</a></li>
+                    <li><a href="http://github.com/avances123">Github</a></li>
+                    <li><a href="http://www.last.fm/user/avances123">last.fm</a></li>
+                    <li><a href="http://stackoverflow.com/users/472866/avances123">stackoverflow</a></li>
+                </ul>
             </div>
 
-        </div>     </div>     </div> 
-
+        </div>     </div> 
 
 </div> <!-- /container -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://blog.fabio.xyz/theme/bootstrap-collapse.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script>var _gaq=[['_setAccount','UA-18805523-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
 </body>
 </html>
