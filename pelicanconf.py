@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Fabio Rueda'
 SITENAME = u'Blog de Fabio Rueda'
 SITEURL = ''
-THEME="tema"
+THEME="tuxlite_tbs"
 PATH = 'content'
 
 TIMEZONE = 'Europe/Madrid'
@@ -22,17 +22,17 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
 # Blogroll
-LINKS = (
-            ('Cloudtrum', 'http://www.cloudtrum.xyz'),
-        )
-PROJECTS = (
-            ('fa-bitcoin','Cloudtrum', 'http://www.cloudtrum.xyz'),
-        )
+LINKS = ()
+
 
 # Social widget
 SOCIAL = (('Twitter', 'http://twitter.com/avances123'),
-          ('Google+', 'https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts'),
-          ('LinkedIn', 'https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394'),)
+          # ('Google+', 'https://plus.google.com/u/0/+FabioRuedaCarrascosa/posts'),
+          ('LinkedIn', 'https://www.linkedin.com/pub/fabio-rueda-carrascosa/15/619/394'),
+          ('Github', 'http://github.com/avances123'),
+          ('last.fm', 'http://www.last.fm/user/avances123'),
+          ('stackoverflow', 'http://stackoverflow.com/users/472866/avances123')
+          )
 
 DEFAULT_PAGINATION = 10
 
@@ -46,6 +46,10 @@ GITHUB_USER="avances123"
 GITHUB_REPO_COUNT=3
 
 
+SITEMAP = {
+    'format': 'xml'
+}
+
 
 BOOTSTRAP_THEME = "flatly"
 PYGMENTS_STYLE = "monokai"
@@ -56,4 +60,3 @@ AVATAR="https://lh5.googleusercontent.com/-arGkRvO4W7M/AAAAAAAAAAI/AAAAAAAAeDE/r
 SHOW_ABOUTME=True
 ADDTHIS_PROFILE="ra-5455185a630e0def"
 DISPLAY_ARTICLE_INFO_ON_INDEX=True
-
