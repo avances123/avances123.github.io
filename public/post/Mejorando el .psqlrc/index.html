@@ -69,9 +69,15 @@
     <article>
       
 
+<ul>
+<li>Hace ya un tiempo que estoy usando <a href="https://github.com/dbcli/pgcli">pgcli</a>, mejora bastante el uso con autocompletado y mas cosas</li>
+</ul>
+
+<h2 id="psql:b21b9f9b765dbd38172d3d406f70266d">psql</h2>
+
 <p>Para los que usamos el cliente psql, hay ciertas &ldquo;mejoras&rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el <a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc">mio</a> si quieres!</p>
 
-<h4 id="distintos-historicos:b21b9f9b765dbd38172d3d406f70266d">Distintos historicos</h4>
+<h3 id="distintos-historicos:b21b9f9b765dbd38172d3d406f70266d">Distintos historicos</h3>
 
 <p>Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.</p>
 
@@ -89,24 +95,24 @@
 
 <p>En la linea de comandos podremos ver a que base de datos y host estamos conectados:</p>
 
-<pre><code class="language-text">\set PROMPT1 '%M %n@%/%R%#%x '
+<pre><code>\set PROMPT1 '%M %n@%/%R%#%x '
 </code></pre>
 
 <p>El resultado es:</p>
 
-<pre><code class="language-text">[local] fabio@tests=#
+<pre><code>[local] fabio@tests=#
 </code></pre>
 
 <h4 id="coloreamos-el-null:b21b9f9b765dbd38172d3d406f70266d">Coloreamos el null</h4>
 
 <p>Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:</p>
 
-<pre><code class="language-text">\pset null '[NULL]'
+<pre><code>\pset null '[NULL]'
 </code></pre>
 
 <p>El resultado es:</p>
 
-<pre><code class="language-psql">[local] fabio@tests=# insert into foo values (1,null) ;
+<pre><code>[local] fabio@tests=# insert into foo values (1,null) ;
 INSERT 0 1
 [local] fabio@tests=# select * from foo;
  id |  bar   
@@ -120,14 +126,14 @@ INSERT 0 1
 
 <p>Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:</p>
 
-<pre><code class="language-text">\x auto
+<pre><code>\x auto
 </code></pre>
 
 <h4 id="confirmar-la-salida:b21b9f9b765dbd38172d3d406f70266d">Confirmar la salida</h4>
 
 <p>Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.</p>
 
-<pre><code class="language-text">\set IGNOREEOF 3
+<pre><code>\set IGNOREEOF 3
 </code></pre>
 
 <p>El resultado es este:</p>
