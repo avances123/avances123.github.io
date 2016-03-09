@@ -8,7 +8,7 @@ Un amigo necesitaba hacer una [funcion hash][1] para un problema concreto, como 
 
 ### Descripcion del problema
 Tenemos un fichero de texto con miles de lineas del tipo:
-```text
+```
 x|y  |z |v  |w         |value
 9|100|33|100|2014010100|1
 9|100|33|100|2014010106|5
