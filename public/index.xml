@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>avances123</title>
+    <link>http://blog.fabio.xyz/</link>
+    <description>Recent content on avances123</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <lastBuildDate>Wed, 09 Mar 2016 17:30:57 +0100</lastBuildDate>
+    <atom:link href="http://blog.fabio.xyz/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>introduccion</title>
+      <link>http://blog.fabio.xyz/post/homeserver/introduccion/</link>
+      <pubDate>Wed, 09 Mar 2016 17:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/homeserver/introduccion/</guid>
+      <description>
+
+&lt;h2 id=&#34;como-he-hecho-mi-servidor-casero:24ac64d21a8041cd3d9c6610d0aa8018&#34;&gt;Como he hecho mi servidor casero&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>about</title>
+      <link>http://blog.fabio.xyz/about/</link>
+      <pubDate>Wed, 09 Mar 2016 16:44:23 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/about/</guid>
+      <description>
+
+&lt;h2 id=&#34;sobre-mi:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Sobre mi&lt;/h2&gt;
+
+&lt;p&gt;Soy Fa&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
