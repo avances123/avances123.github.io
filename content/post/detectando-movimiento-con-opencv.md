@@ -6,6 +6,8 @@ draft = true
 +++
 
 
+# Detectando los movimientos de una serpiente
+
 ## Introduccion
 
 Me he pillao una serpiente, eso es asi, es una [Thamnophis Sirtalis][1]. Lleva en su terrario 3 dias y aun esta muy asustada, el caso es que se me ocurrio una de mis frikadas con este asunto, es bastante sencilla.

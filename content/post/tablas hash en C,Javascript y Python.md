@@ -1,6 +1,6 @@
 +++
 title =  "Tablas hash en C,Javascript y Python"
-date =  "2014-10-31"
+date =  "2015-10-31"
 
 +++
 

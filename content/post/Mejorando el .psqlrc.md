@@ -1,6 +1,6 @@
 +++
 title =  "Haciendo la vida facil al psql"
-date = "2014-10-30"
+date = "2014-06-15"
 
 +++
 

@@ -4,13 +4,15 @@ date =  "2014-11-30"
 
 +++
 
+# Buscando texto con postgresql
+
 Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo *camion* sin acento y no me sale "camión", bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de [full text search][1] que nos ofrece. Os adelanto que este es un ejemplo sencillisimo de todo lo que soporta.
 
-### Tengo una columna con texto donde quiero buscar
+## Tengo una columna con texto donde quiero buscar
 El caso de uso mas común, tengo una tabla con texto, y al buscar puedo usar LIKE o incluso ILIKE, pero eso no nos hace encontrar las palabras como un humano quiere realmente, no vamos a lograr hacer el *quiso decir* de google, pero al menos vamos a poder buscar entre texto con o sin acentos, mayusculas, nexos y cosas asi que nos molestan.
 
 Vamos a crear una base de datos y una tabla de prueba:
-```postgresql
+```sql
 CREATE DATABASE tss;
 CREATE TABLE textos (
      texto   text
@@ -19,7 +21,7 @@ CREATE TABLE textos (
 
 
 Ahora insertamos texto de ejemplo:
-```postgresql
+```sql
 INSERT INTO textos VALUES ('En un lugar de la Mancha');
 INSERT INTO textos VALUES ('de cuyo nombre no quiero acordarme,');
 INSERT INTO textos VALUES ('no ha mucho que vivía');
@@ -29,7 +31,7 @@ INSERT INTO textos VALUES ('rocín flaco y galgo corredor.');
 ```
 
 Podemos buscar texto de manera precaria:
-```psql
+```
 ts=# select * from textos where texto like 'mancha';
  texto
 -------
@@ -49,9 +51,9 @@ ts=# select * from textos where texto ilike '%mancha%';
 
 Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y si quiere buscar *rocín* sin acento? Vamos a hacerlo bien.
 
-### Full-text search en nuestra columna
+## Full-text search en nuestra columna
 Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:
-```psql
+```
 ts=# select to_tsvector(texto) from textos ;
                to_tsvector                
 ------------------------------------------
@@ -68,10 +70,10 @@ Muy raro todo no?, **En un lugar de la Mancha** se ha convertido en **'lug':3 'm
 
 TODO Poner en que lenguaje esta el postgresql
 
-### Pasarle una busqueda
+## Pasarle una busqueda
 Ahora que tenemos nuestros textos *arreglados* para las busquedas, podemos meter un string en la caja de busqueda, podemos meter cualquier cosa, y queremos que nos salgan los resultados razonables, para ello nuestra busqueda debemos arreglarla tambien, para ello usaremos el tipo tsquery. Este tipo, esta pensado para operar contra tsvectors como los que hemos creado antes, un ejemplo es:
 
-```psql
+```
 ts=# select to_tsquery('vivir');
  to_tsquery
 ------------
@@ -79,10 +81,10 @@ ts=# select to_tsquery('vivir');
 (1 fila)
 ```
 
-### Sacando resultados
+## Sacando resultados
 Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nuestro where usaremos el operador @@ (uno de los [muchos][2] que hay disponibles) entre nuestra tabla pasada a tsvector y nuestra busqueda pasada a tsquery
 
-```psql
+```
 ts=# select * from textos where to_tsvector(texto) @@ to_tsquery('vivir');
          texto         
 -----------------------
@@ -91,11 +93,11 @@ ts=# select * from textos where to_tsvector(texto) @@ to_tsquery('vivir');
 ```
 
 
-### Ranking
+## Ranking
 Un motor de busqueda bueno, nos ordenara los resultados por relevancia, segun nos acerquemos mas a lo que queremos buscar. Postgresql tambien nos ofrece [esta funcionalidad][3], por ejemplo, si tenemos un blog, queremos que al buscar , el titulo tengas mas relevancia que el contenido, vamos a verlo:
 
 Creamos una tabla con datos:
-```psql
+```sql
 CREATE TABLE blog(
 	titulo varchar(200),
 	contenido text
@@ -105,7 +107,7 @@ INSERT INTO blog VALUES ('Molan las busquedas en nuestra db','Estoy escribiendo 
 ```
 
 Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra *postgresql* en el titulo, y otro post la tiene en el contenido.
-```psql
+```
 ts=# select to_tsvector(titulo) || to_tsvector(contenido) from blog;
                                             ?column?                                            
 ------------------------------------------------------------------------------------------------
@@ -117,7 +119,7 @@ ts=# select to_tsvector(titulo) || to_tsvector(contenido) from blog;
 
 Con la funcion **setweight** podemos decir que relevancia tiene un tsvector, hay pesos desde la 'D' hasta la 'A', modificamos la consulta para ponerle mas peso al titulo que al contenido:
 
-```psql
+```
 ts=# select setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(contenido),'B') from blog;
                                                 ?column?                                                 
 ---------------------------------------------------------------------------------------------------------
@@ -130,7 +132,7 @@ Ahora vemos como a los numeros de los lexemas, les ha agregado la relevancia. Ah
 
 Nos importa mas el titulo:
 
-```psql
+```
 ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery('postgresql')
 order by ts_rank(setweight(to_tsvector(titulo),'D') || setweight(to_tsvector(contenido),'A'),to_tsquery('postgresql'));
@@ -142,7 +144,7 @@ order by ts_rank(setweight(to_tsvector(titulo),'D') || setweight(to_tsvector(con
 ```
 
 Nos importa mas el contenido:
-```psql
+```
 ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery('postgresql')
 order by ts_rank(setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(contenido),'D'),to_tsquery('postgresql'));
@@ -154,10 +156,10 @@ order by ts_rank(setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(con
 ```
 
 
-### Usando indices
+## Usando indices
 Vaya turron de consultas las dos ultimas no?, ademas de enfarragoso, algo ineficiente, como en postgresql se pueden definir indices sobre funciones , podemos pasar lo anterior a un indice [gin][4]:
 
-```psql
+```sql
 CREATE INDEX blog_posts_idx ON blog
 USING gin(( setweight(to_tsvector('spanish',titulo),'B') || setweight(to_tsvector('spanish',contenido),'A')) );
 ```
@@ -165,14 +167,14 @@ Hemos creado un indice con la misma funcionalidad que en el anterior ejemplo, es
 
 
 
-### Mispelling
+## Mispelling
 Queria buscar Quijote pero he puesto "qijote", deberia salir igual no? Para esto, tenemos [una extension][5] que podemos ponerla en nuestra db asi:
-```psql
+```sql
 CREATE EXTENSION pg_trgm;
 ```
 Esta extension nos da una funcion que nos da un float entre 0 y 1 llamada similarity:
 
-```psql
+```sql
 ts=# select similarity('Quijote', 'Quijote');
  similarity
 ------------
@@ -194,7 +196,7 @@ ts=# select similarity('Quijote', 'nada que ver');
 
 Gracias a esta funcion, podremos buscar entre lexemas de nuestra tabla parecidos, pero eso sera en otro post.
 
-#### Fuentes
+### Fuentes
 Me he inspirado, si no a veces copiado de este fantastico [post][6] acerca de este tema
 
 
