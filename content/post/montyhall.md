@@ -67,7 +67,7 @@ def montyChoose(guessDoor, prizeDoor):
 
 Ya solo nos falta ejecutar el experimento muchas veces y ver los resultados, ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?
 
-![Resultados cuando monty elige una puerta adrede]({filename}/images/montyhall1.png)
+![Resultados cuando monty elige una puerta adrede](/images/montyhall1.png)
 
 Queda claro que si te cambias tienes mas posibilidades de ganar. Pero que pasaria si monty abre una puerta **sin conocer** lo que hay detras, es decir aleatoriamente? En ese caso podria abrir la que tiene el premio y tu, perder automaticamente. Veamos la funcion que lo implementa, es muy sencilla:
 
@@ -82,7 +82,7 @@ def randomChoose(guessDoor, prizeDoor):
 
 Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?
 
-![Resultados cuando monty elige una puerta aleatoriamente]({filename}/images/montyhall2.png)
+![Resultados cuando monty elige una puerta aleatoriamente](/images/montyhall2.png)
 
 
 
