@@ -1,8 +1,12 @@
+/* Theme color
+--------------------------------------------------*/
+/* Basic
+--------------------------------------------------*/
 body {
-  background-color: #fff;
+  background-color: #000;
   font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   font-size: 14px;
-  color: #666;
+  color: #fff;
   line-height: 1.6em;
   letter-spacing: 0.5px;
 }
@@ -29,7 +33,7 @@ main#list a,
 main#list a:visited,
 nav a,
 nav a:visited {
-  color: #666;
+  color: #AAA;
 }
 article a,
 article a:visited,
@@ -84,6 +88,8 @@ img {
   border: 0;
   vertical-align: middle;
 }
+/* Header
+--------------------------------------------------*/
 header {
   padding: 20px 0;
   margin-bottom: 20px;
@@ -125,6 +131,8 @@ header #social li:last-child {
     text-align: center;
   }
 }
+/* Pager (for List Page)
+--------------------------------------------------*/
 nav ul.pagination {
   font-size: 0;
   text-align: center;
@@ -144,6 +152,8 @@ nav ul.pagination li.active {
 nav ul.pagination li:hover {
   border-color: #29abe2;
 }
+/* Pager (for Single Page)
+--------------------------------------------------*/
 nav.pagination-single {
   padding: 20px 0 20px 0;
   overflow: hidden;
@@ -161,9 +171,13 @@ nav.pagination-single span.next {
 nav.pagination-single a {
   color: #29abe2;
 }
+/* Comment
+--------------------------------------------------*/
 #single aside {
   margin-top: 80px;
 }
+/* Footer
+--------------------------------------------------*/
 footer {
   margin: 80px 0;
   padding: 20px 0;
@@ -179,6 +193,8 @@ footer img {
     margin: 40px 0;
   }
 }
+/* Single Page
+--------------------------------------------------*/
 article h1 {
   margin: 50px 0 25px 0;
 }
@@ -201,7 +217,6 @@ article code {
   background-color: #eee;
   padding: 0 3px;
   margin: 0 3px;
-  border: 1px solid #ccc;
   font-family: consolas, "Courier New", monospace;
 }
 article pre code {
@@ -221,6 +236,8 @@ article img {
 article #share-this {
   margin: 40px 0 40px 0;
 }
+/* Common
+--------------------------------------------------*/
 .article-header {
   border-left: 4px solid #29abe2;
   margin: 10px 0 25px -4px;
