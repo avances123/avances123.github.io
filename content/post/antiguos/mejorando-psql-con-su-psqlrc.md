@@ -1,7 +1,9 @@
 +++
 title =  "Haciendo la vida facil al psql"
 date = "2014-06-15"
-
+tags = ['configuracion','postgresql','dotfiles']
+categories = ['linux']
+languages = ['bash']
 +++
 
 * Hace ya un tiempo que estoy usando [pgcli][2], mejora bastante el uso con autocompletado y mas cosas
@@ -44,7 +46,7 @@ El resultado es:
 [local] fabio@tests=# insert into foo values (1,null) ;
 INSERT 0 1
 [local] fabio@tests=# select * from foo;
- id |  bar   
+ id |  bar
 ----+--------
   1 | [NULL]
 (1 fila)

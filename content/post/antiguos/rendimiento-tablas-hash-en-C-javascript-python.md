@@ -1,9 +1,11 @@
 +++
 title =  "Tablas hash en C,Javascript y Python"
 date =  "2015-10-31"
+path = ""
 tags = ['hash','comparativa','diccionarios','rendimiento','performance']
 categories = ['PoC']
 languages = ['python','C','javascript']
+
 +++
 
 Un amigo necesitaba hacer una [funcion hash][1] para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.

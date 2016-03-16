@@ -1,7 +1,9 @@
 +++
 title= "Protractor en legacy code"
 date= "2014-10-30"
-
+tags = ['karma','jasmine','legacy','tests','protractor']
+categories = ['PoC']
+languages = ['javascript']
 +++
 
 # Haciendo tests e2e en apps que ya tenemos hechas

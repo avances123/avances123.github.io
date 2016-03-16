@@ -1,7 +1,9 @@
 +++
 title =  "Busquedas de texto en postgresql"
 date =  "2014-11-30"
-
+tags = ['postgresql','texto','busqueda']
+categories = ['PoC']
+languages = ['sql']
 +++
 
 # Buscando texto con postgresql
@@ -43,7 +45,7 @@ ts=# select * from textos where texto like '%mancha%';
 (0 filas)
 
 ts=# select * from textos where texto ilike '%mancha%';
-          texto           
+          texto
 --------------------------
  En un lugar de la Mancha
 (1 fila)
@@ -55,7 +57,7 @@ Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y
 Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:
 ```
 ts=# select to_tsvector(texto) from textos ;
-               to_tsvector                
+               to_tsvector
 ------------------------------------------
  'lug':3 'manch':6
  'acord':6 'cuy':2 'nombr':3 'quier':5
@@ -86,7 +88,7 @@ Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nues
 
 ```
 ts=# select * from textos where to_tsvector(texto) @@ to_tsquery('vivir');
-         texto         
+         texto
 -----------------------
  no ha mucho que vivía
 (1 fila)
@@ -109,7 +111,7 @@ INSERT INTO blog VALUES ('Molan las busquedas en nuestra db','Estoy escribiendo 
 Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra *postgresql* en el titulo, y otro post la tiene en el contenido.
 ```
 ts=# select to_tsvector(titulo) || to_tsvector(contenido) from blog;
-                                            ?column?                                            
+                                            ?column?
 ------------------------------------------------------------------------------------------------
  'busqued':3 'conten':9 'escrib':7 'maldit':15 'mol':1 'palabr':14 'post':11 'postgresql':5
  'busc':17 'busqued':3 'conten':10 'db':6 'escrib':8 'mol':1 'post':12 'postgresql':15 'usa':14
@@ -121,7 +123,7 @@ Con la funcion **setweight** podemos decir que relevancia tiene un tsvector, hay
 
 ```
 ts=# select setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(contenido),'B') from blog;
-                                                ?column?                                                 
+                                                ?column?
 ---------------------------------------------------------------------------------------------------------
  'busqued':3A 'conten':9B 'escrib':7B 'maldit':15B 'mol':1A 'palabr':14B 'post':11B 'postgresql':5A
  'busc':17B 'busqued':3A 'conten':10B 'db':6A 'escrib':8B 'mol':1A 'post':12B 'postgresql':15B 'usa':14B
@@ -136,7 +138,7 @@ Nos importa mas el titulo:
 ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery('postgresql')
 order by ts_rank(setweight(to_tsvector(titulo),'D') || setweight(to_tsvector(contenido),'A'),to_tsquery('postgresql'));
-              titulo               |                               contenido                                
+              titulo               |                               contenido
 -----------------------------------+------------------------------------------------------------------------
  Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita
  Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
@@ -148,7 +150,7 @@ Nos importa mas el contenido:
 ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery('postgresql')
 order by ts_rank(setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(contenido),'D'),to_tsquery('postgresql'));
-              titulo               |                               contenido                                
+              titulo               |                               contenido
 -----------------------------------+------------------------------------------------------------------------
  Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
  Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita

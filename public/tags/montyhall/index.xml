@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Montyhall on avances123</title>
+    <link>http://blog.fabio.xyz/tags/montyhall/</link>
+    <description>Recent content in Montyhall on avances123</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <lastBuildDate>Sun, 09 Nov 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://blog.fabio.xyz/tags/montyhall/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>El problema de las tres puertas</title>
+      <link>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</link>
+      <pubDate>Sun, 09 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</guid>
+      <description>&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
+
+&lt;p&gt;El enunciado es el siguiente:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras. Escoges una puerta, digamos la nº1, y el presentador, que sabe lo que hay detrás de las puertas, abre otra, digamos la nº3, que contiene una cabra. Entonces te pregunta: &amp;ldquo;¿No prefieres escoger la nº2?&amp;rdquo;. ¿Es mejor para ti cambiar tu elección?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Puedes ver el &lt;a href=&#34;http://es.wikipedia.org/wiki/Problema_de_Monty_Hall&#34;&gt;resultado teorico&lt;/a&gt; desde ya, pero aqui vamos a simularlo muchas veces a ver si es mejor quedarme con la puerta que elegí, o gano mas veces cambiando la puerta. Es un buen ejemplo como en unas pocas lineas de codigo, podemos simular un problema complejo para inferir la probabilidad de un evento. Solo basta con modelar el problema, hacerlo muchas veces y ver que pasa para hacerte una idea.&lt;/p&gt;
+
+&lt;p&gt;Esta funcion repite un numero &lt;code&gt;numTrials&lt;/code&gt; de veces el concurso, almacena los 3 posibles resultados:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stickWins&lt;/code&gt; Numero de veces que ganamos quedandonos con la puerta que elegimos la primera vez&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;switchWins&lt;/code&gt; Numero de veces que ganamos cambiando a la otra puerta que queda disponible&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;noWin&lt;/code&gt; Numero de veces que no ganamos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Despues en cada experimento, colocaremos el premio en una de las tres puertas aleatoriamente, y elegiremos una puerta tambien aleatoriamente,&lt;/p&gt;
+
+&lt;p&gt;Usaremos una funcion para decidir que puerta abre monty, la hemos llamado &lt;code&gt;chooseFcn&lt;/code&gt; y se la pasaremos por parametro, asi podemos hacer un monty mas flexible.&lt;/p&gt;
+
+&lt;p&gt;Contabilizamos el resultado del experimento:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty &lt;strong&gt;sabia&lt;/strong&gt; donde estaba el premio y abria la otra puerta sin el)&lt;/li&gt;
+&lt;li&gt;Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos&lt;/li&gt;
+&lt;li&gt;Si monty no ha abierto la del premio, y no es la que elegimos previamente, significa que hemos cambiado y ganado.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Aqui esta el experimento entero:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def simMontyHall(numTrials,chooseFcn):
+    stickWins, switchWins, noWin = (0, 0, 0)
+    prizeDoorChoices = [1,2,3]
+    guessChoices = [1,2,3]
+    for t in range(numTrials):
+        prizeDoor = random.choice([1, 2, 3])
+        guess = random.choice([1, 2, 3])
+        toOpen = chooseFcn(guess, prizeDoor)
+        if toOpen == prizeDoor:
+            noWin += 1
+        elif guess == prizeDoor:
+            stickWins += 1
+        else:
+            switchWins += 1
+    return (stickWins, switchWins)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;La funcion que determina el comportamiento de monty es la siguiente:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Si no he elegido la 1 ni tiene el premio, me da la 1&lt;/li&gt;
+&lt;li&gt;Lo mismo para la 2&lt;/li&gt;
+&lt;li&gt;Lo mismo para la 3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;En general devuelve &lt;em&gt;la puerta que no tiene premio y no es la mia&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def montyChoose(guessDoor, prizeDoor):
+    if 1 != guessDoor and 1 != prizeDoor:
+        return 1
+    if 2 != guessDoor and 2 != prizeDoor:
+        return 2
+    return 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ya solo nos falta ejecutar el experimento muchas veces y ver los resultados, ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall1.png&#34; alt=&#34;Resultados cuando monty elige una puerta adrede&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Queda claro que si te cambias tienes mas posibilidades de ganar. Pero que pasaria si monty abre una puerta &lt;strong&gt;sin conocer&lt;/strong&gt; lo que hay detras, es decir aleatoriamente? En ese caso podria abrir la que tiene el premio y tu, perder automaticamente. Veamos la funcion que lo implementa, es muy sencilla:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def randomChoose(guessDoor, prizeDoor):
+    if guessDoor == 1:
+        return random.choice([2,3])
+    if guessDoor == 2:
+        return random.choice([1,3])
+    return random.choice([1,2])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall2.png&#34; alt=&#34;Resultados cuando monty elige una puerta aleatoriamente&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -2,7 +2,9 @@
 
 title = "El problema de las tres puertas"
 date =  "2014-11-09"
-
+tags = ['simulacion','montecarlo','probabilidad','montyhall','acertijo']
+categories = ['PoC']
+languages = ['python']
 +++
 
 Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el **problema de las tres puertas**, o de **monty hall**. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que **no son independientes** pero lo parecen.
