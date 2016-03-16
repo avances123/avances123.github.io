@@ -11,15 +11,15 @@
     
     <item>
       <title>Tablas hash en C,Javascript y Python</title>
-      <link>http://blog.fabio.xyz/post/tablas%20hash%20en%20C,Javascript%20y%20Python/</link>
+      <link>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</link>
       <pubDate>Sat, 31 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.fabio.xyz/post/tablas%20hash%20en%20C,Javascript%20y%20Python/</guid>
+      <guid>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</guid>
       <description>
 
 &lt;p&gt;Un amigo necesitaba hacer una &lt;a href=&#34;http://es.wikipedia.org/wiki/Tabla_hash&#34;&gt;funcion hash&lt;/a&gt; para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.&lt;/p&gt;
 
-&lt;h3 id=&#34;descripcion-del-problema:5dbeb49de3f8f0ff0c87f66e0ee68be5&#34;&gt;Descripcion del problema&lt;/h3&gt;
+&lt;h3 id=&#34;descripcion-del-problema:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Descripcion del problema&lt;/h3&gt;
 
 &lt;p&gt;Tenemos un fichero de texto con miles de lineas del tipo:&lt;/p&gt;
 
@@ -30,7 +30,7 @@
 
 &lt;p&gt;Nuestro objectivo es crear una tabla hash para poder buscar segun los campos de arriba, excepto el ultimo, que es el valor que queremos extraer. Es decir la clave de busqueda seran los valores &lt;em&gt;x,y,z,v,w&lt;/em&gt; y el valor el campo &lt;em&gt;value&lt;/em&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;javascript:5dbeb49de3f8f0ff0c87f66e0ee68be5&#34;&gt;Javascript&lt;/h3&gt;
+&lt;h3 id=&#34;javascript:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Javascript&lt;/h3&gt;
 
 &lt;p&gt;En javascript un diccionario, es un &lt;a href=&#34;http://ecma262-5.com/ELS5_HTML.htm#Section_8.6&#34;&gt;objeto&lt;/a&gt;, es decir llenariamos un objeto cuyas propiedades son nuestras claves, no entiendo mucho la implementacion de los objetos/diccionarios en javascript asi que cualquier comentario clarificador lo agradeceria mucho.&lt;/p&gt;
 
@@ -56,7 +56,7 @@ for (var m = 0; m &amp;lt; keys.length; m++) {
 
 &lt;p&gt;Cabe repetir que lejos de entender la implementacion interna de los objetos en javascript, no parece que sea una tabla hash sino un array asociativo, no podemos decidir una funcion hash especifica para nuestro problema.&lt;/p&gt;
 
-&lt;h3 id=&#34;python:5dbeb49de3f8f0ff0c87f66e0ee68be5&#34;&gt;Python&lt;/h3&gt;
+&lt;h3 id=&#34;python:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Python&lt;/h3&gt;
 
 &lt;p&gt;En python los &lt;a href=&#34;http://hg.python.org/cpython/file/52f68c95e025/Objects/dictobject.c&#34;&gt;diccionarios&lt;/a&gt; son tablas hash, ademas, nuestras claves no tienen por que ser tipos basicos, si lo fueran seria bastante parecido al ejemplo de javascript, excepto que son tablas hash reales,aqui esta la implementacion de tuplas como claves. Cualquier objeto puede ser una clave de un diccionario, basta con que cumpla una serie de requisitos en su definicion, debemos especificar un par de cosas:&lt;/p&gt;
 
@@ -110,7 +110,7 @@ def integer(self):
         d[key]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;c:5dbeb49de3f8f0ff0c87f66e0ee68be5&#34;&gt;C&lt;/h3&gt;
+&lt;h3 id=&#34;c:5eb5d78a8392d421063187c0197ccd44&#34;&gt;C&lt;/h3&gt;
 
 &lt;p&gt;En C no existe la estructura diccionario dentro del lenguaje, lo tenemos que hacer nosotros, esto tiene como ventaja que tenemos un control absoluto de como se tiene que comportar, ademas del rendimiento insuperable que tiene un lenguaje compilado como C. No hace falta que igual de insuperable es el tiempo que nos cuesta implementar este problema comparado con los otros dos contendientes, digamos que tenemos tiempo infinito para hacerlo.&lt;/p&gt;
 
@@ -261,13 +261,13 @@ for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;metodo-de-resolucion-de-colisiones:5dbeb49de3f8f0ff0c87f66e0ee68be5&#34;&gt;Metodo de resolucion de colisiones&lt;/h3&gt;
+&lt;h3 id=&#34;metodo-de-resolucion-de-colisiones:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Metodo de resolucion de colisiones&lt;/h3&gt;
 
 &lt;p&gt;En el caso de C, la tabla hash esta creada con un metodo de resolucion de colisiones del tipo &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists&#34;&gt;Separate chaining with linked lists&lt;/a&gt;, mientras que el metodo que python usa es &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Open_addressing&#34;&gt;Open addressing&lt;/a&gt;, En esta grafica se ve como se comportan los dos metodos segun lo llena que esta la tabla (load factor), ordenadas menores es mejor.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/wikipedia/commons/1/1c/Hash_table_average_insertion_time.png&#34; alt=&#34;Grafica collision compare&#34; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;rendimiento:5dbeb49de3f8f0ff0c87f66e0ee68be5&#34;&gt;Rendimiento&lt;/h3&gt;
+&lt;h3 id=&#34;rendimiento:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Rendimiento&lt;/h3&gt;
 
 &lt;p&gt;Aunque no con este codigo (modificado para la explicacion), se hicieron pruebas de los tres lenguajes, siendo vencedor C (con toda optimizacion del codigo posible), y muy cerca quedo &lt;a href=&#34;http://pypy.org/&#34;&gt;pypy&lt;/a&gt; con su funcion built-in de hashear tuplas, mas de tres veces mas lento quedo el cpython 2.7, y javascript en nodejs.&lt;/p&gt;
 </description>
@@ -275,10 +275,10 @@ for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
     
     <item>
       <title>Busquedas de texto en postgresql</title>
-      <link>http://blog.fabio.xyz/post/full-text-search-postgresql/</link>
+      <link>http://blog.fabio.xyz/post/antiguos/full-text-search-postgresql/</link>
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.fabio.xyz/post/full-text-search-postgresql/</guid>
+      <guid>http://blog.fabio.xyz/post/antiguos/full-text-search-postgresql/</guid>
       <description>
 
 &lt;h1 id=&#34;buscando-texto-con-postgresql:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Buscando texto con postgresql&lt;/h1&gt;
@@ -320,7 +320,7 @@ ts=# select * from textos where texto like &#39;%mancha%&#39;;
 (0 filas)
 
 ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
-          texto           
+          texto
 --------------------------
  En un lugar de la Mancha
 (1 fila)
@@ -333,7 +333,7 @@ ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
 &lt;p&gt;Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;ts=# select to_tsvector(texto) from textos ;
-               to_tsvector                
+               to_tsvector
 ------------------------------------------
  &#39;lug&#39;:3 &#39;manch&#39;:6
  &#39;acord&#39;:6 &#39;cuy&#39;:2 &#39;nombr&#39;:3 &#39;quier&#39;:5
@@ -364,7 +364,7 @@ ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
 &lt;p&gt;Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nuestro where usaremos el operador @@ (uno de los &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/functions-textsearch.html&#34;&gt;muchos&lt;/a&gt; que hay disponibles) entre nuestra tabla pasada a tsvector y nuestra busqueda pasada a tsquery&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;ts=# select * from textos where to_tsvector(texto) @@ to_tsquery(&#39;vivir&#39;);
-         texto         
+         texto
 -----------------------
  no ha mucho que vivía
 (1 fila)
@@ -387,7 +387,7 @@ INSERT INTO blog VALUES (&#39;Molan las busquedas en nuestra db&#39;,&#39;Estoy 
 &lt;p&gt;Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra &lt;em&gt;postgresql&lt;/em&gt; en el titulo, y otro post la tiene en el contenido.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;ts=# select to_tsvector(titulo) || to_tsvector(contenido) from blog;
-                                            ?column?                                            
+                                            ?column?
 ------------------------------------------------------------------------------------------------
  &#39;busqued&#39;:3 &#39;conten&#39;:9 &#39;escrib&#39;:7 &#39;maldit&#39;:15 &#39;mol&#39;:1 &#39;palabr&#39;:14 &#39;post&#39;:11 &#39;postgresql&#39;:5
  &#39;busc&#39;:17 &#39;busqued&#39;:3 &#39;conten&#39;:10 &#39;db&#39;:6 &#39;escrib&#39;:8 &#39;mol&#39;:1 &#39;post&#39;:12 &#39;postgresql&#39;:15 &#39;usa&#39;:14
@@ -398,7 +398,7 @@ INSERT INTO blog VALUES (&#39;Molan las busquedas en nuestra db&#39;,&#39;Estoy 
 &lt;p&gt;Con la funcion &lt;strong&gt;setweight&lt;/strong&gt; podemos decir que relevancia tiene un tsvector, hay pesos desde la &amp;rsquo;D&amp;rsquo; hasta la &amp;lsquo;A&amp;rsquo;, modificamos la consulta para ponerle mas peso al titulo que al contenido:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;ts=# select setweight(to_tsvector(titulo),&#39;A&#39;) || setweight(to_tsvector(contenido),&#39;B&#39;) from blog;
-                                                ?column?                                                 
+                                                ?column?
 ---------------------------------------------------------------------------------------------------------
  &#39;busqued&#39;:3A &#39;conten&#39;:9B &#39;escrib&#39;:7B &#39;maldit&#39;:15B &#39;mol&#39;:1A &#39;palabr&#39;:14B &#39;post&#39;:11B &#39;postgresql&#39;:5A
  &#39;busc&#39;:17B &#39;busqued&#39;:3A &#39;conten&#39;:10B &#39;db&#39;:6A &#39;escrib&#39;:8B &#39;mol&#39;:1A &#39;post&#39;:12B &#39;postgresql&#39;:15B &#39;usa&#39;:14B
@@ -412,7 +412,7 @@ INSERT INTO blog VALUES (&#39;Molan las busquedas en nuestra db&#39;,&#39;Estoy 
 &lt;pre&gt;&lt;code&gt;ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery(&#39;postgresql&#39;)
 order by ts_rank(setweight(to_tsvector(titulo),&#39;D&#39;) || setweight(to_tsvector(contenido),&#39;A&#39;),to_tsquery(&#39;postgresql&#39;));
-              titulo               |                               contenido                                
+              titulo               |                               contenido
 -----------------------------------+------------------------------------------------------------------------
  Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita
  Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
@@ -424,7 +424,7 @@ order by ts_rank(setweight(to_tsvector(titulo),&#39;D&#39;) || setweight(to_tsve
 &lt;pre&gt;&lt;code&gt;ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery(&#39;postgresql&#39;)
 order by ts_rank(setweight(to_tsvector(titulo),&#39;A&#39;) || setweight(to_tsvector(contenido),&#39;D&#39;),to_tsquery(&#39;postgresql&#39;));
-              titulo               |                               contenido                                
+              titulo               |                               contenido
 -----------------------------------+------------------------------------------------------------------------
  Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
  Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita
@@ -479,10 +479,10 @@ ts=# select similarity(&#39;Quijote&#39;, &#39;nada que ver&#39;);
     
     <item>
       <title>El problema de las tres puertas</title>
-      <link>http://blog.fabio.xyz/post/montyhall/</link>
+      <link>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</link>
       <pubDate>Sun, 09 Nov 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.fabio.xyz/post/montyhall/</guid>
+      <guid>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</guid>
       <description>&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
 
 &lt;p&gt;El enunciado es el siguiente:&lt;/p&gt;
@@ -572,10 +572,10 @@ ts=# select similarity(&#39;Quijote&#39;, &#39;nada que ver&#39;);
     
     <item>
       <title>Protractor en legacy code</title>
-      <link>http://blog.fabio.xyz/post/karma-y-jasmine-en-legacy-code/</link>
+      <link>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</link>
       <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.fabio.xyz/post/karma-y-jasmine-en-legacy-code/</guid>
+      <guid>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</guid>
       <description>
 
 &lt;h1 id=&#34;haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Haciendo tests e2e en apps que ya tenemos hechas&lt;/h1&gt;
@@ -664,35 +664,35 @@ $ sudo webdriber-manager start
     
     <item>
       <title>Haciendo la vida facil al psql</title>
-      <link>http://blog.fabio.xyz/post/Mejorando%20el%20.psqlrc/</link>
+      <link>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</link>
       <pubDate>Sun, 15 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.fabio.xyz/post/Mejorando%20el%20.psqlrc/</guid>
+      <guid>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</guid>
       <description>
 
 &lt;ul&gt;
 &lt;li&gt;Hace ya un tiempo que estoy usando &lt;a href=&#34;https://github.com/dbcli/pgcli&#34;&gt;pgcli&lt;/a&gt;, mejora bastante el uso con autocompletado y mas cosas&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;psql:b21b9f9b765dbd38172d3d406f70266d&#34;&gt;psql&lt;/h2&gt;
+&lt;h2 id=&#34;psql:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;psql&lt;/h2&gt;
 
 &lt;p&gt;Para los que usamos el cliente psql, hay ciertas &amp;ldquo;mejoras&amp;rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el &lt;a href=&#34;https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc&#34;&gt;mio&lt;/a&gt; si quieres!&lt;/p&gt;
 
-&lt;h3 id=&#34;distintos-historicos:b21b9f9b765dbd38172d3d406f70266d&#34;&gt;Distintos historicos&lt;/h3&gt;
+&lt;h3 id=&#34;distintos-historicos:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Distintos historicos&lt;/h3&gt;
 
 &lt;p&gt;Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;\set HISTFILE ~/.psql_history- :DBNAME
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;aumentar-las-lineas-de-historico:b21b9f9b765dbd38172d3d406f70266d&#34;&gt;Aumentar las lineas de historico&lt;/h4&gt;
+&lt;h4 id=&#34;aumentar-las-lineas-de-historico:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Aumentar las lineas de historico&lt;/h4&gt;
 
 &lt;p&gt;Almacenamos mas queries que por defecto&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;\set HISTSIZE 20000
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;mejoramos-el-prompt:b21b9f9b765dbd38172d3d406f70266d&#34;&gt;Mejoramos el prompt&lt;/h4&gt;
+&lt;h4 id=&#34;mejoramos-el-prompt:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Mejoramos el prompt&lt;/h4&gt;
 
 &lt;p&gt;En la linea de comandos podremos ver a que base de datos y host estamos conectados:&lt;/p&gt;
 
@@ -704,7 +704,7 @@ $ sudo webdriber-manager start
 &lt;pre&gt;&lt;code&gt;[local] fabio@tests=#
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;coloreamos-el-null:b21b9f9b765dbd38172d3d406f70266d&#34;&gt;Coloreamos el null&lt;/h4&gt;
+&lt;h4 id=&#34;coloreamos-el-null:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Coloreamos el null&lt;/h4&gt;
 
 &lt;p&gt;Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:&lt;/p&gt;
 
@@ -716,21 +716,21 @@ $ sudo webdriber-manager start
 &lt;pre&gt;&lt;code&gt;[local] fabio@tests=# insert into foo values (1,null) ;
 INSERT 0 1
 [local] fabio@tests=# select * from foo;
- id |  bar   
+ id |  bar
 ----+--------
   1 | [NULL]
 (1 fila)
 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;demasiadas-columnas-para-mi-consola:b21b9f9b765dbd38172d3d406f70266d&#34;&gt;Demasiadas columnas para mi consola&lt;/h4&gt;
+&lt;h4 id=&#34;demasiadas-columnas-para-mi-consola:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Demasiadas columnas para mi consola&lt;/h4&gt;
 
 &lt;p&gt;Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;\x auto
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;confirmar-la-salida:b21b9f9b765dbd38172d3d406f70266d&#34;&gt;Confirmar la salida&lt;/h4&gt;
+&lt;h4 id=&#34;confirmar-la-salida:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Confirmar la salida&lt;/h4&gt;
 
 &lt;p&gt;Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.&lt;/p&gt;
 
