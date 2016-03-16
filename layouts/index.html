@@ -11,6 +11,11 @@
     <h2><a href="{{ .Permalink }}">{{ .Title }} {{ if .Draft }}:: DRAFT{{end}}</a></h2>
     <div class="meta">
       {{ .Date.Format "2 Jan, 2006" }} &nbsp;
+      <!-- TODO diferenciarlo un poco de las tags -->
+      {{ range .Params.languages }}
+        #<a href="/languages/{{ . | urlize }}">{{ . }}</a>&nbsp;
+      {{ end }}
+
       {{ range .Params.tags }}
         #<a href="/tags/{{ . | urlize }}">{{ . }}</a>&nbsp;
       {{ end }}
