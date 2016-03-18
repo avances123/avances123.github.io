@@ -2,6 +2,7 @@
 date = "2016-03-09T17:30:57+01:00"
 title = "Montando un servidor casero con Arch Linux I"
 tags = ['arch','servidor']
+categories = ['Servidor casero']
 
 +++
 
