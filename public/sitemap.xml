@@ -3,12 +3,17 @@
   
   <url>
     <loc>http://blog.fabio.xyz/</loc>
-    <lastmod>2016-03-09T17:30:57+01:00</lastmod>
+    <lastmod>2016-03-17T17:30:57+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://blog.fabio.xyz/post/arch-homeserver/introduccion/</loc>
+    <loc>http://blog.fabio.xyz/post/arch-homeserver/almacenamiento-arch-linux-con-btrfs/</loc>
+    <lastmod>2016-03-17T17:30:57+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.fabio.xyz/post/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</loc>
     <lastmod>2016-03-09T17:30:57+01:00</lastmod>
   </url>
   
