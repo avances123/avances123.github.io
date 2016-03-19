@@ -2,14 +2,16 @@ baseurl = "http://blog.fabio.xyz/"
 languageCode = "es-es"
 title = "avances123"
 theme = "angels-ladder"
-paginate = 8
+paginate = 4
 canonifyurls = true
+preservetaxonomynames = true
 
 
 [taxonomies]
 tag = "tags"
 category = "categories"
-language = "languages"
+language = "languages" # Para agrupar por lenguaje de programacion
+serie = "series" # Para monograficos de posts
 
 
 

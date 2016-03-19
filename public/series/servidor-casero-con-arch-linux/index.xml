@@ -1,44 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Servidor on avances123</title>
-    <link>http://blog.fabio.xyz/tags/servidor/</link>
-    <description>Recent content in Servidor on avances123</description>
+    <title>Servidor casero con Arch Linux on avances123</title>
+    <link>http://blog.fabio.xyz/series/servidor-casero-con-arch-linux/</link>
+    <description>Recent content in Servidor casero con Arch Linux on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Thu, 17 Mar 2016 17:30:57 +0100</lastBuildDate>
-    <atom:link href="http://blog.fabio.xyz/tags/servidor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Mar 2016 17:30:57 +0100</lastBuildDate>
+    <atom:link href="http://blog.fabio.xyz/series/servidor-casero-con-arch-linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Montando un servidor casero con Arch Linux II</title>
-      <link>http://blog.fabio.xyz/post/arch-homeserver/almacenamiento-arch-linux-con-btrfs/</link>
-      <pubDate>Thu, 17 Mar 2016 17:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/post/arch-homeserver/almacenamiento-arch-linux-con-btrfs/</guid>
-      <description>
-
-&lt;h2 id=&#34;configurar-el-almacenamiento-con-btrfs:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Configurar el almacenamiento con btrfs&lt;/h2&gt;
-
-&lt;p&gt;El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;fabio@fa-server:~ $ sudo fdisk -l | grep Disco
-Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores
-Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores
-Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores
-Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores
-Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Los discos &lt;code&gt;/dev/sd[a,b,c,e]&lt;/code&gt; son los discos de 3&amp;rsquo;5 que he pinchado en las bahias y &lt;code&gt;/dev/sdd&lt;/code&gt; es el pincho usb donde tenemos nuestro sistema. Ahora vamos a configurar btrfs para tener un solo sistema de ficheros y ya a partir de ese btrfs, crearemos volumenes y montaremos a nuestro gusto. He intentado estudiar y hacerlo lo mejor posible segun he leido en la wiki de arch y mi propia experiencia.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Montando un servidor casero con Arch Linux I</title>
-      <link>http://blog.fabio.xyz/post/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</link>
+      <title>Introduccion, que tenia antes y que he comprado</title>
+      <link>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</link>
       <pubDate>Wed, 09 Mar 2016 17:30:57 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/post/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</guid>
+      <guid>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</guid>
       <description>
 
 &lt;h2 id=&#34;antecedentes:10d8aa81d13021669fdcd5a46901e0c0&#34;&gt;Antecedentes&lt;/h2&gt;
@@ -82,6 +58,30 @@ IgnorePkg = linux-lts linux-lts-headers
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Con esto conseguimos tener dos kernels en nuestro grub, el paquete linux, con el kernel actualizandose a menudo , y el paquete linux-lts, que es un kernel mas estable y ademas bloqueado, lo actualiaremos cuando &lt;strong&gt;necesitemos&lt;/strong&gt;.Este sera nuestro kernel por defecto en el arranque.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Montando el almacenamiento con btrfs</title>
+      <link>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
+      <description>
+
+&lt;h2 id=&#34;configurar-el-almacenamiento-con-btrfs:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Configurar el almacenamiento con btrfs&lt;/h2&gt;
+
+&lt;p&gt;El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;fabio@fa-server:~ $ sudo fdisk -l | grep Disco
+Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores
+Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores
+Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores
+Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores
+Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Los discos &lt;code&gt;/dev/sd[a,b,c,e]&lt;/code&gt; son los discos de 3&amp;rsquo;5 que he pinchado en las bahias y &lt;code&gt;/dev/sdd&lt;/code&gt; es el pincho usb donde tenemos nuestro sistema. Ahora vamos a configurar btrfs para tener un solo sistema de ficheros y ya a partir de ese btrfs, crearemos volumenes y montaremos a nuestro gusto. He intentado estudiar y hacerlo lo mejor posible segun he leido en la wiki de arch y mi propia experiencia.&lt;/p&gt;
 </description>
     </item>
     

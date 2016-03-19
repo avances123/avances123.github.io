@@ -4,6 +4,18 @@
 <!-- Main Section Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <main id="index" role="main">
+
+  <div class="article-header light-gray"><h1>Monograficos </h1></div>
+  {{ range  $key, $value :=  .Site.Taxonomies.series }}
+
+  <div class="summary">
+    <h2><a href="/series/{{ $key | urlize }}">{{ $key }}</a></h2>
+
+  </div>
+
+  {{ end }}
+
+
   <div class="article-header light-gray"><h1>Articulos recientes </h1></div>
   {{ $paginator := .Paginate (where .Data.Pages "Type" "post") }}
   {{ range $paginator.Pages }}

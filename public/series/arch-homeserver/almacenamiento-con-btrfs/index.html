@@ -6,12 +6,12 @@
   
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="2NHKEM-aqhXa-pfsTc--26GMPb1mGY__SDMKGZqb8KY" />
-  <meta name="keywords" content="arch,archlinux,python,gis,postgresql,gis,sql,javascript,angular,angularjs,js,blog,avances123,hack">
-  <meta name="description" content="Un blog con articulos con proyectos en arch linux, python, postgresql algo de GIS.">
+  <meta name="keywords" content="arch,archlinux,servidor,btrfs">
+  <meta name="description" content="Como hacer un servidor casero para bajar torrents, plex media server, compartir archivos como nas y mas cosas en arch linux">
 
 
   <title>
-    Linux | avances123
+    Montando el almacenamiento con btrfs | avances123
   </title>
 
 
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.fabio.xyz/tags/linux/"/>
+  <link rel="canonical" href="http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/"/>
 
   
   <link rel="stylesheet" href="http://blog.fabio.xyz/css/sanitize.css">
@@ -60,38 +60,44 @@
 
 
   
-  <main id="list" role="main">
-    <div class="article-header light-gray"><h1>#Linux</h1></div>
-    
-    <div class="summary">
-      <h2><a href="http://blog.fabio.xyz/post/arch-homeserver/almacenamiento-arch-linux-con-btrfs/">Montando un servidor casero con Arch Linux II </a></h2>
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>Montando el almacenamiento con btrfs</h1>
       <div class="meta">
-        Mar 17, 2016 &nbsp;
+        Jan 1, 0001 &nbsp;
         
           #<a href="http://blog.fabio.xyz/tags/arch">arch</a>&nbsp;
         
-          #<a href="http://blog.fabio.xyz/tags/servidor">servidor</a>&nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/linux">linux</a>&nbsp;
-        
       </div>
     </div>
-    
-    <div class="summary">
-      <h2><a href="http://blog.fabio.xyz/post/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/">Montando un servidor casero con Arch Linux I </a></h2>
-      <div class="meta">
-        Mar 9, 2016 &nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/arch">arch</a>&nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/servidor">servidor</a>&nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/linux">linux</a>&nbsp;
-        
-      </div>
-    </div>
-    
+    <article>
+
+      
+
+<h2 id="configurar-el-almacenamiento-con-btrfs:f5776ce002083f17f7a8f8f37568a092">Configurar el almacenamiento con btrfs</h2>
+
+<p>El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux</p>
+
+<pre><code class="language-bash">fabio@fa-server:~ $ sudo fdisk -l | grep Disco
+Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores
+Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores
+Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores
+Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores
+Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
+</code></pre>
+
+<p>Los discos <code>/dev/sd[a,b,c,e]</code> son los discos de 3&rsquo;5 que he pinchado en las bahias y <code>/dev/sdd</code> es el pincho usb donde tenemos nuestro sistema. Ahora vamos a configurar btrfs para tener un solo sistema de ficheros y ya a partir de ese btrfs, crearemos volumenes y montaremos a nuestro gusto. He intentado estudiar y hacerlo lo mejor posible segun he leido en la wiki de arch y mi propia experiencia.</p>
+
+
+    </article>
   </main>
+
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/" rel="prev">Introduccion, que tenia antes y que he comprado</a></span>
+    
+    
+  </nav>
 
 
   
