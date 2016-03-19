@@ -11,7 +11,7 @@
 
 
   <title>
-    Montando un servidor casero con Arch Linux II | avances123
+    avances123
   </title>
 
 
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.fabio.xyz/post/arch-homeserver/almacenamiento-arch-linux-con-btrfs/"/>
+  <link rel="canonical" href="http://blog.fabio.xyz/"/>
 
   
   <link rel="stylesheet" href="http://blog.fabio.xyz/css/sanitize.css">
@@ -59,42 +59,81 @@
   </header>
 
 
-  
-  <main id="single" role="main">
-    <div class="article-header">
-      <h1>Montando un servidor casero con Arch Linux II</h1>
-      <div class="meta">
-        Mar 17, 2016 &nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/arch">arch</a>&nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/servidor">servidor</a>&nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/linux">linux</a>&nbsp;
-        
-      </div>
-    </div>
-    <article>
 
+
+<main id="index" role="main">
+
+  <div class="article-header light-gray"><h1>Monograficos </h1></div>
+  
+
+  <div class="summary">
+    <h2><a href="http://blog.fabio.xyz/series/servidor-casero-con-arch-linux">Servidor casero con Arch Linux</a></h2>
+
+  </div>
+
+  
+
+
+  <div class="article-header light-gray"><h1>Articulos recientes </h1></div>
+  
+  
+  <div class="summary">
+    <h2><a href="http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/">Haciendo la vida facil al psql </a></h2>
+    <div class="meta">
+      15 Jun, 2014 &nbsp;
+      
+      
+        #<a href="http://blog.fabio.xyz/languages/bash">bash</a>&nbsp;
       
 
-<h2 id="configurar-el-almacenamiento-con-btrfs:f5776ce002083f17f7a8f8f37568a092">Configurar el almacenamiento con btrfs</h2>
-
-<p>El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux</p>
-
-<pre><code class="language-bash">fabio@fa-server:~ $ sudo fdisk -l | grep Disco
-Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores
-Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores
-Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores
-Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores
-Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
-</code></pre>
-
-<p>Los discos <code>/dev/sd[a,b,c,e]</code> son los discos de 3&rsquo;5 que he pinchado en las bahias y <code>/dev/sdd</code> es el pincho usb donde tenemos nuestro sistema. Ahora vamos a configurar btrfs para tener un solo sistema de ficheros y ya a partir de ese btrfs, crearemos volumenes y montaremos a nuestro gusto. He intentado estudiar y hacerlo lo mejor posible segun he leido en la wiki de arch y mi propia experiencia.</p>
+      
+        #<a href="http://blog.fabio.xyz/tags/configuracion">configuracion</a>&nbsp;
+      
+        #<a href="http://blog.fabio.xyz/tags/postgresql">postgresql</a>&nbsp;
+      
+        #<a href="http://blog.fabio.xyz/tags/dotfiles">dotfiles</a>&nbsp;
+      
+    </div>
+  </div>
+  
+</main>
 
 
-    </article>
-  </main>
+
+<nav>
+  
+  
+    
+    <ul class="pagination">
+        
+        <li>
+            <a href="http://blog.fabio.xyz/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+        </li>
+        
+        <li
+        >
+        <a href="http://blog.fabio.xyz/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        
+        <li
+        ><a href="http://blog.fabio.xyz/">1</a></li>
+        
+        <li
+        class="active"><a href="http://blog.fabio.xyz/page/2/">2</a></li>
+        
+        <li
+        class="disabled">
+        <a href="" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        
+        <li>
+            <a href="http://blog.fabio.xyz/page/2/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
 
 
   
