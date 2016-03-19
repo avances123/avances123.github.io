@@ -21,4 +21,5 @@ showsRSS = true
 profile = "/images/profile.png"
 copyright = "Written by Fabio Rueda"
 analytics = "UA-18805523-1"
-#shareThis = "181865b5-e6c7-4a9b-b78e-d068ee58a2c8"
+description = "Un blog con articulos con proyectos en arch linux, python, postgresql algo de GIS."
+keywords = "arch,archlinux,python,gis,postgresql,gis,sql,javascript,angular,angularjs,js,blog,avances123,hack"

@@ -7,6 +7,10 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="2NHKEM-aqhXa-pfsTc--26GMPb1mGY__SDMKGZqb8KY" />
+  <meta name="keywords" content="{{ with .Keywords }}{{ delimit . "," }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+
   <title>
     {{ $isHomePage := eq .Title .Site.Title }}{{ .Title }}{{ if eq $isHomePage false }} | {{ .Site.Title }}{{ end }}
   </title>
@@ -32,14 +36,6 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="{{ .Site.BaseURL }}index.xml" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
   <link href="{{ .Site.BaseURL }}index.xml" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
-
-  <!-- ShareThis Buttons
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  {{ with .Site.Params.shareThis }}
-    <script type="text/javascript">var switchTo5x=true;</script>
-    <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher: '{{ . }}', doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
-  {{ end }}
 
 
 </head>
