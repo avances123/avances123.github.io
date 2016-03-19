@@ -6,13 +6,13 @@
     <description>Recent content in Probabilidad on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Sun, 09 Nov 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Mar 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://blog.fabio.xyz/tags/probabilidad/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>El problema de las tres puertas</title>
       <link>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</link>
-      <pubDate>Sun, 09 Nov 2014 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</guid>
       <description>&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
