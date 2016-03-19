@@ -1,6 +1,6 @@
 +++
 title =  "Haciendo la vida facil al psql"
-date = "2014-06-15"
+date = "2016-03-04"
 tags = ['configuracion','postgresql','dotfiles']
 categories = ['linux']
 languages = ['bash']

@@ -1,6 +1,6 @@
 +++
 title =  "Busquedas de texto en postgresql"
-date =  "2014-11-30"
+date =  "2016-03-01"
 tags = ['postgresql','texto','busqueda']
 categories = ['PoC']
 languages = ['sql']

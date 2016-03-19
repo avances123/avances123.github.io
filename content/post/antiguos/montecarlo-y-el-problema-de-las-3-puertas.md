@@ -1,7 +1,7 @@
 +++
 
 title = "El problema de las tres puertas"
-date =  "2014-11-09"
+date =  "2016-03-08"
 tags = ['simulacion','montecarlo','probabilidad','montyhall','acertijo']
 categories = ['PoC']
 languages = ['python']

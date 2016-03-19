@@ -1,6 +1,6 @@
 +++
 title =  "Tablas hash en C,Javascript y Python"
-date =  "2015-10-31"
+date =  "2016-03-12"
 path = ""
 tags = ['hash','comparativa','diccionarios','rendimiento','performance']
 categories = ['PoC']

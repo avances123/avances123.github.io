@@ -1,6 +1,6 @@
 +++
 title= "Protractor en legacy code"
-date= "2014-10-30"
+date= "2016-03-02"
 tags = ['karma','jasmine','legacy','tests','protractor']
 categories = ['PoC']
 languages = ['javascript']

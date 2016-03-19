@@ -6,13 +6,13 @@
     <description>Recent content on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Sat, 31 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Mar 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://blog.fabio.xyz/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Tablas hash en C,Javascript y Python</title>
       <link>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</link>
-      <pubDate>Sat, 31 Oct 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</guid>
       <description>
@@ -274,9 +274,278 @@ for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
     </item>
     
     <item>
+      <title>El problema de las tres puertas</title>
+      <link>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</guid>
+      <description>&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
+
+&lt;p&gt;El enunciado es el siguiente:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras. Escoges una puerta, digamos la nº1, y el presentador, que sabe lo que hay detrás de las puertas, abre otra, digamos la nº3, que contiene una cabra. Entonces te pregunta: &amp;ldquo;¿No prefieres escoger la nº2?&amp;rdquo;. ¿Es mejor para ti cambiar tu elección?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Puedes ver el &lt;a href=&#34;http://es.wikipedia.org/wiki/Problema_de_Monty_Hall&#34;&gt;resultado teorico&lt;/a&gt; desde ya, pero aqui vamos a simularlo muchas veces a ver si es mejor quedarme con la puerta que elegí, o gano mas veces cambiando la puerta. Es un buen ejemplo como en unas pocas lineas de codigo, podemos simular un problema complejo para inferir la probabilidad de un evento. Solo basta con modelar el problema, hacerlo muchas veces y ver que pasa para hacerte una idea.&lt;/p&gt;
+
+&lt;p&gt;Esta funcion repite un numero &lt;code&gt;numTrials&lt;/code&gt; de veces el concurso, almacena los 3 posibles resultados:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stickWins&lt;/code&gt; Numero de veces que ganamos quedandonos con la puerta que elegimos la primera vez&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;switchWins&lt;/code&gt; Numero de veces que ganamos cambiando a la otra puerta que queda disponible&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;noWin&lt;/code&gt; Numero de veces que no ganamos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Despues en cada experimento, colocaremos el premio en una de las tres puertas aleatoriamente, y elegiremos una puerta tambien aleatoriamente,&lt;/p&gt;
+
+&lt;p&gt;Usaremos una funcion para decidir que puerta abre monty, la hemos llamado &lt;code&gt;chooseFcn&lt;/code&gt; y se la pasaremos por parametro, asi podemos hacer un monty mas flexible.&lt;/p&gt;
+
+&lt;p&gt;Contabilizamos el resultado del experimento:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty &lt;strong&gt;sabia&lt;/strong&gt; donde estaba el premio y abria la otra puerta sin el)&lt;/li&gt;
+&lt;li&gt;Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos&lt;/li&gt;
+&lt;li&gt;Si monty no ha abierto la del premio, y no es la que elegimos previamente, significa que hemos cambiado y ganado.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Aqui esta el experimento entero:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def simMontyHall(numTrials,chooseFcn):
+    stickWins, switchWins, noWin = (0, 0, 0)
+    prizeDoorChoices = [1,2,3]
+    guessChoices = [1,2,3]
+    for t in range(numTrials):
+        prizeDoor = random.choice([1, 2, 3])
+        guess = random.choice([1, 2, 3])
+        toOpen = chooseFcn(guess, prizeDoor)
+        if toOpen == prizeDoor:
+            noWin += 1
+        elif guess == prizeDoor:
+            stickWins += 1
+        else:
+            switchWins += 1
+    return (stickWins, switchWins)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;La funcion que determina el comportamiento de monty es la siguiente:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Si no he elegido la 1 ni tiene el premio, me da la 1&lt;/li&gt;
+&lt;li&gt;Lo mismo para la 2&lt;/li&gt;
+&lt;li&gt;Lo mismo para la 3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;En general devuelve &lt;em&gt;la puerta que no tiene premio y no es la mia&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def montyChoose(guessDoor, prizeDoor):
+    if 1 != guessDoor and 1 != prizeDoor:
+        return 1
+    if 2 != guessDoor and 2 != prizeDoor:
+        return 2
+    return 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ya solo nos falta ejecutar el experimento muchas veces y ver los resultados, ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall1.png&#34; alt=&#34;Resultados cuando monty elige una puerta adrede&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Queda claro que si te cambias tienes mas posibilidades de ganar. Pero que pasaria si monty abre una puerta &lt;strong&gt;sin conocer&lt;/strong&gt; lo que hay detras, es decir aleatoriamente? En ese caso podria abrir la que tiene el premio y tu, perder automaticamente. Veamos la funcion que lo implementa, es muy sencilla:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def randomChoose(guessDoor, prizeDoor):
+    if guessDoor == 1:
+        return random.choice([2,3])
+    if guessDoor == 2:
+        return random.choice([1,3])
+    return random.choice([1,2])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall2.png&#34; alt=&#34;Resultados cuando monty elige una puerta aleatoriamente&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Haciendo la vida facil al psql</title>
+      <link>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</link>
+      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</guid>
+      <description>
+
+&lt;ul&gt;
+&lt;li&gt;Hace ya un tiempo que estoy usando &lt;a href=&#34;https://github.com/dbcli/pgcli&#34;&gt;pgcli&lt;/a&gt;, mejora bastante el uso con autocompletado y mas cosas&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;psql:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;psql&lt;/h2&gt;
+
+&lt;p&gt;Para los que usamos el cliente psql, hay ciertas &amp;ldquo;mejoras&amp;rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el &lt;a href=&#34;https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc&#34;&gt;mio&lt;/a&gt; si quieres!&lt;/p&gt;
+
+&lt;h3 id=&#34;distintos-historicos:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Distintos historicos&lt;/h3&gt;
+
+&lt;p&gt;Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\set HISTFILE ~/.psql_history- :DBNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;aumentar-las-lineas-de-historico:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Aumentar las lineas de historico&lt;/h4&gt;
+
+&lt;p&gt;Almacenamos mas queries que por defecto&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\set HISTSIZE 20000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;mejoramos-el-prompt:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Mejoramos el prompt&lt;/h4&gt;
+
+&lt;p&gt;En la linea de comandos podremos ver a que base de datos y host estamos conectados:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\set PROMPT1 &#39;%M %n@%/%R%#%x &#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;El resultado es:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[local] fabio@tests=#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;coloreamos-el-null:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Coloreamos el null&lt;/h4&gt;
+
+&lt;p&gt;Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\pset null &#39;[NULL]&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;El resultado es:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[local] fabio@tests=# insert into foo values (1,null) ;
+INSERT 0 1
+[local] fabio@tests=# select * from foo;
+ id |  bar
+----+--------
+  1 | [NULL]
+(1 fila)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;demasiadas-columnas-para-mi-consola:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Demasiadas columnas para mi consola&lt;/h4&gt;
+
+&lt;p&gt;Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\x auto
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;confirmar-la-salida:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Confirmar la salida&lt;/h4&gt;
+
+&lt;p&gt;Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\set IGNOREEOF 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;El resultado es este:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[local] fabio@tests=# Use «\q» para salir de psql.
+[local] fabio@tests=# Use «\q» para salir de psql.
+[local] fabio@tests=# \q
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Protractor en legacy code</title>
+      <link>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</guid>
+      <description>
+
+&lt;h1 id=&#34;haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Haciendo tests e2e en apps que ya tenemos hechas&lt;/h1&gt;
+
+&lt;h2 id=&#34;introduccion:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Introduccion&lt;/h2&gt;
+
+&lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
+
+&lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
+
+&lt;h2 id=&#34;webdriverjs-selenium:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;WebdriverJs (Selenium)&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.seleniumhq.org/projects/webdriver/&#34;&gt;Selenium&lt;/a&gt; es un driver que automatiza interacciones con el explorador&lt;/p&gt;
+
+&lt;p&gt;Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g webdriver-manager
+$ sudo webdriber-manager update
+$ sudo webdriber-manager start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;protractor:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Protractor&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.npmjs.org/package/protractor&#34;&gt;Protractor&lt;/a&gt; es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs&lt;/p&gt;
+
+&lt;p&gt;Lo instalamos en el sistema:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g protractor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs&lt;/li&gt;
+&lt;li&gt;Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;exports.config = {
+  seleniumAddress: &#39;http://localhost:4444/wd/hub&#39;,
+  specs: [&#39;spec.js&#39;],
+
+  onPrepare: function() {
+    // implicit and page load timeouts
+    browser.manage().timeouts().pageLoadTimeout(20000);
+    browser.manage().timeouts().implicitlyWait(10000);
+
+    // for non-angular page
+    browser.ignoreSynchronization = true;
+
+    // Maximized chrome window
+    browser.driver.manage().window().maximize();
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;un-test-sencillo:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Un test sencillo&lt;/h2&gt;
+
+&lt;p&gt;Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;describe(&#39;angularjs homepage&#39;, function() {
+  it(&#39;should have a title&#39;, function() {
+    browser.get(&#39;http://juliemr.github.io/protractor-demo/&#39;);
+
+    expect(browser.getTitle()).toEqual(&#39;Super Calculator&#39;);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Y ejecutamos protractor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protractor conf.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;chrome-y-phantomjs:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Chrome y PhantomJS&lt;/h2&gt;
+
+&lt;p&gt;Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.&lt;/p&gt;
+
+&lt;p&gt;Para eso usaremos phantomjs, como en los anteriores paquetes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g phantomjs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Busquedas de texto en postgresql</title>
       <link>http://blog.fabio.xyz/post/antiguos/full-text-search-postgresql/</link>
-      <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/full-text-search-postgresql/</guid>
       <description>
@@ -474,275 +743,6 @@ ts=# select similarity(&#39;Quijote&#39;, &#39;nada que ver&#39;);
 &lt;h3 id=&#34;fuentes:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Fuentes&lt;/h3&gt;
 
 &lt;p&gt;Me he inspirado, si no a veces copiado de este fantastico &lt;a href=&#34;http://blog.lostpropertyhq.com/postgres-full-text-search-is-good-enough/&#34;&gt;post&lt;/a&gt; acerca de este tema&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>El problema de las tres puertas</title>
-      <link>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</link>
-      <pubDate>Sun, 09 Nov 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</guid>
-      <description>&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
-
-&lt;p&gt;El enunciado es el siguiente:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras. Escoges una puerta, digamos la nº1, y el presentador, que sabe lo que hay detrás de las puertas, abre otra, digamos la nº3, que contiene una cabra. Entonces te pregunta: &amp;ldquo;¿No prefieres escoger la nº2?&amp;rdquo;. ¿Es mejor para ti cambiar tu elección?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Puedes ver el &lt;a href=&#34;http://es.wikipedia.org/wiki/Problema_de_Monty_Hall&#34;&gt;resultado teorico&lt;/a&gt; desde ya, pero aqui vamos a simularlo muchas veces a ver si es mejor quedarme con la puerta que elegí, o gano mas veces cambiando la puerta. Es un buen ejemplo como en unas pocas lineas de codigo, podemos simular un problema complejo para inferir la probabilidad de un evento. Solo basta con modelar el problema, hacerlo muchas veces y ver que pasa para hacerte una idea.&lt;/p&gt;
-
-&lt;p&gt;Esta funcion repite un numero &lt;code&gt;numTrials&lt;/code&gt; de veces el concurso, almacena los 3 posibles resultados:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;stickWins&lt;/code&gt; Numero de veces que ganamos quedandonos con la puerta que elegimos la primera vez&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;switchWins&lt;/code&gt; Numero de veces que ganamos cambiando a la otra puerta que queda disponible&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;noWin&lt;/code&gt; Numero de veces que no ganamos&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Despues en cada experimento, colocaremos el premio en una de las tres puertas aleatoriamente, y elegiremos una puerta tambien aleatoriamente,&lt;/p&gt;
-
-&lt;p&gt;Usaremos una funcion para decidir que puerta abre monty, la hemos llamado &lt;code&gt;chooseFcn&lt;/code&gt; y se la pasaremos por parametro, asi podemos hacer un monty mas flexible.&lt;/p&gt;
-
-&lt;p&gt;Contabilizamos el resultado del experimento:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty &lt;strong&gt;sabia&lt;/strong&gt; donde estaba el premio y abria la otra puerta sin el)&lt;/li&gt;
-&lt;li&gt;Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos&lt;/li&gt;
-&lt;li&gt;Si monty no ha abierto la del premio, y no es la que elegimos previamente, significa que hemos cambiado y ganado.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Aqui esta el experimento entero:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def simMontyHall(numTrials,chooseFcn):
-    stickWins, switchWins, noWin = (0, 0, 0)
-    prizeDoorChoices = [1,2,3]
-    guessChoices = [1,2,3]
-    for t in range(numTrials):
-        prizeDoor = random.choice([1, 2, 3])
-        guess = random.choice([1, 2, 3])
-        toOpen = chooseFcn(guess, prizeDoor)
-        if toOpen == prizeDoor:
-            noWin += 1
-        elif guess == prizeDoor:
-            stickWins += 1
-        else:
-            switchWins += 1
-    return (stickWins, switchWins)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;La funcion que determina el comportamiento de monty es la siguiente:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Si no he elegido la 1 ni tiene el premio, me da la 1&lt;/li&gt;
-&lt;li&gt;Lo mismo para la 2&lt;/li&gt;
-&lt;li&gt;Lo mismo para la 3&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;En general devuelve &lt;em&gt;la puerta que no tiene premio y no es la mia&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def montyChoose(guessDoor, prizeDoor):
-    if 1 != guessDoor and 1 != prizeDoor:
-        return 1
-    if 2 != guessDoor and 2 != prizeDoor:
-        return 2
-    return 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ya solo nos falta ejecutar el experimento muchas veces y ver los resultados, ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall1.png&#34; alt=&#34;Resultados cuando monty elige una puerta adrede&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Queda claro que si te cambias tienes mas posibilidades de ganar. Pero que pasaria si monty abre una puerta &lt;strong&gt;sin conocer&lt;/strong&gt; lo que hay detras, es decir aleatoriamente? En ese caso podria abrir la que tiene el premio y tu, perder automaticamente. Veamos la funcion que lo implementa, es muy sencilla:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def randomChoose(guessDoor, prizeDoor):
-    if guessDoor == 1:
-        return random.choice([2,3])
-    if guessDoor == 2:
-        return random.choice([1,3])
-    return random.choice([1,2])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall2.png&#34; alt=&#34;Resultados cuando monty elige una puerta aleatoriamente&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Protractor en legacy code</title>
-      <link>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</link>
-      <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</guid>
-      <description>
-
-&lt;h1 id=&#34;haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Haciendo tests e2e en apps que ya tenemos hechas&lt;/h1&gt;
-
-&lt;h2 id=&#34;introduccion:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Introduccion&lt;/h2&gt;
-
-&lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
-
-&lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
-
-&lt;h2 id=&#34;webdriverjs-selenium:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;WebdriverJs (Selenium)&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.seleniumhq.org/projects/webdriver/&#34;&gt;Selenium&lt;/a&gt; es un driver que automatiza interacciones con el explorador&lt;/p&gt;
-
-&lt;p&gt;Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g webdriver-manager
-$ sudo webdriber-manager update
-$ sudo webdriber-manager start
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;protractor:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Protractor&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.npmjs.org/package/protractor&#34;&gt;Protractor&lt;/a&gt; es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs&lt;/p&gt;
-
-&lt;p&gt;Lo instalamos en el sistema:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g protractor
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs&lt;/li&gt;
-&lt;li&gt;Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;exports.config = {
-  seleniumAddress: &#39;http://localhost:4444/wd/hub&#39;,
-  specs: [&#39;spec.js&#39;],
-
-  onPrepare: function() {
-    // implicit and page load timeouts
-    browser.manage().timeouts().pageLoadTimeout(20000);
-    browser.manage().timeouts().implicitlyWait(10000);
-
-    // for non-angular page
-    browser.ignoreSynchronization = true;
-
-    // Maximized chrome window
-    browser.driver.manage().window().maximize();
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;un-test-sencillo:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Un test sencillo&lt;/h2&gt;
-
-&lt;p&gt;Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;describe(&#39;angularjs homepage&#39;, function() {
-  it(&#39;should have a title&#39;, function() {
-    browser.get(&#39;http://juliemr.github.io/protractor-demo/&#39;);
-
-    expect(browser.getTitle()).toEqual(&#39;Super Calculator&#39;);
-  });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y ejecutamos protractor:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protractor conf.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;chrome-y-phantomjs:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Chrome y PhantomJS&lt;/h2&gt;
-
-&lt;p&gt;Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.&lt;/p&gt;
-
-&lt;p&gt;Para eso usaremos phantomjs, como en los anteriores paquetes:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g phantomjs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Haciendo la vida facil al psql</title>
-      <link>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</link>
-      <pubDate>Sun, 15 Jun 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</guid>
-      <description>
-
-&lt;ul&gt;
-&lt;li&gt;Hace ya un tiempo que estoy usando &lt;a href=&#34;https://github.com/dbcli/pgcli&#34;&gt;pgcli&lt;/a&gt;, mejora bastante el uso con autocompletado y mas cosas&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;psql:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;psql&lt;/h2&gt;
-
-&lt;p&gt;Para los que usamos el cliente psql, hay ciertas &amp;ldquo;mejoras&amp;rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el &lt;a href=&#34;https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc&#34;&gt;mio&lt;/a&gt; si quieres!&lt;/p&gt;
-
-&lt;h3 id=&#34;distintos-historicos:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Distintos historicos&lt;/h3&gt;
-
-&lt;p&gt;Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set HISTFILE ~/.psql_history- :DBNAME
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;aumentar-las-lineas-de-historico:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Aumentar las lineas de historico&lt;/h4&gt;
-
-&lt;p&gt;Almacenamos mas queries que por defecto&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set HISTSIZE 20000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;mejoramos-el-prompt:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Mejoramos el prompt&lt;/h4&gt;
-
-&lt;p&gt;En la linea de comandos podremos ver a que base de datos y host estamos conectados:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set PROMPT1 &#39;%M %n@%/%R%#%x &#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[local] fabio@tests=#
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;coloreamos-el-null:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Coloreamos el null&lt;/h4&gt;
-
-&lt;p&gt;Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\pset null &#39;[NULL]&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[local] fabio@tests=# insert into foo values (1,null) ;
-INSERT 0 1
-[local] fabio@tests=# select * from foo;
- id |  bar
-----+--------
-  1 | [NULL]
-(1 fila)
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;demasiadas-columnas-para-mi-consola:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Demasiadas columnas para mi consola&lt;/h4&gt;
-
-&lt;p&gt;Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\x auto
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;confirmar-la-salida:5f1cd976503a11bba204fb043bd8a80c&#34;&gt;Confirmar la salida&lt;/h4&gt;
-
-&lt;p&gt;Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set IGNOREEOF 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es este:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[local] fabio@tests=# Use «\q» para salir de psql.
-[local] fabio@tests=# Use «\q» para salir de psql.
-[local] fabio@tests=# \q
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

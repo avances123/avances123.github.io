@@ -1,6 +1,6 @@
 +++
 title = "Detectando movimiento con opencv"
-date = "2015-04-04"
+date = "2016-03-04"
 draft = true
 
 +++
