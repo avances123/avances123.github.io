@@ -1,0 +1,35 @@
+baseurl = "http://blog.fabio.xyz/"
+languageCode = "es-es"
+title = "avances123"
+<<<<<<< HEAD
+theme = "avances123"
+#disqusShortname = "avances123"
+||||||| merged common ancestors
+theme = "angels-ladder"
+#disqusShortname = "avances123"
+=======
+theme = "angels-ladder"
+paginate = 4
+>>>>>>> 3ee5e35aa0bf62fbbdbe8cbd3343535d22b57cbe
+canonifyurls = true
+preservetaxonomynames = true
+
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+language = "languages" # Para agrupar por lenguaje de programacion
+serie = "series" # Para monograficos de posts
+
+
+
+[Params]
+subtitle = "Instalo algo y opino al respecto"
+twitter = "https://twitter.com/avances123"
+github = "https://github.com/avances123"
+showsRSS = true
+profile = "/images/profile.png"
+copyright = "Written by Fabio Rueda"
+analytics = "UA-18805523-1"
+description = "Un blog con articulos con proyectos en arch linux, python, postgresql algo de GIS."
+keywords = "arch,archlinux,python,gis,postgresql,gis,sql,javascript,angular,angularjs,js,blog,avances123,hack"
