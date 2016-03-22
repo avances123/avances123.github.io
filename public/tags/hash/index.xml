@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hash on avances123</title>
+    <link>http://blog.fabio.xyz/tags/hash/</link>
+    <description>Recent content in Hash on avances123</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <lastBuildDate>Sat, 12 Mar 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://blog.fabio.xyz/tags/hash/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tablas hash en C,Javascript y Python</title>
+      <link>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</guid>
+      <description>
+
+&lt;p&gt;Un amigo necesitaba hacer una &lt;a href=&#34;http://es.wikipedia.org/wiki/Tabla_hash&#34;&gt;funcion hash&lt;/a&gt; para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.&lt;/p&gt;
+
+&lt;h3 id=&#34;descripcion-del-problema:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Descripcion del problema&lt;/h3&gt;
+
+&lt;p&gt;Tenemos un fichero de texto con miles de lineas del tipo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;x|y  |z |v  |w         |value
+9|100|33|100|2014010100|1
+9|100|33|100|2014010106|5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nuestro objectivo es crear una tabla hash para poder buscar segun los campos de arriba, excepto el ultimo, que es el valor que queremos extraer. Es decir la clave de busqueda seran los valores &lt;em&gt;x,y,z,v,w&lt;/em&gt; y el valor el campo &lt;em&gt;value&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;javascript:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Javascript&lt;/h3&gt;
+
+&lt;p&gt;En javascript un diccionario, es un &lt;a href=&#34;http://ecma262-5.com/ELS5_HTML.htm#Section_8.6&#34;&gt;objeto&lt;/a&gt;, es decir llenariamos un objeto cuyas propiedades son nuestras claves, no entiendo mucho la implementacion de los objetos/diccionarios en javascript asi que cualquier comentario clarificador lo agradeceria mucho.&lt;/p&gt;
+
+&lt;p&gt;Creamos las claves concatenando los numeros como un string y le asignamos su valor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var csv = require(&amp;quot;fast-csv&amp;quot;),
+    table = {};
+
+csv.fromPath(&amp;quot;problema.txt&amp;quot;, { headers: true, delimiter: &#39;|&#39; })
+ .on(&amp;quot;record&amp;quot;, function(data) {
+    arr.push(data);
+    table[data.x + data.y + data.z + data.v + data.w] = data.value
+ })
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Y recorremos el diccionario:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var keys = Object.keys(table);
+for (var m = 0; m &amp;lt; keys.length; m++) {
+ value = table[keys[m]];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cabe repetir que lejos de entender la implementacion interna de los objetos en javascript, no parece que sea una tabla hash sino un array asociativo, no podemos decidir una funcion hash especifica para nuestro problema.&lt;/p&gt;
+
+&lt;h3 id=&#34;python:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Python&lt;/h3&gt;
+
+&lt;p&gt;En python los &lt;a href=&#34;http://hg.python.org/cpython/file/52f68c95e025/Objects/dictobject.c&#34;&gt;diccionarios&lt;/a&gt; son tablas hash, ademas, nuestras claves no tienen por que ser tipos basicos, si lo fueran seria bastante parecido al ejemplo de javascript, excepto que son tablas hash reales,aqui esta la implementacion de tuplas como claves. Cualquier objeto puede ser una clave de un diccionario, basta con que cumpla una serie de requisitos en su definicion, debemos especificar un par de cosas:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Como sabremos que un objeto es igual a otro, para ello usaremos el metodo eq en su clase, necesitamos saberlo para decidir cuando hay una colision&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Definiremos un metodo &lt;a href=&#34;https://docs.python.org/2/reference/datamodel.html#object.__hash__&#34;&gt;hash&lt;/a&gt; para aplicar cualquier funcion que queramos en la construccion/lectura del diccionario.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Vamos a definir nuestra clase para las claves de busqueda:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class Key():
+    def __init__(self,x,y,z,v,w):
+        self.x = int(x)
+        self.y = int(y)
+        self.z = int(z)
+        self.v = int(v)
+        self.w = int(w)
+
+    def __str__(self):
+        return str(self.x) + str(self.y) + str(self.z) + str(self.v) + str(self.w)
+
+    def __repr__(self):
+        return str(self)
+
+    def __eq__(self,other):
+        return self.x == other.x and self.y == other.y and self.z == other.z and self.v == other.v and self.w == other.w
+
+    def __hash__(self):
+        &amp;quot;&amp;quot;&amp;quot;
+        En esta funcion debemos devolver un entero, sera nuestra funcion hash
+        &amp;quot;&amp;quot;&amp;quot;
+        return hash((req.x,req.y,req.z,req.v,req.w))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Como podemos ver, la funcion hash, nos permite contruir nuestra tabla hash con facilidad, otros ejemplos de funciones hash para este problema:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def custom(self):
+  return abs(req.x * (req.y + 1) * (req.z + 1) + req.v) % 1572869
+
+def integer(self):
+  return int(str(self)) # el hash de un entero en python es el propio numero
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Favoreciendonos del lenguaje y de este metodo hash, podemos cambiar su definicion en tiempo de ejecucion, esto nos servira para comparar muchas funciones hash de manera sencilla, pero eso sera en otro post aparte.&lt;/p&gt;
+
+&lt;p&gt;Leemos todas las claves&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def dict_scan(d):
+    for key in d.keys():
+        d[key]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;c:5eb5d78a8392d421063187c0197ccd44&#34;&gt;C&lt;/h3&gt;
+
+&lt;p&gt;En C no existe la estructura diccionario dentro del lenguaje, lo tenemos que hacer nosotros, esto tiene como ventaja que tenemos un control absoluto de como se tiene que comportar, ademas del rendimiento insuperable que tiene un lenguaje compilado como C. No hace falta que igual de insuperable es el tiempo que nos cuesta implementar este problema comparado con los otros dos contendientes, digamos que tenemos tiempo infinito para hacerlo.&lt;/p&gt;
+
+&lt;p&gt;La creacion de la estructura de datos la tabla hash es la siguiente:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;sys/stat.h&amp;gt;
+#include &amp;lt;sys/time.h&amp;gt;
+#include &amp;lt;fcntl.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+#define TAMHASH 1572869
+
+typedef struct {
+  int *datos;
+  int num_datos;
+} datos_t;
+
+typedef struct {
+  int k[5];
+  int v;
+} hash_datos_t;
+
+typedef struct
+{
+  hash_datos_t *datos;
+  int num_datos;
+  int num_max_datos;
+} hash_node_t;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;La funcion hash es totalmente como nosotros queramos&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;inline static int hash_key(int x, int y, int z, int v, int w)
+{
+  return (x * y * (z + 1) + v + w) % TAMHASH;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Creamos un hash vacio&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;hash_node_t *hash_create(void)
+{
+  hash_node_t *hash;
+  int i;
+
+  hash = malloc(sizeof(hash_node_t) * TAMHASH);
+  for(i = 0; i &amp;lt; TAMHASH; i++)
+  {
+      hash[i].datos = malloc(sizeof(hash_datos_t) * 2);
+      hash[i].num_datos = 0;
+      hash[i].num_max_datos = 2;
+  }
+
+  return hash;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Lo llenamos&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;inline static void hash_add(hash_node_t *hash, int *p, int valor)
+{
+  int ind;
+  int i;
+
+  ind = hash_key(p[0], p[1], p[2], p[3], p[4]);
+
+  // comprobamos si existe
+  for(i = 0; i &amp;lt; hash[ind].num_datos; i++)
+  {
+    if(hash[ind].datos[i].k[0] == p[0] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[1] == p[1] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[2] == p[2] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[3] == p[3] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[4] == p[4])
+      break;
+  }
+
+  if(i == hash[ind].num_datos)
+  {
+    // no se ha encontrado la información
+    // creamos un elemento nuevo
+    if(hash[ind].num_datos == hash[ind].num_max_datos)
+    {
+      // si hemos llegado al máximo ampliamos
+      hash[ind].num_max_datos += 4;
+      hash[ind].datos = realloc(hash[ind].datos,
+        sizeof(hash_datos_t) * hash[ind].num_max_datos);
+    }
+
+    //memcpy(hash[ind].datos[i].k, p, sizeof(int)*5);
+    hash[ind].datos[i].k[0] = p[0];
+    hash[ind].datos[i].k[1] = p[1];
+    hash[ind].datos[i].k[2] = p[2];
+    hash[ind].datos[i].k[3] = p[3];
+    hash[ind].datos[i].k[4] = p[4];
+    hash[ind].datos[i].v = valor;
+    hash[ind].num_datos++;
+  }
+  else
+  {
+    // lo hemos encontrado.
+    hash[ind].datos[i].v = valor;
+  }
+}
+
+// Metemos cada linea en el hash con la funcion de arriba
+for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
+{
+  hash_add(hash, &amp;amp;datos-&amp;gt;datos[linea], datos-&amp;gt;datos[linea + 5]);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Y lo leemos&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;inline static int hash_get(hash_node_t *hash, int *p)
+{
+  int i;
+  int ind;
+  int ret = -1;
+
+  ind = hash_key(p[0], p[1], p[2], p[3], p[4]);
+
+  // comprobamos si existe
+  for(i = 0; i &amp;lt; hash[ind].num_datos; i++)
+  {
+    if(hash[ind].datos[i].k[0] == p[0] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[1] == p[1] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[2] == p[2] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[3] == p[3] &amp;amp;&amp;amp;
+      hash[ind].datos[i].k[4] == p[4])
+    {
+      ret = hash[ind].datos[i].v;
+      break;
+    }
+  }
+
+  return ret;
+}
+
+// consultando datos
+for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
+{
+  v = hash_get(hash, &amp;amp;datos-&amp;gt;datos[linea]);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;metodo-de-resolucion-de-colisiones:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Metodo de resolucion de colisiones&lt;/h3&gt;
+
+&lt;p&gt;En el caso de C, la tabla hash esta creada con un metodo de resolucion de colisiones del tipo &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists&#34;&gt;Separate chaining with linked lists&lt;/a&gt;, mientras que el metodo que python usa es &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Open_addressing&#34;&gt;Open addressing&lt;/a&gt;, En esta grafica se ve como se comportan los dos metodos segun lo llena que esta la tabla (load factor), ordenadas menores es mejor.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/wikipedia/commons/1/1c/Hash_table_average_insertion_time.png&#34; alt=&#34;Grafica collision compare&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;rendimiento:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Rendimiento&lt;/h3&gt;
+
+&lt;p&gt;Aunque no con este codigo (modificado para la explicacion), se hicieron pruebas de los tres lenguajes, siendo vencedor C (con toda optimizacion del codigo posible), y muy cerca quedo &lt;a href=&#34;http://pypy.org/&#34;&gt;pypy&lt;/a&gt; con su funcion built-in de hashear tuplas, mas de tres veces mas lento quedo el cpython 2.7, y javascript en nodejs.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
