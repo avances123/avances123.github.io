@@ -71,7 +71,11 @@ class Key():
         return str(self)
 
     def __eq__(self,other):
-        return self.x == other.x and self.y == other.y and self.z == other.z and self.v == other.v and self.w == other.w
+        return  self.x == other.x
+                and self.y == other.y
+                and self.z == other.z
+                and self.v == other.v
+                and self.w == other.w
 
     def __hash__(self):
         """
