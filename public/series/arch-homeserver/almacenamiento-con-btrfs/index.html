@@ -64,7 +64,7 @@
     <div class="article-header">
       <h1>Montando el almacenamiento con btrfs</h1>
       <div class="meta">
-        Jan 1, 0001 &nbsp;
+        Apr 2, 2016 &nbsp;
         
           #<a href="http://blog.fabio.xyz/tags/arch">arch</a>&nbsp;
         
@@ -90,7 +90,7 @@ Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
 
 <p>Os podreis preguntar por que el pincho usb no es la primera o la ultima letra sdX, el caso es que no los pinche a la vez, reinicie quiza, en todo caso, siempre haremos caso a los UUID de los discos, y dejaremos las antiguas letras sdX como quiera udev ponernoslas.</p>
 
-<pre><code>$ blkid
+<pre><code class="language-bash">$ blkid
 /dev/sdc: LABEL=&quot;raid&quot; UUID=&quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&quot; UUID_SUB=&quot;171c1b29-e14c-4d81-afd5-f30957d1395d&quot; TYPE=&quot;btrfs&quot;
 /dev/sdb: LABEL=&quot;raid&quot; UUID=&quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&quot; UUID_SUB=&quot;63b3e7a1-4a9c-4846-9c94-ff533acfc698&quot; TYPE=&quot;btrfs&quot;
 /dev/sda: LABEL=&quot;raid&quot; UUID=&quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&quot; UUID_SUB=&quot;8ebb3acf-0b03-48f7-9188-f716d98cb0aa&quot; TYPE=&quot;btrfs&quot;
