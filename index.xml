@@ -805,7 +805,7 @@ IgnorePkg = linux-lts linux-lts-headers
     <item>
       <title>Montando el almacenamiento con btrfs</title>
       <link>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 02 Apr 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
       <description>
@@ -826,7 +826,7 @@ Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
 
 &lt;p&gt;Os podreis preguntar por que el pincho usb no es la primera o la ultima letra sdX, el caso es que no los pinche a la vez, reinicie quiza, en todo caso, siempre haremos caso a los UUID de los discos, y dejaremos las antiguas letras sdX como quiera udev ponernoslas.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ blkid
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ blkid
 /dev/sdc: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;171c1b29-e14c-4d81-afd5-f30957d1395d&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
 /dev/sdb: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;63b3e7a1-4a9c-4846-9c94-ff533acfc698&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
 /dev/sda: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;8ebb3acf-0b03-48f7-9188-f716d98cb0aa&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
