@@ -814,7 +814,7 @@ IgnorePkg = linux-lts linux-lts-headers
 
 &lt;p&gt;El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;fabio@fa-server:~ $ sudo fdisk -l | grep Disco
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo fdisk -l | grep Disco
 Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores
 Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores
 Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores
@@ -823,6 +823,98 @@ Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Los discos &lt;code&gt;/dev/sd[a,b,c,e]&lt;/code&gt; son los discos de 3&amp;rsquo;5 que he pinchado en las bahias y &lt;code&gt;/dev/sdd&lt;/code&gt; es el pincho usb donde tenemos nuestro sistema. Ahora vamos a configurar btrfs para tener un solo sistema de ficheros y ya a partir de ese btrfs, crearemos volumenes y montaremos a nuestro gusto. He intentado estudiar y hacerlo lo mejor posible segun he leido en la wiki de arch y mi propia experiencia.&lt;/p&gt;
+
+&lt;p&gt;Os podreis preguntar por que el pincho usb no es la primera o la ultima letra sdX, el caso es que no los pinche a la vez, reinicie quiza, en todo caso, siempre haremos caso a los UUID de los discos, y dejaremos las antiguas letras sdX como quiera udev ponernoslas.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ blkid
+/dev/sdc: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;171c1b29-e14c-4d81-afd5-f30957d1395d&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
+/dev/sdb: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;63b3e7a1-4a9c-4846-9c94-ff533acfc698&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
+/dev/sda: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;8ebb3acf-0b03-48f7-9188-f716d98cb0aa&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
+/dev/sde: UUID=&amp;quot;1c119d46-0a5d-41c1-a2e8-82e76d6e6654&amp;quot; UUID_SUB=&amp;quot;60701c41-b238-4155-b180-ae805c106fdb&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
+/dev/sdd1: UUID=&amp;quot;12a25f83-65fa-457c-878e-758dfe79f2b1&amp;quot; TYPE=&amp;quot;ext4&amp;quot; PARTUUID=&amp;quot;3dd32031-01&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Asi vemos los UUID, como podeis ver, he utilizado 3 discos para un sistema btrfs, que tiene el mismo UUID y distintos UUID_SUB, lo he puesto el label &lt;em&gt;RAID&lt;/em&gt; aunque no lo sea.&lt;/p&gt;
+
+&lt;p&gt;Ademas &lt;code&gt;/dev/sde&lt;/code&gt; lo he utilizado para crear un sistema de ficheros distinto, este disco ira a parte de los otros. Mas adelante explicare por que he hecho esto, ya que no tiene una razon aplastante, quiero montar mi base de datos en ese disco y preferia tenerla en un disco fisico aislado.&lt;/p&gt;
+
+&lt;p&gt;Nos falta &lt;code&gt;/dev/sdd1&lt;/code&gt; que es la particion del pincho usb donde esta el sistema, este lo he formateado con ext4, nada nuevo. Segun los propios desarrolladores de btrfs, dicen que este sistema funciona muy bien en hardware como este, asi que lanzaros y poned btrfs en el pincho tambien!, yo no lo tengo porque al formatearlo y meter el arch aun no tenia claro nada, y para no fallar, pues como siempre no?&lt;/p&gt;
+
+&lt;h3 id=&#34;creacion-del-sistema-de-ficheros:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Creacion del sistema de ficheros&lt;/h3&gt;
+
+&lt;p&gt;Pues una vez tengamos los discos reconocidos por el sistema, solo hay que formatearlos con mkfs como siempre&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkfs.btrfs /dev/sda /dev/sdb /dev/sdc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;montaje:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Montaje&lt;/h3&gt;
+
+&lt;p&gt;He creado un directorio en el raiz llamado &lt;code&gt;/data&lt;/code&gt; y montare ahi mi sistema de ficheros.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mount /dev/sda /data
+$ mount
+/dev/sdb on /data type btrfs (rw,relatime,compress=lzo,space_cache,autodefrag,subvolid=5,subvol=/)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Como se puede ver, las opciones de montaje no son las de por defecto, aunque estas son correctas para un primer montaje, lo ideal es tunearlo segun nuestro uso, para el caso de mis datos, le he puesto la opcion &lt;code&gt;compress=lzo&lt;/code&gt; que reduce (muy poco) el espacio de almacenamiento y aumenta el rendimiento. Tambien la opcion de &lt;code&gt;autodefrag&lt;/code&gt;. Todas estas opciones estan persistidas en el fichero &lt;code&gt;/etc/fstab&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ grep &#39;/data&#39; /etc/fstab
+UUID=3e1cedae-3ca0-48f1-8170-e322de78f91e       /data           btrfs           defaults,autodefrag,compress=lzo                                        0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;cambiar-de-raid-a-single:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Cambiar de raid a single&lt;/h3&gt;
+
+&lt;p&gt;Vamos a configurar el tipo de RAID que mas nos convenga, en mi caso como son torrents, no me importan tanto como si tuvieramos fotos o documentos creados por mi, asi que haremos un &lt;strong&gt;single&lt;/strong&gt; que no pierde espacio, pero no proporciona ninguna redundancia. Donde sí la tendremos es en los metadatos del sistema de ficheros, los almacenaremos en RAID1 para que esten duplicados. Estas opciones las pone btrfs por defecto, y a mi me gusta, porque no se pierde excesivo espacio, y al menos para los metadatos, tendremos mas tolerancia a fallos.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ btrfs balance start -d convert=single /dev/sda
+$ btrfs balance start -s convert=raid1 /dev/sda
+$ btrfs balance start -m convert=raid1 /dev/sda
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Esta operacion la hemos hecho con &lt;code&gt;/data&lt;/code&gt; montado ya, casi todas las operaciones se pueden hacer con el sistema de ficheros montado.&lt;/p&gt;
+
+&lt;h3 id=&#34;ver-el-espacio-en-disco-con-btrfs:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Ver el espacio en disco con btrfs&lt;/h3&gt;
+
+&lt;p&gt;En este disco he metido mis datos ya (1.62 TiB) pero pongo los dos comandos respecto al uso en disco que utilizo&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ btrfs filesystem df /data
+Data, single: total=1.62TiB, used=1.62TiB
+System, RAID1: total=32.00MiB, used=208.00KiB
+Metadata, RAID1: total=3.00GiB, used=1.95GiB
+GlobalReserve, single: total=512.00MiB, used=0.00B
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ btrfs filesystem usage /data
+$ sudo btrfs filesystem usage /data
+Overall:
+    Device size:                   3.87TiB
+    Device allocated:              1.62TiB
+    Device unallocated:            2.24TiB
+    Device missing:                  0.00B
+    Used:                          1.62TiB
+    Free (estimated):              2.24TiB      (min: 1.12TiB)
+    Data ratio:                       1.00
+    Metadata ratio:                   2.00
+    Global reserve:              512.00MiB      (used: 0.00B)
+
+Data,single: Size:1.62TiB, Used:1.62TiB
+   /dev/sda        1.62TiB
+
+Metadata,RAID1: Size:3.00GiB, Used:1.95GiB
+   /dev/sda        3.00GiB
+   /dev/sdb        3.00GiB
+
+System,RAID1: Size:32.00MiB, Used:208.00KiB
+   /dev/sda       32.00MiB
+   /dev/sdb       32.00MiB
+
+Unallocated:
+   /dev/sda        1.11TiB
+   /dev/sdb      695.61GiB
+   /dev/sdc      465.76GiB
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Es importante usar este comando df, en lugar del mitico df de linux, porque aun este ultimo nos da informacion incorrecta.&lt;/p&gt;
 </description>
     </item>
     

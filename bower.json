@@ -1,0 +1,21 @@
+{
+  "name": "static",
+  "homepage": "https://github.com/avances123/avances123.github.io",
+  "authors": [
+    "Fabio Rueda <avances123@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "^3.5.16"
+  }
+}
