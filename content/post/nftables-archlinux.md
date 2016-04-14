@@ -1,6 +1,6 @@
 +++
-date = "2016-04-13T10:30:57+01:00"
-title = "Montando un firewall con arch linux y nftables"
+date = "2016-04-14T10:30:57+01:00"
+title = "Montando un firewall nftables"
 tags = ['arch','firewall']
 keywords = ["arch","archlinux","servidor","nftables","iptables","firewall"]
 description = "Como hacer firewall con nftables"
