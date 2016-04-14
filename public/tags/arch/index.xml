@@ -6,13 +6,76 @@
     <description>Recent content in Arch on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Sat, 19 Mar 2016 10:30:57 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 13 Apr 2016 10:30:57 +0100</lastBuildDate>
     <atom:link href="http://blog.fabio.xyz/tags/arch/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Montando un firewall con arch linux y nftables</title>
+      <link>http://blog.fabio.xyz/post/nftables-archlinux/</link>
+      <pubDate>Wed, 13 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/nftables-archlinux/</guid>
+      <description>
+
+&lt;h1 id=&#34;montar-un-firewall-con-nftables-para-nuestro-servidor:c74514a239cd5f964844045f31f80ffe&#34;&gt;Montar un firewall con nftables para nuestro servidor&lt;/h1&gt;
+
+&lt;p&gt;Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.&lt;/p&gt;
+
+&lt;p&gt;Es necesario tener un kernel &amp;gt;=3.13&lt;/p&gt;
+
+&lt;h2 id=&#34;instalacion:c74514a239cd5f964844045f31f80ffe&#34;&gt;Instalacion&lt;/h2&gt;
+
+&lt;p&gt;Asi de sencillo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ pacman -S nftables
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;desactivacion-de-iptables:c74514a239cd5f964844045f31f80ffe&#34;&gt;Desactivacion de iptables&lt;/h2&gt;
+
+&lt;p&gt;Yo estaba usando iptables con un conjunto de reglas, vamos a deshabilitarlo en el systemd y a comprobar que no tenemos ninguna regla activa:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ systemctl stop iptables
+$ systemctl disable iptables
+$ iptables -nvL
+Chain INPUT (policy ACCEPT 72M packets, 83G bytes)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain FORWARD (policy ACCEPT 1639K packets, 230M bytes)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain OUTPUT (policy ACCEPT 52M packets, 10G bytes)
+ pkts bytes target     prot opt in     out     source               destination
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuracion-de-nftables:c74514a239cd5f964844045f31f80ffe&#34;&gt;Configuracion de nftables&lt;/h2&gt;
+
+&lt;p&gt;Por supuesto no voy a competir con la estupenda documentacion de arch linux sobre &lt;a href=&#34;https://wiki.archlinux.org/index.php/nftables&#34;&gt;nftables&lt;/a&gt;. Voy a empezar con el fichero de ejemplo que esta en &lt;code&gt;/etc/nftables.conf&lt;/code&gt;. En este fichero viene la tipica configuracion de te capo todo menos el ssh para que sigas configurando y no se te quede cara de pipas.&lt;/p&gt;
+
+&lt;p&gt;Segun abrimos el fichero no entendemos mucho, pero el caso es pensar igual que con iptables, es exactamente igual pero digamos que puedes escribir cosas en mas sitios para mejorar la organizacion, pero los conceptos son los mismos.&lt;/p&gt;
+
+&lt;p&gt;Estan las &lt;em&gt;rules&lt;/em&gt; que son la tipica linea de iptables, donde segun el paquete que venga, si hace match , hacemos cosas (solemos aceptarlo o rechazarlo).
+Estan las &lt;em&gt;chains&lt;/em&gt; que son agrupaciones de rules, solo que en lugar de tenerlas mas o menos fijas, aqui podemos tener tantas como queramos llamarlas como queramos y en general, son mas flexibles, en el fichero por ejemplo tenemos tres chains que se llaman como las antiguas de iptables, pero se podrian llamar de otra manera, el caso es, cuando entrara un paquete por ella? bueno porque en la primera de una chain de nftables debes definir sus propiedades, es decir escribir una linea de este tipo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;type filter hook input priority 0;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks &lt;code&gt;output,forward,prerouting y postrouting&lt;/code&gt; como en iptables.&lt;/p&gt;
+
+&lt;h2 id=&#34;activar-al-inicio:c74514a239cd5f964844045f31f80ffe&#34;&gt;Activar al inicio&lt;/h2&gt;
+
+&lt;p&gt;Una vez tengamos nuestras reglas puestas en &lt;code&gt;/etc/nftables.conf&lt;/code&gt; podemos cargarlas en cada arranque.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl enable nftables
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Introduccion, que tenia antes y que he comprado</title>
       <link>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</link>
-      <pubDate>Sat, 19 Mar 2016 10:30:57 +0100</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</guid>
       <description>
@@ -62,9 +125,30 @@ IgnorePkg = linux-lts linux-lts-headers
     </item>
     
     <item>
+      <title>Instalacion de grafana, influxdb y collectd</title>
+      <link>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</link>
+      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
+      <description>
+
+&lt;h1 id=&#34;sacando-graficas-de-todo-en-tu-red-casera:ae9997a2769c75053f068259cadd520a&#34;&gt;Sacando graficas de todo en tu red casera&lt;/h1&gt;
+
+&lt;p&gt;Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
+1. Una base de datos especial para series temporales llamada influxdb
+2. Un frontend para pintar las graficas llamado grafana
+3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd&lt;/p&gt;
+
+&lt;p&gt;Vamos a ver la instalacion y configuracion de cada uno de los programas.&lt;/p&gt;
+
+&lt;h2 id=&#34;influxdb:ae9997a2769c75053f068259cadd520a&#34;&gt;influxdb&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Montando el almacenamiento con btrfs</title>
       <link>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</link>
-      <pubDate>Sat, 02 Apr 2016 10:30:57 +0100</pubDate>
+      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
       <description>
