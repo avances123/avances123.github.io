@@ -6,12 +6,12 @@
   
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="2NHKEM-aqhXa-pfsTc--26GMPb1mGY__SDMKGZqb8KY" />
-  <meta name="keywords" content="arch,archlinux,python,gis,postgresql,gis,sql,javascript,angular,angularjs,js,blog,avances123,hack">
-  <meta name="description" content="Un blog con articulos con proyectos en arch linux, python, postgresql algo de GIS.">
+  <meta name="keywords" content="arch,monitorizacion,grafana,influxdb,collectd">
+  <meta name="description" content="Como montar un sistema de metricas con grafana influxdb y collectd en tu servidor casero">
 
 
   <title>
-    Servidor casero con Arch Linux | avances123
+    Instalacion de grafana, influxdb y collectd | avances123
   </title>
 
 
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.fabio.xyz/series/servidor-casero-con-arch-linux/"/>
+  <link rel="canonical" href="http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/"/>
 
   
   <link rel="stylesheet" href="http://blog.fabio.xyz/css/sanitize.css">
@@ -60,23 +60,9 @@
 
 
   
-  <main id="list" role="main">
-    <div class="article-header light-gray"><h1>#Servidor casero con Arch Linux</h1></div>
-    
-    <div class="summary">
-      <h2><a href="http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/">Introduccion, que tenia antes y que he comprado </a></h2>
-      <div class="meta">
-        Jan 1, 0001 &nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/arch">arch</a>&nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/hardware">hardware</a>&nbsp;
-        
-      </div>
-    </div>
-    
-    <div class="summary">
-      <h2><a href="http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/">Instalacion de grafana, influxdb y collectd </a></h2>
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>Instalacion de grafana, influxdb y collectd</h1>
       <div class="meta">
         Apr 7, 2016 &nbsp;
         
@@ -92,20 +78,31 @@
         
       </div>
     </div>
-    
-    <div class="summary">
-      <h2><a href="http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/">Montando el almacenamiento con btrfs </a></h2>
-      <div class="meta">
-        Apr 7, 2016 &nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/arch">arch</a>&nbsp;
-        
-          #<a href="http://blog.fabio.xyz/tags/btrfs">btrfs</a>&nbsp;
-        
-      </div>
-    </div>
-    
+    <article>
+
+      
+
+<h1 id="sacando-graficas-de-todo-en-tu-red-casera:ae9997a2769c75053f068259cadd520a">Sacando graficas de todo en tu red casera</h1>
+
+<p>Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
+1. Una base de datos especial para series temporales llamada influxdb
+2. Un frontend para pintar las graficas llamado grafana
+3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd</p>
+
+<p>Vamos a ver la instalacion y configuracion de cada uno de los programas.</p>
+
+<h2 id="influxdb:ae9997a2769c75053f068259cadd520a">influxdb</h2>
+
+
+    </article>
   </main>
+
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/" rel="prev">Montando el almacenamiento con btrfs</a></span>
+    
+    
+  </nav>
 
 
   

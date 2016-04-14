@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Monitorizacion on avances123</title>
+    <link>http://blog.fabio.xyz/tags/monitorizacion/</link>
+    <description>Recent content in Monitorizacion on avances123</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0100</lastBuildDate>
+    <atom:link href="http://blog.fabio.xyz/tags/monitorizacion/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Instalacion de grafana, influxdb y collectd</title>
+      <link>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</link>
+      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
+      <description>
+
+&lt;h1 id=&#34;sacando-graficas-de-todo-en-tu-red-casera:ae9997a2769c75053f068259cadd520a&#34;&gt;Sacando graficas de todo en tu red casera&lt;/h1&gt;
+
+&lt;p&gt;Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
+1. Una base de datos especial para series temporales llamada influxdb
+2. Un frontend para pintar las graficas llamado grafana
+3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd&lt;/p&gt;
+
+&lt;p&gt;Vamos a ver la instalacion y configuracion de cada uno de los programas.&lt;/p&gt;
+
+&lt;h2 id=&#34;influxdb:ae9997a2769c75053f068259cadd520a&#34;&gt;influxdb&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
