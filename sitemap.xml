@@ -3,13 +3,13 @@
   
   <url>
     <loc>http://blog.fabio.xyz/</loc>
-    <lastmod>2016-04-13T10:30:57+01:00</lastmod>
+    <lastmod>2016-04-14T10:30:57+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://blog.fabio.xyz/post/nftables-archlinux/</loc>
-    <lastmod>2016-04-13T10:30:57+01:00</lastmod>
+    <lastmod>2016-04-14T10:30:57+01:00</lastmod>
   </url>
   
   <url>
@@ -48,11 +48,6 @@
   
   <url>
     <loc>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</loc>
-    <lastmod>2016-04-07T10:30:57+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</loc>
     <lastmod>2016-04-07T10:30:57+01:00</lastmod>
   </url>
   
