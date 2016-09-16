@@ -2,7 +2,7 @@
 title =  "Tablas hash en C,Javascript y Python"
 date =  "2016-03-12"
 path = ""
-tags = ['hash','comparativa','diccionarios','rendimiento','performance']
+tags = ['hash','comparativa','diccionarios','rendimiento']
 categories = ['PoC']
 languages = ['python','C','javascript']
 
