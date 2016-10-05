@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Btrfs on avances123</title>
+    <title>btrfs on avances123</title>
     <link>http://blog.fabio.xyz/tags/btrfs/</link>
-    <description>Recent content in Btrfs on avances123</description>
+    <description>Recent content in btrfs on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0100</lastBuildDate>
@@ -17,7 +17,7 @@
       <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
       <description>
 
-&lt;h2 id=&#34;configurar-el-almacenamiento-con-btrfs:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Configurar el almacenamiento con btrfs&lt;/h2&gt;
+&lt;h2 id=&#34;configurar-el-almacenamiento-con-btrfs&#34;&gt;Configurar el almacenamiento con btrfs&lt;/h2&gt;
 
 &lt;p&gt;El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux&lt;/p&gt;
 
@@ -47,14 +47,14 @@ Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
 
 &lt;p&gt;Nos falta &lt;code&gt;/dev/sdd1&lt;/code&gt; que es la particion del pincho usb donde esta el sistema, este lo he formateado con ext4, nada nuevo. Segun los propios desarrolladores de btrfs, dicen que este sistema funciona muy bien en hardware como este, asi que lanzaros y poned btrfs en el pincho tambien!, yo no lo tengo porque al formatearlo y meter el arch aun no tenia claro nada, y para no fallar, pues como siempre no?&lt;/p&gt;
 
-&lt;h3 id=&#34;creacion-del-sistema-de-ficheros:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Creacion del sistema de ficheros&lt;/h3&gt;
+&lt;h3 id=&#34;creacion-del-sistema-de-ficheros&#34;&gt;Creacion del sistema de ficheros&lt;/h3&gt;
 
 &lt;p&gt;Pues una vez tengamos los discos reconocidos por el sistema, solo hay que formatearlos con mkfs como siempre&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkfs.btrfs /dev/sda /dev/sdb /dev/sdc
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;montaje:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Montaje&lt;/h3&gt;
+&lt;h3 id=&#34;montaje&#34;&gt;Montaje&lt;/h3&gt;
 
 &lt;p&gt;He creado un directorio en el raiz llamado &lt;code&gt;/data&lt;/code&gt; y montare ahi mi sistema de ficheros.&lt;/p&gt;
 
@@ -69,7 +69,7 @@ $ mount
 UUID=3e1cedae-3ca0-48f1-8170-e322de78f91e       /data           btrfs           defaults,autodefrag,compress=lzo                                        0 0
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;cambiar-de-raid-a-single:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Cambiar de raid a single&lt;/h3&gt;
+&lt;h3 id=&#34;cambiar-de-raid-a-single&#34;&gt;Cambiar de raid a single&lt;/h3&gt;
 
 &lt;p&gt;Vamos a configurar el tipo de RAID que mas nos convenga, en mi caso como son torrents, no me importan tanto como si tuvieramos fotos o documentos creados por mi, asi que haremos un &lt;strong&gt;single&lt;/strong&gt; que no pierde espacio, pero no proporciona ninguna redundancia. Donde sí la tendremos es en los metadatos del sistema de ficheros, los almacenaremos en RAID1 para que esten duplicados. Estas opciones las pone btrfs por defecto, y a mi me gusta, porque no se pierde excesivo espacio, y al menos para los metadatos, tendremos mas tolerancia a fallos.&lt;/p&gt;
 
@@ -80,7 +80,7 @@ $ btrfs balance start -m convert=raid1 /dev/sda
 
 &lt;p&gt;Esta operacion la hemos hecho con &lt;code&gt;/data&lt;/code&gt; montado ya, casi todas las operaciones se pueden hacer con el sistema de ficheros montado.&lt;/p&gt;
 
-&lt;h3 id=&#34;ver-el-espacio-en-disco-con-btrfs:f5776ce002083f17f7a8f8f37568a092&#34;&gt;Ver el espacio en disco con btrfs&lt;/h3&gt;
+&lt;h3 id=&#34;ver-el-espacio-en-disco-con-btrfs&#34;&gt;Ver el espacio en disco con btrfs&lt;/h3&gt;
 
 &lt;p&gt;En este disco he metido mis datos ya (1.62 TiB) pero pongo los dos comandos respecto al uso en disco que utilizo&lt;/p&gt;
 

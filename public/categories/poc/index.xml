@@ -19,7 +19,7 @@
 
 &lt;p&gt;Un amigo necesitaba hacer una &lt;a href=&#34;http://es.wikipedia.org/wiki/Tabla_hash&#34;&gt;funcion hash&lt;/a&gt; para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.&lt;/p&gt;
 
-&lt;h3 id=&#34;descripcion-del-problema:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Descripcion del problema&lt;/h3&gt;
+&lt;h3 id=&#34;descripcion-del-problema&#34;&gt;Descripcion del problema&lt;/h3&gt;
 
 &lt;p&gt;Tenemos un fichero de texto con miles de lineas del tipo:&lt;/p&gt;
 
@@ -30,7 +30,7 @@
 
 &lt;p&gt;Nuestro objectivo es crear una tabla hash para poder buscar segun los campos de arriba, excepto el ultimo, que es el valor que queremos extraer. Es decir la clave de busqueda seran los valores &lt;em&gt;x,y,z,v,w&lt;/em&gt; y el valor el campo &lt;em&gt;value&lt;/em&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;javascript:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Javascript&lt;/h3&gt;
+&lt;h3 id=&#34;javascript&#34;&gt;Javascript&lt;/h3&gt;
 
 &lt;p&gt;En javascript un diccionario, es un &lt;a href=&#34;http://ecma262-5.com/ELS5_HTML.htm#Section_8.6&#34;&gt;objeto&lt;/a&gt;, es decir llenariamos un objeto cuyas propiedades son nuestras claves, no entiendo mucho la implementacion de los objetos/diccionarios en javascript asi que cualquier comentario clarificador lo agradeceria mucho.&lt;/p&gt;
 
@@ -56,7 +56,7 @@ for (var m = 0; m &amp;lt; keys.length; m++) {
 
 &lt;p&gt;Cabe repetir que lejos de entender la implementacion interna de los objetos en javascript, no parece que sea una tabla hash sino un array asociativo, no podemos decidir una funcion hash especifica para nuestro problema.&lt;/p&gt;
 
-&lt;h3 id=&#34;python:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Python&lt;/h3&gt;
+&lt;h3 id=&#34;python&#34;&gt;Python&lt;/h3&gt;
 
 &lt;p&gt;En python los &lt;a href=&#34;http://hg.python.org/cpython/file/52f68c95e025/Objects/dictobject.c&#34;&gt;diccionarios&lt;/a&gt; son tablas hash, ademas, nuestras claves no tienen por que ser tipos basicos, si lo fueran seria bastante parecido al ejemplo de javascript, excepto que son tablas hash reales,aqui esta la implementacion de tuplas como claves. Cualquier objeto puede ser una clave de un diccionario, basta con que cumpla una serie de requisitos en su definicion, debemos especificar un par de cosas:&lt;/p&gt;
 
@@ -114,7 +114,7 @@ def integer(self):
         d[key]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;c:5eb5d78a8392d421063187c0197ccd44&#34;&gt;C&lt;/h3&gt;
+&lt;h3 id=&#34;c&#34;&gt;C&lt;/h3&gt;
 
 &lt;p&gt;En C no existe la estructura diccionario dentro del lenguaje, lo tenemos que hacer nosotros, esto tiene como ventaja que tenemos un control absoluto de como se tiene que comportar, ademas del rendimiento insuperable que tiene un lenguaje compilado como C. No hace falta que igual de insuperable es el tiempo que nos cuesta implementar este problema comparado con los otros dos contendientes, digamos que tenemos tiempo infinito para hacerlo.&lt;/p&gt;
 
@@ -265,13 +265,13 @@ for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;metodo-de-resolucion-de-colisiones:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Metodo de resolucion de colisiones&lt;/h3&gt;
+&lt;h3 id=&#34;metodo-de-resolucion-de-colisiones&#34;&gt;Metodo de resolucion de colisiones&lt;/h3&gt;
 
 &lt;p&gt;En el caso de C, la tabla hash esta creada con un metodo de resolucion de colisiones del tipo &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists&#34;&gt;Separate chaining with linked lists&lt;/a&gt;, mientras que el metodo que python usa es &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Open_addressing&#34;&gt;Open addressing&lt;/a&gt;, En esta grafica se ve como se comportan los dos metodos segun lo llena que esta la tabla (load factor), ordenadas menores es mejor.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/wikipedia/commons/1/1c/Hash_table_average_insertion_time.png&#34; alt=&#34;Grafica collision compare&#34; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;rendimiento:5eb5d78a8392d421063187c0197ccd44&#34;&gt;Rendimiento&lt;/h3&gt;
+&lt;h3 id=&#34;rendimiento&#34;&gt;Rendimiento&lt;/h3&gt;
 
 &lt;p&gt;Aunque no con este codigo (modificado para la explicacion), se hicieron pruebas de los tres lenguajes, siendo vencedor C (con toda optimizacion del codigo posible), y muy cerca quedo &lt;a href=&#34;http://pypy.org/&#34;&gt;pypy&lt;/a&gt; con su funcion built-in de hashear tuplas, mas de tres veces mas lento quedo el cpython 2.7, y javascript en nodejs.&lt;/p&gt;
 </description>
@@ -378,15 +378,15 @@ for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
       <guid>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</guid>
       <description>
 
-&lt;h1 id=&#34;haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Haciendo tests e2e en apps que ya tenemos hechas&lt;/h1&gt;
+&lt;h1 id=&#34;haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas&#34;&gt;Haciendo tests e2e en apps que ya tenemos hechas&lt;/h1&gt;
 
-&lt;h2 id=&#34;introduccion:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Introduccion&lt;/h2&gt;
+&lt;h2 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h2&gt;
 
 &lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
 
 &lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
 
-&lt;h2 id=&#34;webdriverjs-selenium:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;WebdriverJs (Selenium)&lt;/h2&gt;
+&lt;h2 id=&#34;webdriverjs-selenium&#34;&gt;WebdriverJs (Selenium)&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://docs.seleniumhq.org/projects/webdriver/&#34;&gt;Selenium&lt;/a&gt; es un driver que automatiza interacciones con el explorador&lt;/p&gt;
 
@@ -397,7 +397,7 @@ $ sudo webdriber-manager update
 $ sudo webdriber-manager start
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;protractor:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Protractor&lt;/h2&gt;
+&lt;h2 id=&#34;protractor&#34;&gt;Protractor&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.npmjs.org/package/protractor&#34;&gt;Protractor&lt;/a&gt; es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs&lt;/p&gt;
 
@@ -431,7 +431,7 @@ $ sudo webdriber-manager start
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;un-test-sencillo:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Un test sencillo&lt;/h2&gt;
+&lt;h2 id=&#34;un-test-sencillo&#34;&gt;Un test sencillo&lt;/h2&gt;
 
 &lt;p&gt;Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:&lt;/p&gt;
 
@@ -449,7 +449,7 @@ $ sudo webdriber-manager start
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protractor conf.js
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;chrome-y-phantomjs:9c6d68586ab26dacc0b2f61e2f3134ef&#34;&gt;Chrome y PhantomJS&lt;/h2&gt;
+&lt;h2 id=&#34;chrome-y-phantomjs&#34;&gt;Chrome y PhantomJS&lt;/h2&gt;
 
 &lt;p&gt;Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.&lt;/p&gt;
 
@@ -470,11 +470,11 @@ $ sudo webdriber-manager start
       <guid>http://blog.fabio.xyz/post/antiguos/full-text-search-postgresql/</guid>
       <description>
 
-&lt;h1 id=&#34;buscando-texto-con-postgresql:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Buscando texto con postgresql&lt;/h1&gt;
+&lt;h1 id=&#34;buscando-texto-con-postgresql&#34;&gt;Buscando texto con postgresql&lt;/h1&gt;
 
 &lt;p&gt;Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo &lt;em&gt;camion&lt;/em&gt; sin acento y no me sale &amp;ldquo;camión&amp;rdquo;, bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/textsearch.html&#34;&gt;full text search&lt;/a&gt; que nos ofrece. Os adelanto que este es un ejemplo sencillisimo de todo lo que soporta.&lt;/p&gt;
 
-&lt;h2 id=&#34;tengo-una-columna-con-texto-donde-quiero-buscar:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Tengo una columna con texto donde quiero buscar&lt;/h2&gt;
+&lt;h2 id=&#34;tengo-una-columna-con-texto-donde-quiero-buscar&#34;&gt;Tengo una columna con texto donde quiero buscar&lt;/h2&gt;
 
 &lt;p&gt;El caso de uso mas común, tengo una tabla con texto, y al buscar puedo usar LIKE o incluso ILIKE, pero eso no nos hace encontrar las palabras como un humano quiere realmente, no vamos a lograr hacer el &lt;em&gt;quiso decir&lt;/em&gt; de google, pero al menos vamos a poder buscar entre texto con o sin acentos, mayusculas, nexos y cosas asi que nos molestan.&lt;/p&gt;
 
@@ -517,7 +517,7 @@ ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
 
 &lt;p&gt;Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y si quiere buscar &lt;em&gt;rocín&lt;/em&gt; sin acento? Vamos a hacerlo bien.&lt;/p&gt;
 
-&lt;h2 id=&#34;full-text-search-en-nuestra-columna:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Full-text search en nuestra columna&lt;/h2&gt;
+&lt;h2 id=&#34;full-text-search-en-nuestra-columna&#34;&gt;Full-text search en nuestra columna&lt;/h2&gt;
 
 &lt;p&gt;Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:&lt;/p&gt;
 
@@ -537,7 +537,7 @@ ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
 
 &lt;p&gt;TODO Poner en que lenguaje esta el postgresql&lt;/p&gt;
 
-&lt;h2 id=&#34;pasarle-una-busqueda:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Pasarle una busqueda&lt;/h2&gt;
+&lt;h2 id=&#34;pasarle-una-busqueda&#34;&gt;Pasarle una busqueda&lt;/h2&gt;
 
 &lt;p&gt;Ahora que tenemos nuestros textos &lt;em&gt;arreglados&lt;/em&gt; para las busquedas, podemos meter un string en la caja de busqueda, podemos meter cualquier cosa, y queremos que nos salgan los resultados razonables, para ello nuestra busqueda debemos arreglarla tambien, para ello usaremos el tipo tsquery. Este tipo, esta pensado para operar contra tsvectors como los que hemos creado antes, un ejemplo es:&lt;/p&gt;
 
@@ -548,7 +548,7 @@ ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
 (1 fila)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;sacando-resultados:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Sacando resultados&lt;/h2&gt;
+&lt;h2 id=&#34;sacando-resultados&#34;&gt;Sacando resultados&lt;/h2&gt;
 
 &lt;p&gt;Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nuestro where usaremos el operador @@ (uno de los &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/functions-textsearch.html&#34;&gt;muchos&lt;/a&gt; que hay disponibles) entre nuestra tabla pasada a tsvector y nuestra busqueda pasada a tsquery&lt;/p&gt;
 
@@ -559,7 +559,7 @@ ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
 (1 fila)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;ranking:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Ranking&lt;/h2&gt;
+&lt;h2 id=&#34;ranking&#34;&gt;Ranking&lt;/h2&gt;
 
 &lt;p&gt;Un motor de busqueda bueno, nos ordenara los resultados por relevancia, segun nos acerquemos mas a lo que queremos buscar. Postgresql tambien nos ofrece &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/textsearch-controls.html#TEXTSEARCH-RANKING&#34;&gt;esta funcionalidad&lt;/a&gt;, por ejemplo, si tenemos un blog, queremos que al buscar , el titulo tengas mas relevancia que el contenido, vamos a verlo:&lt;/p&gt;
 
@@ -620,7 +620,7 @@ order by ts_rank(setweight(to_tsvector(titulo),&#39;A&#39;) || setweight(to_tsve
 (2 filas)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;usando-indices:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Usando indices&lt;/h2&gt;
+&lt;h2 id=&#34;usando-indices&#34;&gt;Usando indices&lt;/h2&gt;
 
 &lt;p&gt;Vaya turron de consultas las dos ultimas no?, ademas de enfarragoso, algo ineficiente, como en postgresql se pueden definir indices sobre funciones , podemos pasar lo anterior a un indice &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/textsearch-indexes.html&#34;&gt;gin&lt;/a&gt;:&lt;/p&gt;
 
@@ -630,7 +630,7 @@ USING gin(( setweight(to_tsvector(&#39;spanish&#39;,titulo),&#39;B&#39;) || setw
 
 &lt;p&gt;Hemos creado un indice con la misma funcionalidad que en el anterior ejemplo, esta vez, hemos especificado a tsvector que nuestro idioma del post es español, (podriamos especificar distintos idiomas tambien). Asi nos creara el texto normalizado para nuestro idioma de manera correcta. (and o with en español no lo eliminara, seran palabras &lt;em&gt;importantes&lt;/em&gt; en español).&lt;/p&gt;
 
-&lt;h2 id=&#34;mispelling:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Mispelling&lt;/h2&gt;
+&lt;h2 id=&#34;mispelling&#34;&gt;Mispelling&lt;/h2&gt;
 
 &lt;p&gt;Queria buscar Quijote pero he puesto &amp;ldquo;qijote&amp;rdquo;, deberia salir igual no? Para esto, tenemos &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/pgtrgm.html&#34;&gt;una extension&lt;/a&gt; que podemos ponerla en nuestra db asi:&lt;/p&gt;
 
@@ -660,7 +660,7 @@ ts=# select similarity(&#39;Quijote&#39;, &#39;nada que ver&#39;);
 
 &lt;p&gt;Gracias a esta funcion, podremos buscar entre lexemas de nuestra tabla parecidos, pero eso sera en otro post.&lt;/p&gt;
 
-&lt;h3 id=&#34;fuentes:29d8985df3111b68738be647d0a2bf6d&#34;&gt;Fuentes&lt;/h3&gt;
+&lt;h3 id=&#34;fuentes&#34;&gt;Fuentes&lt;/h3&gt;
 
 &lt;p&gt;Me he inspirado, si no a veces copiado de este fantastico &lt;a href=&#34;http://blog.lostpropertyhq.com/postgres-full-text-search-is-good-enough/&#34;&gt;post&lt;/a&gt; acerca de este tema&lt;/p&gt;
 </description>
