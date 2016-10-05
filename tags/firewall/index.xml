@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Firewall on avances123</title>
+    <title>firewall on avances123</title>
     <link>http://blog.fabio.xyz/tags/firewall/</link>
-    <description>Recent content in Firewall on avances123</description>
+    <description>Recent content in firewall on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <lastBuildDate>Thu, 14 Apr 2016 10:30:57 +0100</lastBuildDate>
@@ -17,20 +17,20 @@
       <guid>http://blog.fabio.xyz/post/nftables-archlinux/</guid>
       <description>
 
-&lt;h1 id=&#34;montar-un-firewall-con-nftables-para-nuestro-servidor:c74514a239cd5f964844045f31f80ffe&#34;&gt;Montar un firewall con nftables para nuestro servidor&lt;/h1&gt;
+&lt;h1 id=&#34;montar-un-firewall-con-nftables-para-nuestro-servidor&#34;&gt;Montar un firewall con nftables para nuestro servidor&lt;/h1&gt;
 
 &lt;p&gt;Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.&lt;/p&gt;
 
 &lt;p&gt;Es necesario tener un kernel &amp;gt;=3.13&lt;/p&gt;
 
-&lt;h2 id=&#34;instalacion:c74514a239cd5f964844045f31f80ffe&#34;&gt;Instalacion&lt;/h2&gt;
+&lt;h2 id=&#34;instalacion&#34;&gt;Instalacion&lt;/h2&gt;
 
 &lt;p&gt;Asi de sencillo:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ pacman -S nftables
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;desactivacion-de-iptables:c74514a239cd5f964844045f31f80ffe&#34;&gt;Desactivacion de iptables&lt;/h2&gt;
+&lt;h2 id=&#34;desactivacion-de-iptables&#34;&gt;Desactivacion de iptables&lt;/h2&gt;
 
 &lt;p&gt;Yo estaba usando iptables con un conjunto de reglas, vamos a deshabilitarlo en el systemd y a comprobar que no tenemos ninguna regla activa:&lt;/p&gt;
 
@@ -49,7 +49,7 @@ Chain OUTPUT (policy ACCEPT 52M packets, 10G bytes)
 
 &lt;p&gt;Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.&lt;/p&gt;
 
-&lt;h2 id=&#34;configuracion-de-nftables:c74514a239cd5f964844045f31f80ffe&#34;&gt;Configuracion de nftables&lt;/h2&gt;
+&lt;h2 id=&#34;configuracion-de-nftables&#34;&gt;Configuracion de nftables&lt;/h2&gt;
 
 &lt;p&gt;Por supuesto no voy a competir con la estupenda documentacion de arch linux sobre &lt;a href=&#34;https://wiki.archlinux.org/index.php/nftables&#34;&gt;nftables&lt;/a&gt;. Voy a empezar con el fichero de ejemplo que esta en &lt;code&gt;/etc/nftables.conf&lt;/code&gt;. En este fichero viene la tipica configuracion de te capo todo menos el ssh para que sigas configurando y no se te quede cara de pipas.&lt;/p&gt;
 
@@ -63,7 +63,7 @@ Estan las &lt;em&gt;chains&lt;/em&gt; que son agrupaciones de rules, solo que en
 
 &lt;p&gt;Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks &lt;code&gt;output,forward,prerouting y postrouting&lt;/code&gt; como en iptables.&lt;/p&gt;
 
-&lt;h2 id=&#34;activar-al-inicio:c74514a239cd5f964844045f31f80ffe&#34;&gt;Activar al inicio&lt;/h2&gt;
+&lt;h2 id=&#34;activar-al-inicio&#34;&gt;Activar al inicio&lt;/h2&gt;
 
 &lt;p&gt;Una vez tengamos nuestras reglas puestas en &lt;code&gt;/etc/nftables.conf&lt;/code&gt; podemos cargarlas en cada arranque.&lt;/p&gt;
 

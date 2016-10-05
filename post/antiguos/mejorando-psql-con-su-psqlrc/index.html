@@ -82,25 +82,25 @@
 <li>Hace ya un tiempo que estoy usando <a href="https://github.com/dbcli/pgcli">pgcli</a>, mejora bastante el uso con autocompletado y mas cosas</li>
 </ul>
 
-<h2 id="psql:5f1cd976503a11bba204fb043bd8a80c">psql</h2>
+<h2 id="psql">psql</h2>
 
 <p>Para los que usamos el cliente psql, hay ciertas &ldquo;mejoras&rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el <a href="https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc">mio</a> si quieres!</p>
 
-<h3 id="distintos-historicos:5f1cd976503a11bba204fb043bd8a80c">Distintos historicos</h3>
+<h3 id="distintos-historicos">Distintos historicos</h3>
 
 <p>Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.</p>
 
 <pre><code>\set HISTFILE ~/.psql_history- :DBNAME
 </code></pre>
 
-<h4 id="aumentar-las-lineas-de-historico:5f1cd976503a11bba204fb043bd8a80c">Aumentar las lineas de historico</h4>
+<h4 id="aumentar-las-lineas-de-historico">Aumentar las lineas de historico</h4>
 
 <p>Almacenamos mas queries que por defecto</p>
 
 <pre><code>\set HISTSIZE 20000
 </code></pre>
 
-<h4 id="mejoramos-el-prompt:5f1cd976503a11bba204fb043bd8a80c">Mejoramos el prompt</h4>
+<h4 id="mejoramos-el-prompt">Mejoramos el prompt</h4>
 
 <p>En la linea de comandos podremos ver a que base de datos y host estamos conectados:</p>
 
@@ -112,7 +112,7 @@
 <pre><code>[local] fabio@tests=#
 </code></pre>
 
-<h4 id="coloreamos-el-null:5f1cd976503a11bba204fb043bd8a80c">Coloreamos el null</h4>
+<h4 id="coloreamos-el-null">Coloreamos el null</h4>
 
 <p>Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:</p>
 
@@ -131,14 +131,14 @@ INSERT 0 1
 
 </code></pre>
 
-<h4 id="demasiadas-columnas-para-mi-consola:5f1cd976503a11bba204fb043bd8a80c">Demasiadas columnas para mi consola</h4>
+<h4 id="demasiadas-columnas-para-mi-consola">Demasiadas columnas para mi consola</h4>
 
 <p>Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:</p>
 
 <pre><code>\x auto
 </code></pre>
 
-<h4 id="confirmar-la-salida:5f1cd976503a11bba204fb043bd8a80c">Confirmar la salida</h4>
+<h4 id="confirmar-la-salida">Confirmar la salida</h4>
 
 <p>Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.</p>
 

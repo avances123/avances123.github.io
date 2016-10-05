@@ -76,20 +76,20 @@
 
       
 
-<h1 id="montar-un-firewall-con-nftables-para-nuestro-servidor:c74514a239cd5f964844045f31f80ffe">Montar un firewall con nftables para nuestro servidor</h1>
+<h1 id="montar-un-firewall-con-nftables-para-nuestro-servidor">Montar un firewall con nftables para nuestro servidor</h1>
 
 <p>Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.</p>
 
 <p>Es necesario tener un kernel &gt;=3.13</p>
 
-<h2 id="instalacion:c74514a239cd5f964844045f31f80ffe">Instalacion</h2>
+<h2 id="instalacion">Instalacion</h2>
 
 <p>Asi de sencillo:</p>
 
 <pre><code class="language-bash">$ pacman -S nftables
 </code></pre>
 
-<h2 id="desactivacion-de-iptables:c74514a239cd5f964844045f31f80ffe">Desactivacion de iptables</h2>
+<h2 id="desactivacion-de-iptables">Desactivacion de iptables</h2>
 
 <p>Yo estaba usando iptables con un conjunto de reglas, vamos a deshabilitarlo en el systemd y a comprobar que no tenemos ninguna regla activa:</p>
 
@@ -108,7 +108,7 @@ Chain OUTPUT (policy ACCEPT 52M packets, 10G bytes)
 
 <p>Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.</p>
 
-<h2 id="configuracion-de-nftables:c74514a239cd5f964844045f31f80ffe">Configuracion de nftables</h2>
+<h2 id="configuracion-de-nftables">Configuracion de nftables</h2>
 
 <p>Por supuesto no voy a competir con la estupenda documentacion de arch linux sobre <a href="https://wiki.archlinux.org/index.php/nftables">nftables</a>. Voy a empezar con el fichero de ejemplo que esta en <code>/etc/nftables.conf</code>. En este fichero viene la tipica configuracion de te capo todo menos el ssh para que sigas configurando y no se te quede cara de pipas.</p>
 
@@ -122,7 +122,7 @@ Estan las <em>chains</em> que son agrupaciones de rules, solo que en lugar de te
 
 <p>Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks <code>output,forward,prerouting y postrouting</code> como en iptables.</p>
 
-<h2 id="activar-al-inicio:c74514a239cd5f964844045f31f80ffe">Activar al inicio</h2>
+<h2 id="activar-al-inicio">Activar al inicio</h2>
 
 <p>Una vez tengamos nuestras reglas puestas en <code>/etc/nftables.conf</code> podemos cargarlas en cada arranque.</p>
 
@@ -134,6 +134,8 @@ Estan las <em>chains</em> que son agrupaciones de rules, solo que en lugar de te
   </main>
 
   <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://blog.fabio.xyz/post/polymerfire-firebase-storage/" rel="prev">polymerfire y firebase-storage</a></span>
     
     
       <span class="next"><a href="http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/" rel="next">Tablas hash en C,Javascript y Python</a> &rarr;</span>

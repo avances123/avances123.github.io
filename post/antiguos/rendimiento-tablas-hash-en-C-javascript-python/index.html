@@ -74,8 +74,6 @@
         
           #<a href="http://blog.fabio.xyz/tags/rendimiento">rendimiento</a>&nbsp;
         
-          #<a href="http://blog.fabio.xyz/tags/performance">performance</a>&nbsp;
-        
       </div>
     </div>
     <article>
@@ -84,7 +82,7 @@
 
 <p>Un amigo necesitaba hacer una <a href="http://es.wikipedia.org/wiki/Tabla_hash">funcion hash</a> para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.</p>
 
-<h3 id="descripcion-del-problema:5eb5d78a8392d421063187c0197ccd44">Descripcion del problema</h3>
+<h3 id="descripcion-del-problema">Descripcion del problema</h3>
 
 <p>Tenemos un fichero de texto con miles de lineas del tipo:</p>
 
@@ -95,7 +93,7 @@
 
 <p>Nuestro objectivo es crear una tabla hash para poder buscar segun los campos de arriba, excepto el ultimo, que es el valor que queremos extraer. Es decir la clave de busqueda seran los valores <em>x,y,z,v,w</em> y el valor el campo <em>value</em></p>
 
-<h3 id="javascript:5eb5d78a8392d421063187c0197ccd44">Javascript</h3>
+<h3 id="javascript">Javascript</h3>
 
 <p>En javascript un diccionario, es un <a href="http://ecma262-5.com/ELS5_HTML.htm#Section_8.6">objeto</a>, es decir llenariamos un objeto cuyas propiedades son nuestras claves, no entiendo mucho la implementacion de los objetos/diccionarios en javascript asi que cualquier comentario clarificador lo agradeceria mucho.</p>
 
@@ -121,7 +119,7 @@ for (var m = 0; m &lt; keys.length; m++) {
 
 <p>Cabe repetir que lejos de entender la implementacion interna de los objetos en javascript, no parece que sea una tabla hash sino un array asociativo, no podemos decidir una funcion hash especifica para nuestro problema.</p>
 
-<h3 id="python:5eb5d78a8392d421063187c0197ccd44">Python</h3>
+<h3 id="python">Python</h3>
 
 <p>En python los <a href="http://hg.python.org/cpython/file/52f68c95e025/Objects/dictobject.c">diccionarios</a> son tablas hash, ademas, nuestras claves no tienen por que ser tipos basicos, si lo fueran seria bastante parecido al ejemplo de javascript, excepto que son tablas hash reales,aqui esta la implementacion de tuplas como claves. Cualquier objeto puede ser una clave de un diccionario, basta con que cumpla una serie de requisitos en su definicion, debemos especificar un par de cosas:</p>
 
@@ -179,7 +177,7 @@ def integer(self):
         d[key]
 </code></pre>
 
-<h3 id="c:5eb5d78a8392d421063187c0197ccd44">C</h3>
+<h3 id="c">C</h3>
 
 <p>En C no existe la estructura diccionario dentro del lenguaje, lo tenemos que hacer nosotros, esto tiene como ventaja que tenemos un control absoluto de como se tiene que comportar, ademas del rendimiento insuperable que tiene un lenguaje compilado como C. No hace falta que igual de insuperable es el tiempo que nos cuesta implementar este problema comparado con los otros dos contendientes, digamos que tenemos tiempo infinito para hacerlo.</p>
 
@@ -330,13 +328,13 @@ for(linea = 0; linea &lt; datos-&gt;num_datos; linea+=6)
 }
 </code></pre>
 
-<h3 id="metodo-de-resolucion-de-colisiones:5eb5d78a8392d421063187c0197ccd44">Metodo de resolucion de colisiones</h3>
+<h3 id="metodo-de-resolucion-de-colisiones">Metodo de resolucion de colisiones</h3>
 
 <p>En el caso de C, la tabla hash esta creada con un metodo de resolucion de colisiones del tipo <a href="http://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists">Separate chaining with linked lists</a>, mientras que el metodo que python usa es <a href="http://en.wikipedia.org/wiki/Hash_table#Open_addressing">Open addressing</a>, En esta grafica se ve como se comportan los dos metodos segun lo llena que esta la tabla (load factor), ordenadas menores es mejor.</p>
 
 <p><img src="http://upload.wikimedia.org/wikipedia/commons/1/1c/Hash_table_average_insertion_time.png" alt="Grafica collision compare" /></p>
 
-<h3 id="rendimiento:5eb5d78a8392d421063187c0197ccd44">Rendimiento</h3>
+<h3 id="rendimiento">Rendimiento</h3>
 
 <p>Aunque no con este codigo (modificado para la explicacion), se hicieron pruebas de los tres lenguajes, siendo vencedor C (con toda optimizacion del codigo posible), y muy cerca quedo <a href="http://pypy.org/">pypy</a> con su funcion built-in de hashear tuplas, mas de tres veces mas lento quedo el cpython 2.7, y javascript en nodejs.</p>
 
