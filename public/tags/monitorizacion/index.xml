@@ -6,13 +6,13 @@
     <description>Recent content in monitorizacion on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 07 Oct 2016 10:30:57 +0100</lastBuildDate>
     <atom:link href="http://blog.fabio.xyz/tags/monitorizacion/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Instalacion de grafana, influxdb y collectd</title>
       <link>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
       <description>
