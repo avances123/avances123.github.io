@@ -11,7 +11,7 @@
 
 
   <title>
-    congelar un paquete en arch linux | avances123
+    Congelar un paquete en arch linux | avances123
   </title>
 
 
@@ -62,9 +62,9 @@
   
   <main id="single" role="main">
     <div class="article-header">
-      <h1>congelar un paquete en arch linux</h1>
+      <h1>Congelar un paquete en arch linux</h1>
       <div class="meta">
-        Apr 4, 2016 &nbsp;
+        Oct 12, 2016 &nbsp;
         
       </div>
     </div>
@@ -72,15 +72,69 @@
 
       
 
+<h1 id="introduccion">Introduccion</h1>
+
+<p>Creo que es una de las cosas que se dice muy poco de Arch Linux y que me ha hecho enamorarme mas aun de esta distribucion, se trata del downgrade de paquetes.</p>
+
+<p>Mi problema ha sido este, Yo uso postgresql, para guardar datos, mapas etc, para las webs que hago en django y en general para <a href="https://www.depesz.com/">trastear</a>.</p>
+
+<p>El postgresql almacena los datos en un formato que cambia entre versiones, asi que si tienes un postgresql 9.4 en tu ordenador funcionando, con sus bases de datos, y lo actualizas a 9.5, el nuevo no arrancará, necesitas actualizar el formato de los datos que almacenaba el 9.4.</p>
+
+<p>Arch linux es una <a href="https://en.wikipedia.org/wiki/Rolling_release">rolling release</a>, que hablando mal es que esto no para de actualizarse sin parar,digo hablando mal (yo me incluyo,hasta no hace mucho decia lo mismo) porque no es asi para nada. Si eres usuario de arch linux conoceras el comando <code>pacman -Syu</code>, sirve para actualizar tus paquetes, es como <code>apt-get upgrade</code> en los sistemas debian. Pues si pacman detecta que hay un paquete llamado postgresql-9.5 que actualiza a tu instalado postgresql-9.4, lo cambiara y pondra el nuevo. Lo correcto es siempre saber que estas actualizando y tener un control, sobre todo en el entorno de la empresa, en nuestras casas somos mas de actualizar todo y tener el asunto bien nuevecito.</p>
+
+<p>Pero claro hay ciertos paquetes que no son el <code>htop</code> y que actualizarlos no puede ser tan sencillo, es el caso de postgresql. Siguiendo con nuestro problema, en este punto hemos actualizado y tenemos un flamante postgresql-9.5 que no arranca, ya que su configuracion apunta a un directorio de datos con <em>formato</em> de 9.4.</p>
+
+<h1 id="downgrade-de-un-paquete">Downgrade de un paquete</h1>
+
+<p>Hemos actualizado a postgresql-9.5 pero necesitamos volver a 9.4 para actualizar los datos, este paso se sale del proposito de este post, hay muchas formas, pero la que me gusta a mi ya que no tengo muchos datos es volcar toda la base de datos en texto a un fichero con <code>pg_dumpall</code>.</p>
+
+<p>Necesitamos postgresql-9.4 para arrancar y hacer el dump, pero hemos actualizado a 9.5,<a href="https://wiki.archlinux.org/index.php/Downgrading_packages">hay que volver</a>, como se hace esto? pues realemente es muy sencillo y elegante.</p>
+
+<h2 id="arch-linux-archive">Arch Linux Archive</h2>
+
+<p>ALA es una coleccion de snapshots de los repositorios, por fecha. Es decir guarda como eran los repos de nuestros paquetes para un dia determinado.</p>
+
+<p>Para pillar nuestro postgresql-94, buscamos en la carpeta <a href="https://archive.archlinux.org/packages">packages</a> donde estan todos los paquetes y sus versiones. Nos lo bajamos y lo instalamos asi</p>
+
+<pre><code>cd /tmp/
+wget https://archive.archlinux.org/packages/p/postgresql/postgresql-9.4.5-1-x86_64.pkg.tar.xz
+sudo pacman -U postgresql-9.4.5-1-x86_64.pkg.tar.xz
+</code></pre>
+
+<h1 id="forzar-una-version-de-un-paquete-y-no-actualizarla">Forzar una version de un paquete y no actualizarla</h1>
+
+<p>Bueno ya vamos arreglando el embrollo, una vez hecho el dump a texto, volvemos a postgresql-9.5 y lo cargamos y ya tenemos nuestro postgresql nuevecito con nuestros datos. Ahora queremos que no nos vuelva a suceder en la 9.6. Vamos a forzar a quedarnos con esta version de postgresql y que pacman pase de actualizar a 9.6 aunque lo encuentre, porque cuando esto suceda, nos saldra por pantalla, haremos el dump a texto, y podremos actualizar nuestros datos.</p>
+
+<p>En nuestro <code>/etc/pacman.conf</code> editamos esta linea:</p>
+
+<pre><code>IgnorePkg   = postgresql postgresql-libs postgis
+</code></pre>
+
+<p>Y listo, ya no nos volvera a pasar el mismo problema.</p>
+
+<h1 id="dejar-de-ser-una-rolling-release">Dejar de ser una rolling release</h1>
+
+<p>Gracias a ALA, nuestro mirrorlist puede estar puesto a un dia fijo, esto significara que nunca veremos actualizaciones nuevas, tendremos un sistema estable y seguro, donde conocemos todas las versiones de los paquetes y estamos conformes.</p>
+
+<p>Basta con actualizar nuestros repos a ese dia en ALA, actualizando nuestro <code>/etc/pacman.d/mirrorlist</code></p>
+
+<pre><code>##
+## Arch Linux repository mirrorlist
+## Generated on 2042-01-01
+##
+Server=https://archive.archlinux.org/repos/2014/03/30/$repo/os/$arch
+</code></pre>
+
+<p>El dia queramos gastar tiempo de nuestro equipo en actualizar todo el sistema operativo, tendriamos que cambiar la fecha en la url de nuestro mirror y trabajar para que la actualizacion funcione. Se acabaron las excusas para no utilizar Arch en produccion!</p>
+
+
     </article>
   </main>
 
   <nav class="pagination-single">
     
-      <span class="previous">&larr; <a href="http://blog.fabio.xyz/post/nftables-archlinux/" rel="prev">Montando un firewall nftables</a></span>
     
-    
-      <span class="next"><a href="http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/" rel="next">Tablas hash en C,Javascript y Python</a> &rarr;</span>
+      <span class="next"><a href="http://blog.fabio.xyz/post/polymerfire-firebase-storage/" rel="next">polymerfire y firebase-storage</a> &rarr;</span>
     
   </nav>
 
