@@ -6,53 +6,13 @@
     <description>Recent content in Servidor casero con Arch Linux on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 07 Oct 2016 10:30:57 +0100</lastBuildDate>
     <atom:link href="http://blog.fabio.xyz/series/servidor-casero-con-arch-linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Instalacion de grafana, influxdb y collectd</title>
-      <link>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
-      <description>
-
-&lt;h1 id=&#34;sacando-graficas-de-todo-en-tu-red-casera&#34;&gt;Sacando graficas de todo en tu red casera&lt;/h1&gt;
-
-&lt;p&gt;Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
-1. Una base de datos especial para series temporales llamada &lt;a href=&#34;https://www.influxdata.com/time-series-platform/influxdb/&#34;&gt;influxdb&lt;/a&gt;
-2. Un frontend para pintar las graficas llamado &lt;a href=&#34;http://grafana.org/&#34;&gt;grafana&lt;/a&gt;
-3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado &lt;a href=&#34;https://collectd.org/&#34;&gt;collectd&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Vamos a ver la instalacion y configuracion de cada uno de los programas.&lt;/p&gt;
-
-&lt;h2 id=&#34;influxdb&#34;&gt;influxdb&lt;/h2&gt;
-
-&lt;p&gt;Influxdb es otra base de datos mas, enfocada en almacenar datos en timeseries, esta escrita en Go y es de codigo abierto. La uso para almacenar las tipicas metricas del servidor y pintarlas en graficas tipo munin, pero espero algun dia experimentar mas con ella ahora que esta en la version v1.0. Quiza algun benchmark de alguna variable de meteo en postgresql vs influxdb o algo asi.&lt;/p&gt;
-
-&lt;p&gt;Esto quiere decir que no vale solo para pintar la ram de nuestro ordenador, esta db tiene de serie una API HTTP donde con una sola request podemos enviarle datos. Asi que enviar un numero desde cualquier programa bastaria con ponerle un GET a ese programa enviando el dato.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yaourt -S influxdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Editamos &lt;code&gt;/etc/influxdb/influxdb.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;grafana&#34;&gt;grafana&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo pacman -S grafana
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;collectd&#34;&gt;collectd&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo pacman -S collectd
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
     
     <item>
       <title>Introduccion, que tenia antes y que he comprado</title>
       <link>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</guid>
       <description>
@@ -98,6 +58,46 @@ IgnorePkg = linux-lts linux-lts-headers
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Con esto conseguimos tener dos kernels en nuestro grub, el paquete linux, con el kernel actualizandose a menudo , y el paquete linux-lts, que es un kernel mas estable y ademas bloqueado, lo actualiaremos cuando &lt;strong&gt;necesitemos&lt;/strong&gt;.Este sera nuestro kernel por defecto en el arranque.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Instalacion de grafana, influxdb y collectd</title>
+      <link>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</link>
+      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
+      <description>
+
+&lt;h1 id=&#34;sacando-graficas-de-todo-en-tu-red-casera&#34;&gt;Sacando graficas de todo en tu red casera&lt;/h1&gt;
+
+&lt;p&gt;Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
+1. Una base de datos especial para series temporales llamada &lt;a href=&#34;https://www.influxdata.com/time-series-platform/influxdb/&#34;&gt;influxdb&lt;/a&gt;
+2. Un frontend para pintar las graficas llamado &lt;a href=&#34;http://grafana.org/&#34;&gt;grafana&lt;/a&gt;
+3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado &lt;a href=&#34;https://collectd.org/&#34;&gt;collectd&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Vamos a ver la instalacion y configuracion de cada uno de los programas.&lt;/p&gt;
+
+&lt;h2 id=&#34;influxdb&#34;&gt;influxdb&lt;/h2&gt;
+
+&lt;p&gt;Influxdb es otra base de datos mas, enfocada en almacenar datos en timeseries, esta escrita en Go y es de codigo abierto. La uso para almacenar las tipicas metricas del servidor y pintarlas en graficas tipo munin, pero espero algun dia experimentar mas con ella ahora que esta en la version v1.0. Quiza algun benchmark de alguna variable de meteo en postgresql vs influxdb o algo asi.&lt;/p&gt;
+
+&lt;p&gt;Esto quiere decir que no vale solo para pintar la ram de nuestro ordenador, esta db tiene de serie una API HTTP donde con una sola request podemos enviarle datos. Asi que enviar un numero desde cualquier programa bastaria con ponerle un GET a ese programa enviando el dato.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yaourt -S influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Editamos &lt;code&gt;/etc/influxdb/influxdb.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;grafana&#34;&gt;grafana&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo pacman -S grafana
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;collectd&#34;&gt;collectd&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo pacman -S collectd
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
