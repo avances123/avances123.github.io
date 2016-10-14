@@ -82,16 +82,35 @@
 
       
 
-<h1 id="sacando-graficas-de-todo-en-tu-red-casera:ae9997a2769c75053f068259cadd520a">Sacando graficas de todo en tu red casera</h1>
+<h1 id="sacando-graficas-de-todo-en-tu-red-casera">Sacando graficas de todo en tu red casera</h1>
 
 <p>Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
-1. Una base de datos especial para series temporales llamada influxdb
-2. Un frontend para pintar las graficas llamado grafana
-3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd</p>
+1. Una base de datos especial para series temporales llamada <a href="https://www.influxdata.com/time-series-platform/influxdb/">influxdb</a>
+2. Un frontend para pintar las graficas llamado <a href="http://grafana.org/">grafana</a>
+3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado <a href="https://collectd.org/">collectd</a></p>
 
 <p>Vamos a ver la instalacion y configuracion de cada uno de los programas.</p>
 
-<h2 id="influxdb:ae9997a2769c75053f068259cadd520a">influxdb</h2>
+<h2 id="influxdb">influxdb</h2>
+
+<p>Influxdb es otra base de datos mas, enfocada en almacenar datos en timeseries, esta escrita en Go y es de codigo abierto. La uso para almacenar las tipicas metricas del servidor y pintarlas en graficas tipo munin, pero espero algun dia experimentar mas con ella ahora que esta en la version v1.0. Quiza algun benchmark de alguna variable de meteo en postgresql vs influxdb o algo asi.</p>
+
+<p>Esto quiere decir que no vale solo para pintar la ram de nuestro ordenador, esta db tiene de serie una API HTTP donde con una sola request podemos enviarle datos. Asi que enviar un numero desde cualquier programa bastaria con ponerle un GET a ese programa enviando el dato.</p>
+
+<pre><code class="language-bash">yaourt -S influxdb
+</code></pre>
+
+<p>Editamos <code>/etc/influxdb/influxdb.conf</code></p>
+
+<h2 id="grafana">grafana</h2>
+
+<pre><code class="language-bash">sudo pacman -S grafana
+</code></pre>
+
+<h2 id="collectd">collectd</h2>
+
+<pre><code class="language-bash">sudo pacman -S collectd
+</code></pre>
 
 
     </article>
