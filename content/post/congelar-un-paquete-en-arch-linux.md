@@ -2,6 +2,9 @@
 author = "Fabio Rueda"
 date = "2016-10-12T19:05:03+02:00"
 title = "Congelar un paquete en arch linux"
+tags = ['arch','pacman','postgresql']
+keywords = ['arch','pacman','Arch Linux Archive']
+description = "Como bajar de version un paquete y como forzar una version en Arch linux con pacman"
 +++
 
 # Introduccion
