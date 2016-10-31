@@ -6,3 +6,6 @@ tags = ['IDE','python']
 keywords = ["code","atom","visual studio code","python"]
 description = "Configuracion de visual studio code para ser productivo programando en python"
 +++
+
+# Visual Studio code
+Me he cambiao a este porque se han cambiao los de google
