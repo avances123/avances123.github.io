@@ -6,20 +6,39 @@
     <description>Recent content in IDE on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Sun, 30 Oct 2016 18:29:06 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 02 Nov 2016 18:29:06 +0200</lastBuildDate>
     <atom:link href="http://blog.fabio.xyz/tags/ide/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Usando visual studio code para python</title>
       <link>http://blog.fabio.xyz/post/visual-studio-code-con-python/</link>
-      <pubDate>Sun, 30 Oct 2016 18:29:06 +0200</pubDate>
+      <pubDate>Wed, 02 Nov 2016 18:29:06 +0200</pubDate>
       
       <guid>http://blog.fabio.xyz/post/visual-studio-code-con-python/</guid>
       <description>
 
+&lt;h1 id=&#34;atom-sublime-text-y-tal&#34;&gt;Atom, sublime-text y tal&lt;/h1&gt;
+
+&lt;p&gt;Pues ultimamente se esta poniendo de moda &lt;a href=&#34;https://code.visualstudio.com&#34;&gt;este editor&lt;/a&gt;, sobre todo entre los programadores web,
+yo desde hace tiempo venia usando sublime-text y despues &lt;a href=&#34;https://atom.io/&#34;&gt;atom&lt;/a&gt; asi que me he cambiado. Si vienes de atom/subl
+tienes el ctrl+shif+p donde tienes el buscador de cualquier accion que se te ocurra. Yo creo que ahi sobre todo reside la gracia
+de estos editores.&lt;/p&gt;
+
 &lt;h1 id=&#34;visual-studio-code&#34;&gt;Visual Studio code&lt;/h1&gt;
 
-&lt;p&gt;Me he cambiao a este porque se han cambiao los de google&lt;/p&gt;
+&lt;p&gt;Ahora puedes instalarte este editor en arch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yaourt visual-studio-code
+$ code .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;El programa es sencillo, va como 3 veces mas rapido que atom y tiene algunas cosas distintas, a la izquierda tendremos unos iconos
+para poder instalar plugins y para git que estan muy bien.&lt;/p&gt;
+
+&lt;h1 id=&#34;plugins-para-python&#34;&gt;Plugins para python&lt;/h1&gt;
+
+&lt;p&gt;Bueno pues el primer plugin es el que te recomienda el editor cuando abres un .py, se llama Python y lo bueno que tiene visual studio code
+es que si lo ejecutas con un virtualenv activado, reonoce el ejecutable python y su path, muy util para navegar por las definiciones de las cosas&lt;/p&gt;
 </description>
     </item>
     
