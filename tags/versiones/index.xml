@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>avances123</title>
+    <link>http://blog.fabio.xyz/tags/versiones/index.xml</link>
+    <description>Recent content on avances123</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <copyright>Written by Fabio Rueda</copyright>
+    <atom:link href="http://blog.fabio.xyz/tags/versiones/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>semantic versioning</title>
+      <link>http://blog.fabio.xyz/post/semantic-versioning/</link>
+      <pubDate>Tue, 15 Nov 2016 11:32:31 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/semantic-versioning/</guid>
+      <description>
+
+&lt;p&gt;Desde hace ya tiempo estoy usando bower y cuando abandono un proyecto y
+lo retomo al mes o dos, se me ocurre hacer un &lt;code&gt;bower list&lt;/code&gt; y veo que hay
+paquetes que se pueden actualizar sin problema, pero &lt;code&gt;bower update&lt;/code&gt; no me
+hace caso. Abrimos el bower.json y nos encontramos con paquetes y simbolos
+y versiones.&lt;/p&gt;
+
+&lt;h2 id=&#34;versiones-semanticas&#34;&gt;Versiones semanticas&lt;/h2&gt;
+
+&lt;p&gt;Pues de esto va este post, porque estoy harto ya, y he decidido enterarme de
+como van, y de paso escribir en el blog por si a alguien le interesa que se
+lo expliquen como si fuera un niño de 6 años.&lt;/p&gt;
+
+&lt;h3 id=&#34;formato&#34;&gt;Formato&lt;/h3&gt;
+
+&lt;p&gt;Una version semantica de un paquete debe tener un formato tal que asi:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Major.Minor.Patch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por ejemplo &lt;code&gt;v1.3.4&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;reglas-que-hay-que-saberse&#34;&gt;Reglas que hay que saberse&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Si cambia el numero del patch, es que han corregido bugs pero los cambios son
+compatibles hacia atras&lt;/li&gt;
+&lt;li&gt;Si cambia el numero del minor, es que han añadido funcionalidades y los cambios
+siguen siendo compatibles hacia atras&lt;/li&gt;
+&lt;li&gt;Si cambia el numero del major, es que han metido cambios que no son compatibles
+hacia atras&lt;/li&gt;
+&lt;li&gt;Otra regla mas por convenio es que si el major es 0, aun no se puede poner en
+produccion&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;### Los rangos (o simbolos raros) que hay que saberse
+ Solo voy a poner los que no se explican por si mismos:
+  * &lt;code&gt;~1.2.0&lt;/code&gt;: debe ser como minimo 1.2.0 pero nunca pasar la Minor (actualizariamos siempre pero sin llegar a 1.3)
+  * &lt;code&gt;^1.2.0&lt;/code&gt;: es la que viene por defecto en npm y bower, debe ser como minimo 1.2.0 y nunca pasar la Major  (actualizariamos siempre pero sin llegar a 2.0)&lt;/p&gt;
+
+&lt;p&gt;Sobre esto he leido un &lt;a href=&#34;https://nodesource.com/blog/semver-tilde-and-caret/&#34;&gt;post interesante&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
