@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>monitorizacion on avances123</title>
-    <link>http://blog.fabio.xyz/tags/monitorizacion/</link>
-    <description>Recent content in monitorizacion on avances123</description>
+    <title>avances123</title>
+    <link>http://blog.fabio.xyz/tags/monitorizacion/index.xml</link>
+    <description>Recent content on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Fri, 07 Oct 2016 10:30:57 +0100</lastBuildDate>
+    <copyright>Written by Fabio Rueda</copyright>
     <atom:link href="http://blog.fabio.xyz/tags/monitorizacion/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
