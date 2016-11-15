@@ -51,10 +51,11 @@ hacia atras&lt;/li&gt;
 produccion&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;### Los rangos (o simbolos raros) que hay que saberse
- Solo voy a poner los que no se explican por si mismos:
-  * &lt;code&gt;~1.2.0&lt;/code&gt;: debe ser como minimo 1.2.0 pero nunca pasar la Minor (actualizariamos siempre pero sin llegar a 1.3)
-  * &lt;code&gt;^1.2.0&lt;/code&gt;: es la que viene por defecto en npm y bower, debe ser como minimo 1.2.0 y nunca pasar la Major  (actualizariamos siempre pero sin llegar a 2.0)&lt;/p&gt;
+&lt;h3 id=&#34;los-rangos-o-simbolos-raros-que-hay-que-saberse&#34;&gt;Los rangos (o simbolos raros) que hay que saberse&lt;/h3&gt;
+
+&lt;p&gt;Solo voy a poner los que no se explican por si mismos:
+ * &lt;code&gt;~1.2.0&lt;/code&gt;: debe ser como minimo 1.2.0 pero nunca pasar la Minor (actualizariamos siempre pero sin llegar a 1.3)
+ * &lt;code&gt;^1.2.0&lt;/code&gt;: es la que viene por defecto en npm y bower, debe ser como minimo 1.2.0 y nunca pasar la Major  (actualizariamos siempre pero sin llegar a 2.0)&lt;/p&gt;
 
 &lt;p&gt;Sobre esto he leido un &lt;a href=&#34;https://nodesource.com/blog/semver-tilde-and-caret/&#34;&gt;post interesante&lt;/a&gt;&lt;/p&gt;
 </description>
