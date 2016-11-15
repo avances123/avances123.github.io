@@ -39,7 +39,8 @@ compatibles hacia atras
 
 
 ### Los rangos (o simbolos raros) que hay que saberse
- Solo voy a poner los que no se explican por si mismos:
+Solo voy a poner los que no se explican por si mismos:
+
  * ```~1.2.0```: debe ser como minimo 1.2.0 pero nunca pasar la Minor (actualizariamos siempre pero sin llegar a 1.3)
  * ```^1.2.0```: es la que viene por defecto en npm y bower, debe ser como minimo 1.2.0 y nunca pasar la Major  (actualizariamos siempre pero sin llegar a 2.0)
 
