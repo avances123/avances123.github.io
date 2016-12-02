@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="2NHKEM-aqhXa-pfsTc--26GMPb1mGY__SDMKGZqb8KY" />
+  <meta name="keywords" content="debug,chrome,android,web">
+  <meta name="description" content="Como utilizar las chrome dev tools para enchufar tu movil y ver las webs">
+
+
+  <title>
+    Como depurar webs con el movil real | avances123
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.fabio.xyz/post/depurar-webs-con-el-movil/"/>
+
+  
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/sanitize.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/responsive.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/theme.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/custom.css">
+
+  
+  <link href="http://blog.fabio.xyz/index.xml" rel="alternate" type="application/rss+xml" title="avances123" />
+  <link href="http://blog.fabio.xyz/index.xml" rel="feed" type="application/rss+xml" title="avances123" />
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://blog.fabio.xyz/">avances123</a></h1>
+        <h2>Instalo algo y opino al respecto</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          <li><a href="https://twitter.com/avances123" target="_blank">Twitter</a></li>
+          
+          <li><a href="https://github.com/avances123" target="_blank">GitHub</a></li>
+          
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>Como depurar webs con el movil real</h1>
+      <div class="meta">
+        Nov 15, 2016 &nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/debug">debug</a>&nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/chrome">chrome</a>&nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/android">android</a>&nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/web">web</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+
+      
+
+<h2 id="viendo-la-web-que-estas-haciendo-directamente-en-tu-movil">Viendo la web que estas haciendo directamente en tu movil</h2>
+
+<p>Como ya sabreis, el chrome (y quiza otros navegadores) pueden poner su viewport como el de un movil
+para hacernos mas facil depurar la responsividad de nuestra web y poder ir viendo todo tipo de tamaño y forma
+de pantallas.</p>
+
+<p>Eso esta muy bien porque es rapidisimo, y podemos depurar como siempre con nuestro f12, aun asi, si queremos
+visualizarla desde nuestro movil, con su chrome nativo de android y tal, podemos.  Es lo que vamos a hacer hoy.</p>
+
+<p>La gracia, ademas de poder ver en un movil real tu aplicacion, es que la puedes depurar en el chrome de tu pc,
+con tu pantalla grande, tu raton y teclado, y eso siempre es un puntazo.</p>
+
+<h2 id="montando-el-todo-en-tu-pc">Montando el todo en tu pc</h2>
+
+<p>Pues como casi siempre lo voy a montar yo en mi pc y a la vez ire escribiendo aqui, para calentar os comento que
+google tiene <a href="https://developers.google.com/web/tools/chrome-devtools/remote-debugging/">una web</a>
+para hacer especificamente esto, asi que si quereis os podeis ir alli.</p>
+
+<h3 id="preparando-el-pc-con-arch-linux">Preparando el pc con Arch linux</h3>
+
+<p>Necesitamos el SDK de android, siempre es bueno tenerlo instalado si tienes un movil android.</p>
+
+<pre><code>$ yaourt android-tools android-sdk
+.... instalamos.... 
+$ adb version
+</code></pre>
+
+<p>Si funciona este ultimo comando podemos seguir.</p>
+
+<h3 id="preparando-el-movil">Preparando el movil</h3>
+
+<p>Si usas <code>adb</code> o algun comando con de las android tools desde tu movil ya lo tendras activado, si no,
+aqui te dejo un video de como hacerlo</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/PA135Z23sek" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0"></iframe>
+ </div>
+
+
+<h3 id="devtools">devtools</h3>
+
+<p>Una vez enchufado el movil ya solo falta configurar nuestro chrome en el pc para que descubra nuestro movil.
+Abrimos las devtools con f12 y clickamos esta opcion.</p>
+
+<p><img src="https://developers.google.com/web/tools/chrome-devtools/remote-debugging/imgs/open-inspect-devices.png" alt="elegir device" /></p>
+
+<p>Una vez emparejado ya esta le lio montao, podremos ir a cualquier url que pongamos en nuestras devtools y se visitara en el movil,
+depurando la web, e incluso capturando la pantalla de lo que se ve en el movil y viendolo en nuestro pantallon de developa con
+nuestro teclado y raton.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Para hacer una progressive web app siempre podemos usar solo el pc e ir viendo los tamaños de la pantalla mientras desarrollamos, pero
+llegado el momento, esta funcionalidad de chrome se hace vital, para estar bien seguros de que en moviles (al menos en el tuyo propio),
+la app va a funcionar correctamente. Es gratis y solo necesitas un cable usb que lo tienes ya, rata. Asi que a depurar en el movil nativamente!</p>
+
+
+    </article>
+  </main>
+
+  <nav class="pagination-single">
+    
+    
+      <span class="next"><a href="http://blog.fabio.xyz/post/semantic-versioning/" rel="next">semantic versioning</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://blog.fabio.xyz/images/profile.png" width="64" height="64"><br>
+      Written by Fabio Rueda
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="http://blog.fabio.xyz/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-18805523-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>
+
