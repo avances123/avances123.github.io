@@ -1,6 +1,6 @@
 +++
 author = "Fabio Rueda"
-date = "2016-11-15T11:32:31+01:00"
+date = "2016-12-01T11:32:31+01:00"
 title = "Como depurar webs con el movil real"
 tags = ['debug','chrome','android','web']
 keywords =  ['debug','chrome','android','web']
