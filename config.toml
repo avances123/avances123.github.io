@@ -16,12 +16,13 @@ serie = "series" # Para monograficos de posts
 
 
 [Params]
+disqusShortname = "avances123"
 subtitle = "Instalo algo y opino al respecto"
 twitter = "https://twitter.com/avances123"
 github = "https://github.com/avances123"
 showsRSS = true
 profile = "/images/profile.png"
-copyright = "Written by Fabio Rueda"
+copyright = "Escrito por Fabio Rueda"
 analytics = "UA-18805523-1"
 description = "Un blog con articulos con proyectos en arch linux, python, postgresql algo de GIS."
 keywords = "arch,archlinux,python,gis,postgresql,gis,sql,javascript,angular,angularjs,js,blog,avances123,hack"
