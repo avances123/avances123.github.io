@@ -1,7 +1,7 @@
 +++
 author = "Fabio Rueda"
 date = "2016-12-01T11:32:31+01:00"
-title = "Como depurar webs con el movil real"
+title = "Como depurar webs con el movil"
 tags = ['debug','chrome','android','web']
 keywords =  ['debug','chrome','android','web']
 description = "Como utilizar las chrome dev tools para enchufar tu movil y ver las webs"
