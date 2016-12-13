@@ -1,0 +1,26 @@
+.cabeza {
+    height: 52px;
+}
+
+#menu-amigos {
+    list-style-type: none;
+    padding: 0;
+    /*width: 200px;*/
+    /*border: 1px solid red;*/
+    display: none;
+}
+
+input[name=trigger] {
+    display: none;
+}
+
+#menu-amigos li a {
+    display: block;
+}
+
+label {
+    cursor: pointer;
+}
+input[name="trigger"]:checked + #menu-amigos {
+    display: block;
+}
