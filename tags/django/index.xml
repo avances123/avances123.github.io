@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>django on avances123</title>
+    <link>http://blog.fabio.xyz/tags/django/index.xml</link>
+    <description>Recent content in django on avances123</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <copyright>Escrito por Fabio Rueda</copyright>
+    <atom:link href="http://blog.fabio.xyz/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>migracion django desde charfield a clase</title>
+      <link>http://blog.fabio.xyz/post/migracion-django-desde-charfield-a-clase/</link>
+      <pubDate>Tue, 24 Jan 2017 17:26:09 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/migracion-django-desde-charfield-a-clase/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h2&gt;
+
+&lt;p&gt;Pues nuestra aplicacion esta funcionando en produccion, nuestro modelo funciona muy bien y es bastante flexible, vamos afrontando bien los nuevos requisitos
+y haciendo migraciones con exito, de pronto nos vamos dando cuenta que un campo simple de un modelo, que teniamos puesto como de tipo String, queremos que
+tenga mas vidilla, por ejemplo guardamos el estilo de un disco como un string, pero a la larga nos damos cuenta que Estilo lo podemos generalizar en una clase
+para poder saber mas datos del estilo, como el lugar donde se originó, o si es un subtipo de musica electronica y cosas asi.&lt;/p&gt;
+
+&lt;h2 id=&#34;origen&#34;&gt;Origen&lt;/h2&gt;
+
+&lt;p&gt;Partimos de esta base, guardamos el artista del album como una cadena, y ya tenemos muchos asi guardados.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from django.db import models
+
+class Album(models.Model):
+    name = models.CharField(max_length=255)
+    genre = models.CharField(max_length=255)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;paso-1&#34;&gt;Paso 1&lt;/h2&gt;
+
+&lt;p&gt;Creamos el modelo nuevo de genero y lo enlazamos en un campo nuevo &lt;code&gt;genre_link&lt;/code&gt; sin borrar el antiguo string.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from django.db import models
+
+class Album(models.Model):
+    name = models.CharField(max_length=255)
+    genre = models.CharField(max_length=255)
+    genre_link = models.ForeignKey(&#39;Genre&#39;, null=True)
+
+class Genre(models.Model):
+    name = models.CharField(max_length=255)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;y creamos la migracion:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./manage.py makemigrations discography
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;paso-2&#34;&gt;Paso 2&lt;/h2&gt;
+
+&lt;p&gt;Ahora populamos el nuevo campo, creando los objetos nuevos desde la columna antigua, con una migracion vacia&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./manage.py makemigrations --empty --name crea_genres discography
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Y hacemos el codigo para sacar el texto del tipo, y crear los objetos nuevos.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from __future__ import unicode_literals
+
+from django.db import migrations
+
+
+def create_genres(apps, schema_editor):
+    Genre = apps.get_model(&#39;discography&#39;, &#39;Genre&#39;)
+    Album = apps.get_model(&#39;discography&#39;, &#39;Album&#39;)
+    for album in Album.objects.all():
+        tipo, created = Genre.objects.get_or_create(name=album.artist)
+        album.genre_link = tipo
+        album.save()
+
+
+def borra_genres(apps, schema_editor):
+    pass
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.RunPython(create_genres, borra_genres),
+    ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;paso-3&#34;&gt;Paso 3&lt;/h2&gt;
+
+&lt;p&gt;En este punto ya tenemos nuestro problema solucionado, nos falta hacer limpieza y borrar la columna antigua.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

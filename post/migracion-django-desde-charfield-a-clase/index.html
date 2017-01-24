@@ -6,12 +6,12 @@
   
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="2NHKEM-aqhXa-pfsTc--26GMPb1mGY__SDMKGZqb8KY" />
-  <meta name="keywords" content="code,atom,visual studio code,python">
-  <meta name="description" content="Configuracion de visual studio code para ser productivo programando en python">
+  <meta name="keywords" content="django,migraciones,android,web">
+  <meta name="description" content="Cuando tenemos un campo choices en nuestro modelo y queremos sacarlo a una clase">
 
 
   <title>
-    Usando visual studio code para python | avances123
+    migracion django desde charfield a clase | avances123
   </title>
 
 
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.fabio.xyz/post/visual-studio-code-con-python/"/>
+  <link rel="canonical" href="http://blog.fabio.xyz/post/migracion-django-desde-charfield-a-clase/"/>
 
   
   <link rel="stylesheet" href="http://blog.fabio.xyz/css/sanitize.css">
@@ -67,13 +67,13 @@
   
   <main id="single" role="main">
     <div class="article-header">
-      <h1>Usando visual studio code para python</h1>
+      <h1>migracion django desde charfield a clase</h1>
       <div class="meta">
-        Nov 2, 2016 &nbsp;
+        Jan 24, 2017 &nbsp;
         
-          #<a href="http://blog.fabio.xyz/tags/ide">IDE</a>&nbsp;
+          #<a href="http://blog.fabio.xyz/tags/django">django</a>&nbsp;
         
-          #<a href="http://blog.fabio.xyz/tags/python">python</a>&nbsp;
+          #<a href="http://blog.fabio.xyz/tags/migraciones">migraciones</a>&nbsp;
         
       </div>
     </div>
@@ -81,28 +81,84 @@
 
       
 
-<h1 id="atom-sublime-text-y-tal">Atom, sublime-text y tal</h1>
+<h2 id="introduccion">Introduccion</h2>
 
-<p>Pues ultimamente se esta poniendo de moda <a href="https://code.visualstudio.com">este editor</a>, sobre todo entre los programadores web,
-yo desde hace tiempo venia usando sublime-text y despues <a href="https://atom.io/">atom</a> asi que me he cambiado. Si vienes de atom/subl
-tienes el ctrl+shif+p donde tienes el buscador de cualquier accion que se te ocurra. Yo creo que ahi sobre todo reside la gracia
-de estos editores.</p>
+<p>Pues nuestra aplicacion esta funcionando en produccion, nuestro modelo funciona muy bien y es bastante flexible, vamos afrontando bien los nuevos requisitos
+y haciendo migraciones con exito, de pronto nos vamos dando cuenta que un campo simple de un modelo, que teniamos puesto como de tipo String, queremos que
+tenga mas vidilla, por ejemplo guardamos el estilo de un disco como un string, pero a la larga nos damos cuenta que Estilo lo podemos generalizar en una clase
+para poder saber mas datos del estilo, como el lugar donde se originó, o si es un subtipo de musica electronica y cosas asi.</p>
 
-<h1 id="visual-studio-code">Visual Studio code</h1>
+<h2 id="origen">Origen</h2>
 
-<p>Ahora puedes instalarte este editor en arch:</p>
+<p>Partimos de esta base, guardamos el artista del album como una cadena, y ya tenemos muchos asi guardados.</p>
 
-<pre><code>$ yaourt visual-studio-code
-$ code .
+<pre><code class="language-python">from django.db import models
+
+class Album(models.Model):
+    name = models.CharField(max_length=255)
+    genre = models.CharField(max_length=255)
 </code></pre>
 
-<p>El programa es sencillo, va como 3 veces mas rapido que atom y tiene algunas cosas distintas, a la izquierda tendremos unos iconos
-para poder instalar plugins y para git que estan muy bien.</p>
+<h2 id="paso-1">Paso 1</h2>
 
-<h1 id="plugins-para-python">Plugins para python</h1>
+<p>Creamos el modelo nuevo de genero y lo enlazamos en un campo nuevo <code>genre_link</code> sin borrar el antiguo string.</p>
 
-<p>Bueno pues el primer plugin es el que te recomienda el editor cuando abres un .py, se llama Python y lo bueno que tiene visual studio code
-es que si lo ejecutas con un virtualenv activado, reonoce el ejecutable python y su path, muy util para navegar por las definiciones de las cosas</p>
+<pre><code class="language-python">from django.db import models
+
+class Album(models.Model):
+    name = models.CharField(max_length=255)
+    genre = models.CharField(max_length=255)
+    genre_link = models.ForeignKey('Genre', null=True)
+
+class Genre(models.Model):
+    name = models.CharField(max_length=255)
+</code></pre>
+
+<p>y creamos la migracion:</p>
+
+<pre><code class="language-bash">./manage.py makemigrations discography
+</code></pre>
+
+<h2 id="paso-2">Paso 2</h2>
+
+<p>Ahora populamos el nuevo campo, creando los objetos nuevos desde la columna antigua, con una migracion vacia</p>
+
+<pre><code class="language-bash">./manage.py makemigrations --empty --name crea_genres discography
+</code></pre>
+
+<p>Y hacemos el codigo para sacar el texto del tipo, y crear los objetos nuevos.</p>
+
+<pre><code class="language-python">from __future__ import unicode_literals
+
+from django.db import migrations
+
+
+def create_genres(apps, schema_editor):
+    Genre = apps.get_model('discography', 'Genre')
+    Album = apps.get_model('discography', 'Album')
+    for album in Album.objects.all():
+        tipo, created = Genre.objects.get_or_create(name=album.artist)
+        album.genre_link = tipo
+        album.save()
+
+
+def borra_genres(apps, schema_editor):
+    pass
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.RunPython(create_genres, borra_genres),
+    ]
+</code></pre>
+
+<h2 id="paso-3">Paso 3</h2>
+
+<p>En este punto ya tenemos nuestro problema solucionado, nos falta hacer limpieza y borrar la columna antigua.</p>
 
 
     </article>
@@ -126,10 +182,8 @@ es que si lo ejecutas con un virtualenv activado, reonoce el ejecutable python y
 
   <nav class="pagination-single">
     
-      <span class="previous">&larr; <a href="http://blog.fabio.xyz/post/semantic-versioning/" rel="prev">semantic versioning</a></span>
     
-    
-      <span class="next"><a href="http://blog.fabio.xyz/post/congelar-un-paquete-en-arch-linux/" rel="next">Congelar un paquete en arch linux</a> &rarr;</span>
+      <span class="next"><a href="http://blog.fabio.xyz/post/depurar-webs-con-el-movil/" rel="next">Como depurar webs con el movil</a> &rarr;</span>
     
   </nav>
 
