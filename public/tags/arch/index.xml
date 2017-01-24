@@ -1,141 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>avances123</title>
+    <title>arch on avances123</title>
     <link>http://blog.fabio.xyz/tags/arch/index.xml</link>
-    <description>Recent content on avances123</description>
+    <description>Recent content in arch on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <copyright>Escrito por Fabio Rueda</copyright>
     <atom:link href="http://blog.fabio.xyz/tags/arch/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Congelar un paquete en arch linux</title>
-      <link>http://blog.fabio.xyz/post/congelar-un-paquete-en-arch-linux/</link>
-      <pubDate>Wed, 12 Oct 2016 19:05:03 +0200</pubDate>
-      
-      <guid>http://blog.fabio.xyz/post/congelar-un-paquete-en-arch-linux/</guid>
-      <description>
-
-&lt;h1 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h1&gt;
-
-&lt;p&gt;Creo que es una de las cosas que se dice muy poco de Arch Linux y que me ha hecho enamorarme mas aun de esta distribucion, se trata del downgrade de paquetes.&lt;/p&gt;
-
-&lt;p&gt;Mi problema ha sido este, Yo uso postgresql, para guardar datos, mapas etc, para las webs que hago en django y en general para &lt;a href=&#34;https://www.depesz.com/&#34;&gt;trastear&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;El postgresql almacena los datos en un formato que cambia entre versiones, asi que si tienes un postgresql 9.4 en tu ordenador funcionando, con sus bases de datos, y lo actualizas a 9.5, el nuevo no arrancará, necesitas actualizar el formato de los datos que almacenaba el 9.4.&lt;/p&gt;
-
-&lt;p&gt;Arch linux es una &lt;a href=&#34;https://en.wikipedia.org/wiki/Rolling_release&#34;&gt;rolling release&lt;/a&gt;, que hablando mal es que esto no para de actualizarse sin parar,digo hablando mal (yo me incluyo,hasta no hace mucho decia lo mismo) porque no es asi para nada. Si eres usuario de arch linux conoceras el comando &lt;code&gt;pacman -Syu&lt;/code&gt;, sirve para actualizar tus paquetes, es como &lt;code&gt;apt-get upgrade&lt;/code&gt; en los sistemas debian. Pues si pacman detecta que hay un paquete llamado postgresql-9.5 que actualiza a tu instalado postgresql-9.4, lo cambiara y pondra el nuevo. Lo correcto es siempre saber que estas actualizando y tener un control, sobre todo en el entorno de la empresa, en nuestras casas somos mas de actualizar todo y tener el asunto bien nuevecito.&lt;/p&gt;
-
-&lt;p&gt;Pero claro hay ciertos paquetes que no son el &lt;code&gt;htop&lt;/code&gt; y que actualizarlos no puede ser tan sencillo, es el caso de postgresql. Siguiendo con nuestro problema, en este punto hemos actualizado y tenemos un flamante postgresql-9.5 que no arranca, ya que su configuracion apunta a un directorio de datos con &lt;em&gt;formato&lt;/em&gt; de 9.4.&lt;/p&gt;
-
-&lt;h1 id=&#34;downgrade-de-un-paquete&#34;&gt;Downgrade de un paquete&lt;/h1&gt;
-
-&lt;p&gt;Hemos actualizado a postgresql-9.5 pero necesitamos volver a 9.4 para actualizar los datos, este paso se sale del proposito de este post, hay muchas formas, pero la que me gusta a mi ya que no tengo muchos datos es volcar toda la base de datos en texto a un fichero con &lt;code&gt;pg_dumpall&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Necesitamos postgresql-9.4 para arrancar y hacer el dump, pero hemos actualizado a 9.5,&lt;a href=&#34;https://wiki.archlinux.org/index.php/Downgrading_packages&#34;&gt;hay que volver&lt;/a&gt;, como se hace esto? pues realemente es muy sencillo y elegante.&lt;/p&gt;
-
-&lt;h2 id=&#34;arch-linux-archive&#34;&gt;Arch Linux Archive&lt;/h2&gt;
-
-&lt;p&gt;ALA es una coleccion de snapshots de los repositorios, por fecha. Es decir guarda como eran los repos de nuestros paquetes para un dia determinado.&lt;/p&gt;
-
-&lt;p&gt;Para pillar nuestro postgresql-94, buscamos en la carpeta &lt;a href=&#34;https://archive.archlinux.org/packages&#34;&gt;packages&lt;/a&gt; donde estan todos los paquetes y sus versiones. Nos lo bajamos y lo instalamos asi&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd /tmp/
-wget https://archive.archlinux.org/packages/p/postgresql/postgresql-9.4.5-1-x86_64.pkg.tar.xz
-sudo pacman -U postgresql-9.4.5-1-x86_64.pkg.tar.xz
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;forzar-una-version-de-un-paquete-y-no-actualizarla&#34;&gt;Forzar una version de un paquete y no actualizarla&lt;/h1&gt;
-
-&lt;p&gt;Bueno ya vamos arreglando el embrollo, una vez hecho el dump a texto, volvemos a postgresql-9.5 y lo cargamos y ya tenemos nuestro postgresql nuevecito con nuestros datos. Ahora queremos que no nos vuelva a suceder en la 9.6. Vamos a forzar a quedarnos con esta version de postgresql y que pacman pase de actualizar a 9.6 aunque lo encuentre, porque cuando esto suceda, nos saldra por pantalla, haremos el dump a texto, y podremos actualizar nuestros datos.&lt;/p&gt;
-
-&lt;p&gt;En nuestro &lt;code&gt;/etc/pacman.conf&lt;/code&gt; editamos esta linea:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;IgnorePkg   = postgresql postgresql-libs postgis
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y listo, ya no nos volvera a pasar el mismo problema.&lt;/p&gt;
-
-&lt;h1 id=&#34;dejar-de-ser-una-rolling-release&#34;&gt;Dejar de ser una rolling release&lt;/h1&gt;
-
-&lt;p&gt;Gracias a ALA, nuestro mirrorlist puede estar puesto a un dia fijo, esto significara que nunca veremos actualizaciones nuevas, tendremos un sistema estable y seguro, donde conocemos todas las versiones de los paquetes y estamos conformes.&lt;/p&gt;
-
-&lt;p&gt;Basta con actualizar nuestros repos a ese dia en ALA, actualizando nuestro &lt;code&gt;/etc/pacman.d/mirrorlist&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;##
-## Arch Linux repository mirrorlist
-## Generated on 2042-01-01
-##
-Server=https://archive.archlinux.org/repos/2014/03/30/$repo/os/$arch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El dia queramos gastar tiempo de nuestro equipo en actualizar todo el sistema operativo, tendriamos que cambiar la fecha en la url de nuestro mirror y trabajar para que la actualizacion funcione. Se acabaron las excusas para no utilizar Arch en produccion!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Montando un firewall nftables</title>
-      <link>http://blog.fabio.xyz/post/nftables-archlinux/</link>
-      <pubDate>Thu, 14 Apr 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/post/nftables-archlinux/</guid>
-      <description>
-
-&lt;h1 id=&#34;montar-un-firewall-con-nftables-para-nuestro-servidor&#34;&gt;Montar un firewall con nftables para nuestro servidor&lt;/h1&gt;
-
-&lt;p&gt;Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.&lt;/p&gt;
-
-&lt;p&gt;Es necesario tener un kernel &amp;gt;=3.13&lt;/p&gt;
-
-&lt;h2 id=&#34;instalacion&#34;&gt;Instalacion&lt;/h2&gt;
-
-&lt;p&gt;Asi de sencillo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ pacman -S nftables
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;desactivacion-de-iptables&#34;&gt;Desactivacion de iptables&lt;/h2&gt;
-
-&lt;p&gt;Yo estaba usando iptables con un conjunto de reglas, vamos a deshabilitarlo en el systemd y a comprobar que no tenemos ninguna regla activa:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ systemctl stop iptables
-$ systemctl disable iptables
-$ iptables -nvL
-Chain INPUT (policy ACCEPT 72M packets, 83G bytes)
- pkts bytes target     prot opt in     out     source               destination
-
-Chain FORWARD (policy ACCEPT 1639K packets, 230M bytes)
- pkts bytes target     prot opt in     out     source               destination
-
-Chain OUTPUT (policy ACCEPT 52M packets, 10G bytes)
- pkts bytes target     prot opt in     out     source               destination
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.&lt;/p&gt;
-
-&lt;h2 id=&#34;configuracion-de-nftables&#34;&gt;Configuracion de nftables&lt;/h2&gt;
-
-&lt;p&gt;Por supuesto no voy a competir con la estupenda documentacion de arch linux sobre &lt;a href=&#34;https://wiki.archlinux.org/index.php/nftables&#34;&gt;nftables&lt;/a&gt;. Voy a empezar con el fichero de ejemplo que esta en &lt;code&gt;/etc/nftables.conf&lt;/code&gt;. En este fichero viene la tipica configuracion de te capo todo menos el ssh para que sigas configurando y no se te quede cara de pipas.&lt;/p&gt;
-
-&lt;p&gt;Segun abrimos el fichero no entendemos mucho, pero el caso es pensar igual que con iptables, es exactamente igual pero digamos que puedes escribir cosas en mas sitios para mejorar la organizacion, pero los conceptos son los mismos.&lt;/p&gt;
-
-&lt;p&gt;Estan las &lt;em&gt;rules&lt;/em&gt; que son la tipica linea de iptables, donde segun el paquete que venga, si hace match , hacemos cosas (solemos aceptarlo o rechazarlo).
-Estan las &lt;em&gt;chains&lt;/em&gt; que son agrupaciones de rules, solo que en lugar de tenerlas mas o menos fijas, aqui podemos tener tantas como queramos llamarlas como queramos y en general, son mas flexibles, en el fichero por ejemplo tenemos tres chains que se llaman como las antiguas de iptables, pero se podrian llamar de otra manera, el caso es, cuando entrara un paquete por ella? bueno porque en la primera de una chain de nftables debes definir sus propiedades, es decir escribir una linea de este tipo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;type filter hook input priority 0;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks &lt;code&gt;output,forward,prerouting y postrouting&lt;/code&gt; como en iptables.&lt;/p&gt;
-
-&lt;h2 id=&#34;activar-al-inicio&#34;&gt;Activar al inicio&lt;/h2&gt;
-
-&lt;p&gt;Una vez tengamos nuestras reglas puestas en &lt;code&gt;/etc/nftables.conf&lt;/code&gt; podemos cargarlas en cada arranque.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ systemctl enable nftables
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
     
     <item>
       <title>Introduccion, que tenia antes y que he comprado</title>
@@ -341,6 +213,134 @@ Unallocated:
 &lt;h2 id=&#34;collectd&#34;&gt;collectd&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo pacman -S collectd
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Congelar un paquete en arch linux</title>
+      <link>http://blog.fabio.xyz/post/congelar-un-paquete-en-arch-linux/</link>
+      <pubDate>Wed, 12 Oct 2016 19:05:03 +0200</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/congelar-un-paquete-en-arch-linux/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h1&gt;
+
+&lt;p&gt;Creo que es una de las cosas que se dice muy poco de Arch Linux y que me ha hecho enamorarme mas aun de esta distribucion, se trata del downgrade de paquetes.&lt;/p&gt;
+
+&lt;p&gt;Mi problema ha sido este, Yo uso postgresql, para guardar datos, mapas etc, para las webs que hago en django y en general para &lt;a href=&#34;https://www.depesz.com/&#34;&gt;trastear&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;El postgresql almacena los datos en un formato que cambia entre versiones, asi que si tienes un postgresql 9.4 en tu ordenador funcionando, con sus bases de datos, y lo actualizas a 9.5, el nuevo no arrancará, necesitas actualizar el formato de los datos que almacenaba el 9.4.&lt;/p&gt;
+
+&lt;p&gt;Arch linux es una &lt;a href=&#34;https://en.wikipedia.org/wiki/Rolling_release&#34;&gt;rolling release&lt;/a&gt;, que hablando mal es que esto no para de actualizarse sin parar,digo hablando mal (yo me incluyo,hasta no hace mucho decia lo mismo) porque no es asi para nada. Si eres usuario de arch linux conoceras el comando &lt;code&gt;pacman -Syu&lt;/code&gt;, sirve para actualizar tus paquetes, es como &lt;code&gt;apt-get upgrade&lt;/code&gt; en los sistemas debian. Pues si pacman detecta que hay un paquete llamado postgresql-9.5 que actualiza a tu instalado postgresql-9.4, lo cambiara y pondra el nuevo. Lo correcto es siempre saber que estas actualizando y tener un control, sobre todo en el entorno de la empresa, en nuestras casas somos mas de actualizar todo y tener el asunto bien nuevecito.&lt;/p&gt;
+
+&lt;p&gt;Pero claro hay ciertos paquetes que no son el &lt;code&gt;htop&lt;/code&gt; y que actualizarlos no puede ser tan sencillo, es el caso de postgresql. Siguiendo con nuestro problema, en este punto hemos actualizado y tenemos un flamante postgresql-9.5 que no arranca, ya que su configuracion apunta a un directorio de datos con &lt;em&gt;formato&lt;/em&gt; de 9.4.&lt;/p&gt;
+
+&lt;h1 id=&#34;downgrade-de-un-paquete&#34;&gt;Downgrade de un paquete&lt;/h1&gt;
+
+&lt;p&gt;Hemos actualizado a postgresql-9.5 pero necesitamos volver a 9.4 para actualizar los datos, este paso se sale del proposito de este post, hay muchas formas, pero la que me gusta a mi ya que no tengo muchos datos es volcar toda la base de datos en texto a un fichero con &lt;code&gt;pg_dumpall&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Necesitamos postgresql-9.4 para arrancar y hacer el dump, pero hemos actualizado a 9.5,&lt;a href=&#34;https://wiki.archlinux.org/index.php/Downgrading_packages&#34;&gt;hay que volver&lt;/a&gt;, como se hace esto? pues realemente es muy sencillo y elegante.&lt;/p&gt;
+
+&lt;h2 id=&#34;arch-linux-archive&#34;&gt;Arch Linux Archive&lt;/h2&gt;
+
+&lt;p&gt;ALA es una coleccion de snapshots de los repositorios, por fecha. Es decir guarda como eran los repos de nuestros paquetes para un dia determinado.&lt;/p&gt;
+
+&lt;p&gt;Para pillar nuestro postgresql-94, buscamos en la carpeta &lt;a href=&#34;https://archive.archlinux.org/packages&#34;&gt;packages&lt;/a&gt; donde estan todos los paquetes y sus versiones. Nos lo bajamos y lo instalamos asi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /tmp/
+wget https://archive.archlinux.org/packages/p/postgresql/postgresql-9.4.5-1-x86_64.pkg.tar.xz
+sudo pacman -U postgresql-9.4.5-1-x86_64.pkg.tar.xz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;forzar-una-version-de-un-paquete-y-no-actualizarla&#34;&gt;Forzar una version de un paquete y no actualizarla&lt;/h1&gt;
+
+&lt;p&gt;Bueno ya vamos arreglando el embrollo, una vez hecho el dump a texto, volvemos a postgresql-9.5 y lo cargamos y ya tenemos nuestro postgresql nuevecito con nuestros datos. Ahora queremos que no nos vuelva a suceder en la 9.6. Vamos a forzar a quedarnos con esta version de postgresql y que pacman pase de actualizar a 9.6 aunque lo encuentre, porque cuando esto suceda, nos saldra por pantalla, haremos el dump a texto, y podremos actualizar nuestros datos.&lt;/p&gt;
+
+&lt;p&gt;En nuestro &lt;code&gt;/etc/pacman.conf&lt;/code&gt; editamos esta linea:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;IgnorePkg   = postgresql postgresql-libs postgis
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Y listo, ya no nos volvera a pasar el mismo problema.&lt;/p&gt;
+
+&lt;h1 id=&#34;dejar-de-ser-una-rolling-release&#34;&gt;Dejar de ser una rolling release&lt;/h1&gt;
+
+&lt;p&gt;Gracias a ALA, nuestro mirrorlist puede estar puesto a un dia fijo, esto significara que nunca veremos actualizaciones nuevas, tendremos un sistema estable y seguro, donde conocemos todas las versiones de los paquetes y estamos conformes.&lt;/p&gt;
+
+&lt;p&gt;Basta con actualizar nuestros repos a ese dia en ALA, actualizando nuestro &lt;code&gt;/etc/pacman.d/mirrorlist&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;##
+## Arch Linux repository mirrorlist
+## Generated on 2042-01-01
+##
+Server=https://archive.archlinux.org/repos/2014/03/30/$repo/os/$arch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;El dia queramos gastar tiempo de nuestro equipo en actualizar todo el sistema operativo, tendriamos que cambiar la fecha en la url de nuestro mirror y trabajar para que la actualizacion funcione. Se acabaron las excusas para no utilizar Arch en produccion!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Montando un firewall nftables</title>
+      <link>http://blog.fabio.xyz/post/nftables-archlinux/</link>
+      <pubDate>Thu, 14 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/nftables-archlinux/</guid>
+      <description>
+
+&lt;h1 id=&#34;montar-un-firewall-con-nftables-para-nuestro-servidor&#34;&gt;Montar un firewall con nftables para nuestro servidor&lt;/h1&gt;
+
+&lt;p&gt;Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.&lt;/p&gt;
+
+&lt;p&gt;Es necesario tener un kernel &amp;gt;=3.13&lt;/p&gt;
+
+&lt;h2 id=&#34;instalacion&#34;&gt;Instalacion&lt;/h2&gt;
+
+&lt;p&gt;Asi de sencillo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ pacman -S nftables
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;desactivacion-de-iptables&#34;&gt;Desactivacion de iptables&lt;/h2&gt;
+
+&lt;p&gt;Yo estaba usando iptables con un conjunto de reglas, vamos a deshabilitarlo en el systemd y a comprobar que no tenemos ninguna regla activa:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ systemctl stop iptables
+$ systemctl disable iptables
+$ iptables -nvL
+Chain INPUT (policy ACCEPT 72M packets, 83G bytes)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain FORWARD (policy ACCEPT 1639K packets, 230M bytes)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain OUTPUT (policy ACCEPT 52M packets, 10G bytes)
+ pkts bytes target     prot opt in     out     source               destination
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuracion-de-nftables&#34;&gt;Configuracion de nftables&lt;/h2&gt;
+
+&lt;p&gt;Por supuesto no voy a competir con la estupenda documentacion de arch linux sobre &lt;a href=&#34;https://wiki.archlinux.org/index.php/nftables&#34;&gt;nftables&lt;/a&gt;. Voy a empezar con el fichero de ejemplo que esta en &lt;code&gt;/etc/nftables.conf&lt;/code&gt;. En este fichero viene la tipica configuracion de te capo todo menos el ssh para que sigas configurando y no se te quede cara de pipas.&lt;/p&gt;
+
+&lt;p&gt;Segun abrimos el fichero no entendemos mucho, pero el caso es pensar igual que con iptables, es exactamente igual pero digamos que puedes escribir cosas en mas sitios para mejorar la organizacion, pero los conceptos son los mismos.&lt;/p&gt;
+
+&lt;p&gt;Estan las &lt;em&gt;rules&lt;/em&gt; que son la tipica linea de iptables, donde segun el paquete que venga, si hace match , hacemos cosas (solemos aceptarlo o rechazarlo).
+Estan las &lt;em&gt;chains&lt;/em&gt; que son agrupaciones de rules, solo que en lugar de tenerlas mas o menos fijas, aqui podemos tener tantas como queramos llamarlas como queramos y en general, son mas flexibles, en el fichero por ejemplo tenemos tres chains que se llaman como las antiguas de iptables, pero se podrian llamar de otra manera, el caso es, cuando entrara un paquete por ella? bueno porque en la primera de una chain de nftables debes definir sus propiedades, es decir escribir una linea de este tipo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;type filter hook input priority 0;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks &lt;code&gt;output,forward,prerouting y postrouting&lt;/code&gt; como en iptables.&lt;/p&gt;
+
+&lt;h2 id=&#34;activar-al-inicio&#34;&gt;Activar al inicio&lt;/h2&gt;
+
+&lt;p&gt;Una vez tengamos nuestras reglas puestas en &lt;code&gt;/etc/nftables.conf&lt;/code&gt; podemos cargarlas en cada arranque.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ systemctl enable nftables
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

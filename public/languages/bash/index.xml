@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>avances123</title>
+    <title>bash on avances123</title>
     <link>http://blog.fabio.xyz/languages/bash/index.xml</link>
-    <description>Recent content on avances123</description>
+    <description>Recent content in bash on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <copyright>Escrito por Fabio Rueda</copyright>

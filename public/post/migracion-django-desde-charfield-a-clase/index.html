@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="2NHKEM-aqhXa-pfsTc--26GMPb1mGY__SDMKGZqb8KY" />
+  <meta name="keywords" content="django,migraciones,android,web">
+  <meta name="description" content="Cuando tenemos un campo choices en nuestro modelo y queremos sacarlo a una clase">
+
+
+  <title>
+    migracion django desde charfield a clase | avances123
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.fabio.xyz/post/migracion-django-desde-charfield-a-clase/"/>
+
+  
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/sanitize.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/responsive.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/theme.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/custom.css">
+
+  
+  <link href="http://blog.fabio.xyz/index.xml" rel="alternate" type="application/rss+xml" title="avances123" />
+  <link href="http://blog.fabio.xyz/index.xml" rel="feed" type="application/rss+xml" title="avances123" />
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="cabeza row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://blog.fabio.xyz/">avances123</a></h1>
+        <h2>Instalo algo y opino al respecto</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          <li><a href="https://twitter.com/avances123" target="_blank">Twitter</a></li>
+          
+          <li><a href="https://github.com/avances123" target="_blank">GitHub</a></li>
+          <li><a href="http://blog.fabio.xyz/index.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+          <li><label for="trigger">Amigos</label></li>
+          <input type="checkbox" id="trigger" name="trigger"/>
+          <ul id="menu-amigos">
+              <li><a target="_blank" href="http://www.p.valienteverde.com/">Pedro Valiente</a></li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>migracion django desde charfield a clase</h1>
+      <div class="meta">
+        Jan 24, 2017 &nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/django">django</a>&nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/migraciones">migraciones</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+
+      
+
+<h2 id="introduccion">Introduccion</h2>
+
+<p>Pues nuestra aplicacion esta funcionando en produccion, nuestro modelo funciona muy bien y es bastante flexible, vamos afrontando bien los nuevos requisitos
+y haciendo migraciones con exito, de pronto nos vamos dando cuenta que un campo simple de un modelo, que teniamos puesto como de tipo String, queremos que
+tenga mas vidilla, por ejemplo guardamos el estilo de un disco como un string, pero a la larga nos damos cuenta que Estilo lo podemos generalizar en una clase
+para poder saber mas datos del estilo, como el lugar donde se originó, o si es un subtipo de musica electronica y cosas asi.</p>
+
+<h2 id="origen">Origen</h2>
+
+<p>Partimos de esta base, guardamos el artista del album como una cadena, y ya tenemos muchos asi guardados.</p>
+
+<pre><code class="language-python">from django.db import models
+
+class Album(models.Model):
+    name = models.CharField(max_length=255)
+    genre = models.CharField(max_length=255)
+</code></pre>
+
+<h2 id="paso-1">Paso 1</h2>
+
+<p>Creamos el modelo nuevo de genero y lo enlazamos en un campo nuevo <code>genre_link</code> sin borrar el antiguo string.</p>
+
+<pre><code class="language-python">from django.db import models
+
+class Album(models.Model):
+    name = models.CharField(max_length=255)
+    genre = models.CharField(max_length=255)
+    genre_link = models.ForeignKey('Genre', null=True)
+
+class Genre(models.Model):
+    name = models.CharField(max_length=255)
+</code></pre>
+
+<p>y creamos la migracion:</p>
+
+<pre><code class="language-bash">./manage.py makemigrations discography
+</code></pre>
+
+<h2 id="paso-2">Paso 2</h2>
+
+<p>Ahora populamos el nuevo campo, creando los objetos nuevos desde la columna antigua, con una migracion vacia</p>
+
+<pre><code class="language-bash">./manage.py makemigrations --empty --name crea_genres discography
+</code></pre>
+
+<p>Y hacemos el codigo para sacar el texto del tipo, y crear los objetos nuevos.</p>
+
+<pre><code class="language-python">from __future__ import unicode_literals
+
+from django.db import migrations
+
+
+def create_genres(apps, schema_editor):
+    Genre = apps.get_model('discography', 'Genre')
+    Album = apps.get_model('discography', 'Album')
+    for album in Album.objects.all():
+        tipo, created = Genre.objects.get_or_create(name=album.artist)
+        album.genre_link = tipo
+        album.save()
+
+
+def borra_genres(apps, schema_editor):
+    pass
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.RunPython(create_genres, borra_genres),
+    ]
+</code></pre>
+
+<h2 id="paso-3">Paso 3</h2>
+
+<p>En este punto ya tenemos nuestro problema solucionado, nos falta hacer limpieza y borrar la columna antigua.</p>
+
+
+    </article>
+    
+ <aside><div id="disqus_thread"></div></aside> 
+
+<script type="text/javascript">
+     
+    var disqus_shortname = 'avances123';
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </main>
+
+  <nav class="pagination-single">
+    
+    
+      <span class="next"><a href="http://blog.fabio.xyz/post/depurar-webs-con-el-movil/" rel="next">Como depurar webs con el movil</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://blog.fabio.xyz/images/profile.png" width="64" height="64"><br>
+      Escrito por Fabio Rueda
+    </div>
+
+  </footer>
+
+
+</div>
+
+<script src="http://blog.fabio.xyz/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-18805523-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>
+
