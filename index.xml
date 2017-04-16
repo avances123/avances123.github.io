@@ -2,13 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>avances123</title>
-    <link>http://blog.fabio.xyz/index.xml</link>
+    <link>http://blog.fabio.xyz/</link>
     <description>Recent content on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0100</lastBuildDate>
-    <atom:link href="http://blog.fabio.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Apr 2017 10:30:57 +0100</lastBuildDate>
+    
+	<atom:link href="http://blog.fabio.xyz/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vamos a hacer una webapp en google cloud</title>
+      <link>http://blog.fabio.xyz/series/google-cloud/introduccion/</link>
+      <pubDate>Sat, 15 Apr 2017 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/series/google-cloud/introduccion/</guid>
+      <description>Introduccion Este fin de semana he visto que google estaba haciendo una conferencia de las suyas llamada Next. En ella anunciaban su sistema cloud, y hace un par de años entre para ver que tenia pero AWS superaba totalmente a google, de hecho parecia como de coña, se podia levantar un linux y ya.
+Ahora no, ahora ya tiene muchos mas servicios y parecen dispuestos a competir con Amazon en serio, asi que, por que no probar a hacer algo y alojarlo alli?</description>
+    </item>
     
     <item>
       <title>Introduccion, que tenia antes y que he comprado</title>
@@ -16,50 +28,18 @@
       <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</guid>
-      <description>
-
-&lt;h2 id=&#34;antecedentes&#34;&gt;Antecedentes&lt;/h2&gt;
-
-&lt;p&gt;Bueno pues yo tenia en mi casa una raspberry pi, para hacer de media center y algun servicio de red mas, la tipica raspberry con un disco duro enchufado por usb.&lt;/p&gt;
-
-&lt;p&gt;Todo iba genial como muchos que la teneis en casa sabreis, mis pegas eran totalmente menores, que era ARM y que era ubuntu, llevo 1 año ahora que me he cambiado a Archlinux como sistema operativo principal y aunque he usado ubuntu durante años, queria cambiarme a arch linux, por supuesto muchisimo de lo que contare aqui funciona en &lt;a href=&#34;https://archlinuxarm.org/&#34;&gt;Archlinux ARM&lt;/a&gt;, para vuestras raspberrys, odroids y demas.&lt;/p&gt;
-
-&lt;h2 id=&#34;un-servidor-hp-en-casa&#34;&gt;Un servidor hp en casa&lt;/h2&gt;
-
-&lt;p&gt;Por la indicacion de un compañero del que siempre confio en cuanto a compras de tecnologia, me comento que habia un servidor casero muy barato, realmente son 200 euros, (4 veces mas que la pi), pero realmente era la posibilidad de tener un servidor &lt;em&gt;empresarial&lt;/em&gt; en casa. Es el &lt;a href=&#34;http://www8.hp.com/es/es/products/proliant-servers/product-detail.html?oid=5379860#!tab=specs&#34;&gt;HP Proliant Microserver gen8&lt;/a&gt;, supongo que han sacado otra version mas nueva y esta aun la venden en amazon, pero por ese precio me parecio muy barato. Gasta mas que la pi, pero no tengo que tener el disco duro enchufao ahi con cables por usb 2.0 y asi podria seguir justificandome un rato mas, en general digamos que es un salto mas, en potencia y en gasto como es normal.&lt;/p&gt;
-
-&lt;p&gt;El servidor esta muy bien, tiene una bios muy pro, no hace nada de ruido y diria que hasta es bonito, tiene dos tarjetas de red, y otra dedicada para su gestion remota.&lt;/p&gt;
-
-&lt;h2 id=&#34;montando-los-discos&#34;&gt;Montando los discos&lt;/h2&gt;
-
-&lt;p&gt;Bueno como muchos de vosotros, yo tengo en mi casa varios discos cada uno de su padre y de su madre, uno que he robado de un pc viejo, otro que me he comprado, otro que me lo dio mi hermano, etc. Esta maquina tiene cuatro bahias para discos duros&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/proliant_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Justo tenia 4 asi que los 4 para dentro, son de tamaño distintos y aunque este servidor tiene controladora RAID, yo los pinche y luego en el Arch ya los gestionaria. No se pueden pinchar en caliente, asi que hay que hacerlo con el servidor apagado, y una cosa que tiene tener un servidor mas empresarial, es que tardan en arrancar la vida, asi que pensaroslo bien!.&lt;/p&gt;
-
-&lt;h2 id=&#34;montando-el-so&#34;&gt;Montando el SO&lt;/h2&gt;
-
-&lt;p&gt;Para el sistema operativo, correria en un usb para no tener el sistema en ninguno de mis cuatro discos, y dedicarlos a hacer mantener los datos, sin tener el sistema entre ellos &lt;em&gt;molestando&lt;/em&gt;. Para montar un arch linux en un usb, seria del genero tonto documentar cosas que estan en la estupendisima &lt;a href=&#34;https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_a_USB_key&#34;&gt;wiki&lt;/a&gt;. Pero bueno en general lo interesante de este paso es saber que el sistema esta en un usb, el usb tiene una escritura reducida asi que hay que minimizarla al maximo, en mi caso sacaria la particion &lt;code&gt;/var&lt;/code&gt; y la &lt;code&gt;/home&lt;/code&gt; a los discos de las bahias, y asi tendria el pincho usb sin casi escritura.&lt;/p&gt;
-
-&lt;p&gt;Sobre la configuracion del sistema operativo pues hablare constantemente en esta serie, pero sobre la &lt;a href=&#34;https://wiki.archlinux.org/index.php/Installation_guide&#34;&gt;instalacion desde cero&lt;/a&gt; de arch, no voy a poner nada ya que creo que no aporta nada de valor.&lt;/p&gt;
-
-&lt;h3 id=&#34;kernel&#34;&gt;kernel&lt;/h3&gt;
-
-&lt;p&gt;Una cosa importante en este paso, instalar el kernel lts, que tiene menos actualizaciones, y bloquearlo, no queremos que nuestro servidor este cambiando de kernel tan tranquilamente, funciona y no hace falta actualizarlo, recordad que buscamos la estabilidad aqui.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo pacman -S linux-lts
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;# /etc/pacman.conf
-
-...
-IgnorePkg = linux-lts linux-lts-headers
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Con esto conseguimos tener dos kernels en nuestro grub, el paquete linux, con el kernel actualizandose a menudo , y el paquete linux-lts, que es un kernel mas estable y ademas bloqueado, lo actualiaremos cuando &lt;strong&gt;necesitemos&lt;/strong&gt;.Este sera nuestro kernel por defecto en el arranque.&lt;/p&gt;
-</description>
+      <description>Antecedentes Bueno pues yo tenia en mi casa una raspberry pi, para hacer de media center y algun servicio de red mas, la tipica raspberry con un disco duro enchufado por usb.
+Todo iba genial como muchos que la teneis en casa sabreis, mis pegas eran totalmente menores, que era ARM y que era ubuntu, llevo 1 año ahora que me he cambiado a Archlinux como sistema operativo principal y aunque he usado ubuntu durante años, queria cambiarme a arch linux, por supuesto muchisimo de lo que contare aqui funciona en Archlinux ARM, para vuestras raspberrys, odroids y demas.</description>
+    </item>
+    
+    <item>
+      <title>Probando postgresql en google</title>
+      <link>http://blog.fabio.xyz/series/google-cloud/probando-postgresql/</link>
+      <pubDate>Sat, 15 Apr 2017 11:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/series/google-cloud/probando-postgresql/</guid>
+      <description>Dando de alta la base de datos Pues basta con hacer un nuevo proyecto en la Consola, poner nuestra tarjeta de credito, y despues arrancar una instancia de postgresql 9.6 una vez arrancada, te dice la ip que tiene, y te puedes conectar a ella como siempre:
+pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA  # Poniendo postgis Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel.</description>
     </item>
     
     <item>
@@ -68,114 +48,8 @@ IgnorePkg = linux-lts linux-lts-headers
       <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
-      <description>
-
-&lt;h2 id=&#34;configurar-el-almacenamiento-con-btrfs&#34;&gt;Configurar el almacenamiento con btrfs&lt;/h2&gt;
-
-&lt;p&gt;El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo fdisk -l | grep Disco
-Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores
-Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores
-Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores
-Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores
-Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Los discos &lt;code&gt;/dev/sd[a,b,c,e]&lt;/code&gt; son los discos de 3&amp;rsquo;5 que he pinchado en las bahias y &lt;code&gt;/dev/sdd&lt;/code&gt; es el pincho usb donde tenemos nuestro sistema. Ahora vamos a configurar btrfs para tener un solo sistema de ficheros y ya a partir de ese btrfs, crearemos volumenes y montaremos a nuestro gusto. He intentado estudiar y hacerlo lo mejor posible segun he leido en la wiki de arch y mi propia experiencia.&lt;/p&gt;
-
-&lt;p&gt;Os podreis preguntar por que el pincho usb no es la primera o la ultima letra sdX, el caso es que no los pinche a la vez, reinicie quiza, en todo caso, siempre haremos caso a los UUID de los discos, y dejaremos las antiguas letras sdX como quiera udev ponernoslas.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ blkid
-/dev/sdc: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;171c1b29-e14c-4d81-afd5-f30957d1395d&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
-/dev/sdb: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;63b3e7a1-4a9c-4846-9c94-ff533acfc698&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
-/dev/sda: LABEL=&amp;quot;raid&amp;quot; UUID=&amp;quot;3e1cedae-3ca0-48f1-8170-e322de78f91e&amp;quot; UUID_SUB=&amp;quot;8ebb3acf-0b03-48f7-9188-f716d98cb0aa&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
-/dev/sde: UUID=&amp;quot;1c119d46-0a5d-41c1-a2e8-82e76d6e6654&amp;quot; UUID_SUB=&amp;quot;60701c41-b238-4155-b180-ae805c106fdb&amp;quot; TYPE=&amp;quot;btrfs&amp;quot;
-/dev/sdd1: UUID=&amp;quot;12a25f83-65fa-457c-878e-758dfe79f2b1&amp;quot; TYPE=&amp;quot;ext4&amp;quot; PARTUUID=&amp;quot;3dd32031-01&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Asi vemos los UUID, como podeis ver, he utilizado 3 discos para un sistema btrfs, que tiene el mismo UUID y distintos UUID_SUB, lo he puesto el label &lt;em&gt;RAID&lt;/em&gt; aunque no lo sea.&lt;/p&gt;
-
-&lt;p&gt;Ademas &lt;code&gt;/dev/sde&lt;/code&gt; lo he utilizado para crear un sistema de ficheros distinto, este disco ira a parte de los otros. Mas adelante explicare por que he hecho esto, ya que no tiene una razon aplastante, quiero montar mi base de datos en ese disco y preferia tenerla en un disco fisico aislado.&lt;/p&gt;
-
-&lt;p&gt;Nos falta &lt;code&gt;/dev/sdd1&lt;/code&gt; que es la particion del pincho usb donde esta el sistema, este lo he formateado con ext4, nada nuevo. Segun los propios desarrolladores de btrfs, dicen que este sistema funciona muy bien en hardware como este, asi que lanzaros y poned btrfs en el pincho tambien!, yo no lo tengo porque al formatearlo y meter el arch aun no tenia claro nada, y para no fallar, pues como siempre no?&lt;/p&gt;
-
-&lt;h3 id=&#34;creacion-del-sistema-de-ficheros&#34;&gt;Creacion del sistema de ficheros&lt;/h3&gt;
-
-&lt;p&gt;Pues una vez tengamos los discos reconocidos por el sistema, solo hay que formatearlos con mkfs como siempre&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkfs.btrfs /dev/sda /dev/sdb /dev/sdc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;montaje&#34;&gt;Montaje&lt;/h3&gt;
-
-&lt;p&gt;He creado un directorio en el raiz llamado &lt;code&gt;/data&lt;/code&gt; y montare ahi mi sistema de ficheros.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mount /dev/sda /data
-$ mount
-/dev/sdb on /data type btrfs (rw,relatime,compress=lzo,space_cache,autodefrag,subvolid=5,subvol=/)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Como se puede ver, las opciones de montaje no son las de por defecto, aunque estas son correctas para un primer montaje, lo ideal es tunearlo segun nuestro uso, para el caso de mis datos, le he puesto la opcion &lt;code&gt;compress=lzo&lt;/code&gt; que reduce (muy poco) el espacio de almacenamiento y aumenta el rendimiento. Tambien la opcion de &lt;code&gt;autodefrag&lt;/code&gt;. Todas estas opciones estan persistidas en el fichero &lt;code&gt;/etc/fstab&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ grep &#39;/data&#39; /etc/fstab
-UUID=3e1cedae-3ca0-48f1-8170-e322de78f91e       /data           btrfs           defaults,autodefrag,compress=lzo                                        0 0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;cambiar-de-raid-a-single&#34;&gt;Cambiar de raid a single&lt;/h3&gt;
-
-&lt;p&gt;Vamos a configurar el tipo de RAID que mas nos convenga, en mi caso como son torrents, no me importan tanto como si tuvieramos fotos o documentos creados por mi, asi que haremos un &lt;strong&gt;single&lt;/strong&gt; que no pierde espacio, pero no proporciona ninguna redundancia. Donde sí la tendremos es en los metadatos del sistema de ficheros, los almacenaremos en RAID1 para que esten duplicados. Estas opciones las pone btrfs por defecto, y a mi me gusta, porque no se pierde excesivo espacio, y al menos para los metadatos, tendremos mas tolerancia a fallos.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ btrfs balance start -d convert=single /dev/sda
-$ btrfs balance start -s convert=raid1 /dev/sda
-$ btrfs balance start -m convert=raid1 /dev/sda
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Esta operacion la hemos hecho con &lt;code&gt;/data&lt;/code&gt; montado ya, casi todas las operaciones se pueden hacer con el sistema de ficheros montado.&lt;/p&gt;
-
-&lt;h3 id=&#34;ver-el-espacio-en-disco-con-btrfs&#34;&gt;Ver el espacio en disco con btrfs&lt;/h3&gt;
-
-&lt;p&gt;En este disco he metido mis datos ya (1.62 TiB) pero pongo los dos comandos respecto al uso en disco que utilizo&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ btrfs filesystem df /data
-Data, single: total=1.62TiB, used=1.62TiB
-System, RAID1: total=32.00MiB, used=208.00KiB
-Metadata, RAID1: total=3.00GiB, used=1.95GiB
-GlobalReserve, single: total=512.00MiB, used=0.00B
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ btrfs filesystem usage /data
-$ sudo btrfs filesystem usage /data
-Overall:
-    Device size:                   3.87TiB
-    Device allocated:              1.62TiB
-    Device unallocated:            2.24TiB
-    Device missing:                  0.00B
-    Used:                          1.62TiB
-    Free (estimated):              2.24TiB      (min: 1.12TiB)
-    Data ratio:                       1.00
-    Metadata ratio:                   2.00
-    Global reserve:              512.00MiB      (used: 0.00B)
-
-Data,single: Size:1.62TiB, Used:1.62TiB
-   /dev/sda        1.62TiB
-
-Metadata,RAID1: Size:3.00GiB, Used:1.95GiB
-   /dev/sda        3.00GiB
-   /dev/sdb        3.00GiB
-
-System,RAID1: Size:32.00MiB, Used:208.00KiB
-   /dev/sda       32.00MiB
-   /dev/sdb       32.00MiB
-
-Unallocated:
-   /dev/sda        1.11TiB
-   /dev/sdb      695.61GiB
-   /dev/sdc      465.76GiB
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Es importante usar este comando df, en lugar del mitico df de linux, porque aun este ultimo nos da informacion incorrecta.&lt;/p&gt;
-</description>
+      <description>Configurar el almacenamiento con btrfs El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux
+$ sudo fdisk -l | grep Disco Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores  Los discos /dev/sd[a,b,c,e] son los discos de 3&amp;rsquo;5 que he pinchado en las bahias y /dev/sdd es el pincho usb donde tenemos nuestro sistema.</description>
     </item>
     
     <item>
@@ -184,38 +58,7 @@ Unallocated:
       <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
-      <description>
-
-&lt;h1 id=&#34;sacando-graficas-de-todo-en-tu-red-casera&#34;&gt;Sacando graficas de todo en tu red casera&lt;/h1&gt;
-
-&lt;p&gt;Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
-1. Una base de datos especial para series temporales llamada &lt;a href=&#34;https://www.influxdata.com/time-series-platform/influxdb/&#34;&gt;influxdb&lt;/a&gt;
-2. Un frontend para pintar las graficas llamado &lt;a href=&#34;http://grafana.org/&#34;&gt;grafana&lt;/a&gt;
-3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado &lt;a href=&#34;https://collectd.org/&#34;&gt;collectd&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Vamos a ver la instalacion y configuracion de cada uno de los programas.&lt;/p&gt;
-
-&lt;h2 id=&#34;influxdb&#34;&gt;influxdb&lt;/h2&gt;
-
-&lt;p&gt;Influxdb es otra base de datos mas, enfocada en almacenar datos en timeseries, esta escrita en Go y es de codigo abierto. La uso para almacenar las tipicas metricas del servidor y pintarlas en graficas tipo munin, pero espero algun dia experimentar mas con ella ahora que esta en la version v1.0. Quiza algun benchmark de alguna variable de meteo en postgresql vs influxdb o algo asi.&lt;/p&gt;
-
-&lt;p&gt;Esto quiere decir que no vale solo para pintar la ram de nuestro ordenador, esta db tiene de serie una API HTTP donde con una sola request podemos enviarle datos. Asi que enviar un numero desde cualquier programa bastaria con ponerle un GET a ese programa enviando el dato.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yaourt -S influxdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Editamos &lt;code&gt;/etc/influxdb/influxdb.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;grafana&#34;&gt;grafana&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo pacman -S grafana
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;collectd&#34;&gt;collectd&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo pacman -S collectd
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Sacando graficas de todo en tu red casera Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente: 1. Una base de datos especial para series temporales llamada influxdb 2. Un frontend para pintar las graficas llamado grafana 3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd</description>
     </item>
     
     <item>
@@ -224,87 +67,7 @@ Unallocated:
       <pubDate>Tue, 24 Jan 2017 17:26:09 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/post/migracion-django-desde-charfield-a-clase/</guid>
-      <description>
-
-&lt;h2 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h2&gt;
-
-&lt;p&gt;Pues nuestra aplicacion esta funcionando en produccion, nuestro modelo funciona muy bien y es bastante flexible, vamos afrontando bien los nuevos requisitos
-y haciendo migraciones con exito, de pronto nos vamos dando cuenta que un campo simple de un modelo, que teniamos puesto como de tipo String, queremos que
-tenga mas vidilla, por ejemplo guardamos el estilo de un disco como un string, pero a la larga nos damos cuenta que Estilo lo podemos generalizar en una clase
-para poder saber mas datos del estilo, como el lugar donde se originó, o si es un subtipo de musica electronica y cosas asi.&lt;/p&gt;
-
-&lt;h2 id=&#34;origen&#34;&gt;Origen&lt;/h2&gt;
-
-&lt;p&gt;Partimos de esta base, guardamos el artista del album como una cadena, y ya tenemos muchos asi guardados.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from django.db import models
-
-class Album(models.Model):
-    name = models.CharField(max_length=255)
-    genre = models.CharField(max_length=255)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;paso-1&#34;&gt;Paso 1&lt;/h2&gt;
-
-&lt;p&gt;Creamos el modelo nuevo de genero y lo enlazamos en un campo nuevo &lt;code&gt;genre_link&lt;/code&gt; sin borrar el antiguo string.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from django.db import models
-
-class Album(models.Model):
-    name = models.CharField(max_length=255)
-    genre = models.CharField(max_length=255)
-    genre_link = models.ForeignKey(&#39;Genre&#39;, null=True)
-
-class Genre(models.Model):
-    name = models.CharField(max_length=255)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;y creamos la migracion:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./manage.py makemigrations discography
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;paso-2&#34;&gt;Paso 2&lt;/h2&gt;
-
-&lt;p&gt;Ahora populamos el nuevo campo, creando los objetos nuevos desde la columna antigua, con una migracion vacia&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./manage.py makemigrations --empty --name crea_genres discography
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y hacemos el codigo para sacar el texto del tipo, y crear los objetos nuevos.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from __future__ import unicode_literals
-
-from django.db import migrations
-
-
-def create_genres(apps, schema_editor):
-    Genre = apps.get_model(&#39;discography&#39;, &#39;Genre&#39;)
-    Album = apps.get_model(&#39;discography&#39;, &#39;Album&#39;)
-    for album in Album.objects.all():
-        tipo, created = Genre.objects.get_or_create(name=album.artist)
-        album.genre_link = tipo
-        album.save()
-
-
-def borra_genres(apps, schema_editor):
-    pass
-
-
-class Migration(migrations.Migration):
-
-    dependencies = [
-    ]
-
-    operations = [
-        migrations.RunPython(create_genres, borra_genres),
-    ]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;paso-3&#34;&gt;Paso 3&lt;/h2&gt;
-
-&lt;p&gt;En este punto ya tenemos nuestro problema solucionado, nos falta hacer limpieza y borrar la columna antigua.&lt;/p&gt;
-</description>
+      <description>Introduccion Pues nuestra aplicacion esta funcionando en produccion, nuestro modelo funciona muy bien y es bastante flexible, vamos afrontando bien los nuevos requisitos y haciendo migraciones con exito, de pronto nos vamos dando cuenta que un campo simple de un modelo, que teniamos puesto como de tipo String, queremos que tenga mas vidilla, por ejemplo guardamos el estilo de un disco como un string, pero a la larga nos damos cuenta que Estilo lo podemos generalizar en una clase para poder saber mas datos del estilo, como el lugar donde se originó, o si es un subtipo de musica electronica y cosas asi.</description>
     </item>
     
     <item>
@@ -313,65 +76,8 @@ class Migration(migrations.Migration):
       <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/post/depurar-webs-con-el-movil/</guid>
-      <description>
-
-&lt;h2 id=&#34;viendo-la-web-que-estas-haciendo-directamente-en-tu-movil&#34;&gt;Viendo la web que estas haciendo directamente en tu movil&lt;/h2&gt;
-
-&lt;p&gt;Como ya sabreis, el chrome (y quiza otros navegadores) pueden poner su viewport como el de un movil
-para hacernos mas facil depurar la responsividad de nuestra web y poder ir viendo todo tipo de tamaño y forma
-de pantallas.&lt;/p&gt;
-
-&lt;p&gt;Eso esta muy bien porque es rapidisimo, y podemos depurar como siempre con nuestro f12, aun asi, si queremos
-visualizarla desde nuestro movil, con su chrome nativo de android y tal, podemos.  Es lo que vamos a hacer hoy.&lt;/p&gt;
-
-&lt;p&gt;La gracia, ademas de poder ver en un movil real tu aplicacion, es que la puedes depurar en el chrome de tu pc,
-con tu pantalla grande, tu raton y teclado, y eso siempre es un puntazo.&lt;/p&gt;
-
-&lt;h2 id=&#34;montando-el-todo-en-tu-pc&#34;&gt;Montando el todo en tu pc&lt;/h2&gt;
-
-&lt;p&gt;Pues como casi siempre lo voy a montar yo en mi pc y a la vez ire escribiendo aqui, para calentar os comento que
-google tiene &lt;a href=&#34;https://developers.google.com/web/tools/chrome-devtools/remote-debugging/&#34;&gt;una web&lt;/a&gt;
-para hacer especificamente esto, asi que si quereis os podeis ir alli.&lt;/p&gt;
-
-&lt;h3 id=&#34;preparando-el-pc-con-arch-linux&#34;&gt;Preparando el pc con Arch linux&lt;/h3&gt;
-
-&lt;p&gt;Necesitamos el SDK de android, siempre es bueno tenerlo instalado si tienes un movil android.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ yaourt android-tools android-sdk
-.... instalamos.... 
-$ adb version
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Si funciona este ultimo comando podemos seguir.&lt;/p&gt;
-
-&lt;h3 id=&#34;preparando-el-movil&#34;&gt;Preparando el movil&lt;/h3&gt;
-
-&lt;p&gt;Si usas &lt;code&gt;adb&lt;/code&gt; o algun comando con de las android tools desde tu movil ya lo tendras activado, si no,
-aqui te dejo un video de como hacerlo&lt;/p&gt;
-
-
-&lt;div style=&#34;position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;&#34;&gt;
-  &lt;iframe src=&#34;//www.youtube.com/embed/PA135Z23sek&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%;&#34; allowfullscreen frameborder=&#34;0&#34;&gt;&lt;/iframe&gt;
- &lt;/div&gt;
-
-
-&lt;h3 id=&#34;devtools&#34;&gt;devtools&lt;/h3&gt;
-
-&lt;p&gt;Una vez enchufado el movil ya solo falta configurar nuestro chrome en el pc para que descubra nuestro movil.
-Abrimos las devtools con f12 y clickamos esta opcion.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://developers.google.com/web/tools/chrome-devtools/remote-debugging/imgs/open-inspect-devices.png&#34; alt=&#34;elegir device&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Una vez emparejado ya esta le lio montao, podremos ir a cualquier url que pongamos en nuestras devtools y se visitara en el movil,
-depurando la web, e incluso capturando la pantalla de lo que se ve en el movil y viendolo en nuestro pantallon de developa con
-nuestro teclado y raton.&lt;/p&gt;
-
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Para hacer una progressive web app siempre podemos usar solo el pc e ir viendo los tamaños de la pantalla mientras desarrollamos, pero
-llegado el momento, esta funcionalidad de chrome se hace vital, para estar bien seguros de que en moviles (al menos en el tuyo propio),
-la app va a funcionar correctamente. Es gratis y solo necesitas un cable usb que lo tienes ya, rata. Asi que a depurar en el movil nativamente!&lt;/p&gt;
-</description>
+      <description>Viendo la web que estas haciendo directamente en tu movil Como ya sabreis, el chrome (y quiza otros navegadores) pueden poner su viewport como el de un movil para hacernos mas facil depurar la responsividad de nuestra web y poder ir viendo todo tipo de tamaño y forma de pantallas.
+Eso esta muy bien porque es rapidisimo, y podemos depurar como siempre con nuestro f12, aun asi, si queremos visualizarla desde nuestro movil, con su chrome nativo de android y tal, podemos.</description>
     </item>
     
     <item>
@@ -380,53 +86,8 @@ la app va a funcionar correctamente. Es gratis y solo necesitas un cable usb que
       <pubDate>Tue, 15 Nov 2016 11:32:31 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/post/semantic-versioning/</guid>
-      <description>
-
-&lt;p&gt;Desde hace ya tiempo estoy usando bower y cuando abandono un proyecto y
-lo retomo al mes o dos, se me ocurre hacer un &lt;code&gt;bower list&lt;/code&gt; y veo que hay
-paquetes que se pueden actualizar sin problema, pero &lt;code&gt;bower update&lt;/code&gt; no me
-hace caso. Abrimos el bower.json y nos encontramos con paquetes y simbolos
-y versiones.&lt;/p&gt;
-
-&lt;h2 id=&#34;versiones-semanticas&#34;&gt;Versiones semanticas&lt;/h2&gt;
-
-&lt;p&gt;Pues de esto va este post, porque estoy harto ya, y he decidido enterarme de
-como van, y de paso escribir en el blog por si a alguien le interesa que se
-lo expliquen como si fuera un niño de 6 años.&lt;/p&gt;
-
-&lt;h3 id=&#34;formato&#34;&gt;Formato&lt;/h3&gt;
-
-&lt;p&gt;Una version semantica de un paquete debe tener un formato tal que asi:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Major.Minor.Patch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Por ejemplo &lt;code&gt;v1.3.4&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;reglas-que-hay-que-saberse&#34;&gt;Reglas que hay que saberse&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Si cambia el numero del patch, es que han corregido bugs pero los cambios son
-compatibles hacia atras&lt;/li&gt;
-&lt;li&gt;Si cambia el numero del minor, es que han añadido funcionalidades y los cambios
-siguen siendo compatibles hacia atras&lt;/li&gt;
-&lt;li&gt;Si cambia el numero del major, es que han metido cambios que no son compatibles
-hacia atras&lt;/li&gt;
-&lt;li&gt;Otra regla mas por convenio es que si el major es 0, aun no se puede poner en
-produccion&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;los-rangos-o-simbolos-raros-que-hay-que-saberse&#34;&gt;Los rangos (o simbolos raros) que hay que saberse&lt;/h3&gt;
-
-&lt;p&gt;Solo voy a poner los que no se explican por si mismos:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;~1.2.0&lt;/code&gt;: debe ser como minimo 1.2.0 pero nunca pasar la Minor (actualizariamos siempre pero sin llegar a 1.3)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;^1.2.0&lt;/code&gt;: es la que viene por defecto en npm y bower, debe ser como minimo 1.2.0 y nunca pasar la Major  (actualizariamos siempre pero sin llegar a 2.0)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Sobre esto he leido un &lt;a href=&#34;https://nodesource.com/blog/semver-tilde-and-caret/&#34;&gt;post interesante&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Desde hace ya tiempo estoy usando bower y cuando abandono un proyecto y lo retomo al mes o dos, se me ocurre hacer un bower list y veo que hay paquetes que se pueden actualizar sin problema, pero bower update no me hace caso. Abrimos el bower.json y nos encontramos con paquetes y simbolos y versiones.
+Versiones semanticas Pues de esto va este post, porque estoy harto ya, y he decidido enterarme de como van, y de paso escribir en el blog por si a alguien le interesa que se lo expliquen como si fuera un niño de 6 años.</description>
     </item>
     
     <item>
@@ -435,31 +96,8 @@ produccion&lt;/li&gt;
       <pubDate>Wed, 02 Nov 2016 18:29:06 +0200</pubDate>
       
       <guid>http://blog.fabio.xyz/post/visual-studio-code-con-python/</guid>
-      <description>
-
-&lt;h1 id=&#34;atom-sublime-text-y-tal&#34;&gt;Atom, sublime-text y tal&lt;/h1&gt;
-
-&lt;p&gt;Pues ultimamente se esta poniendo de moda &lt;a href=&#34;https://code.visualstudio.com&#34;&gt;este editor&lt;/a&gt;, sobre todo entre los programadores web,
-yo desde hace tiempo venia usando sublime-text y despues &lt;a href=&#34;https://atom.io/&#34;&gt;atom&lt;/a&gt; asi que me he cambiado. Si vienes de atom/subl
-tienes el ctrl+shif+p donde tienes el buscador de cualquier accion que se te ocurra. Yo creo que ahi sobre todo reside la gracia
-de estos editores.&lt;/p&gt;
-
-&lt;h1 id=&#34;visual-studio-code&#34;&gt;Visual Studio code&lt;/h1&gt;
-
-&lt;p&gt;Ahora puedes instalarte este editor en arch:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ yaourt visual-studio-code
-$ code .
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El programa es sencillo, va como 3 veces mas rapido que atom y tiene algunas cosas distintas, a la izquierda tendremos unos iconos
-para poder instalar plugins y para git que estan muy bien.&lt;/p&gt;
-
-&lt;h1 id=&#34;plugins-para-python&#34;&gt;Plugins para python&lt;/h1&gt;
-
-&lt;p&gt;Bueno pues el primer plugin es el que te recomienda el editor cuando abres un .py, se llama Python y lo bueno que tiene visual studio code
-es que si lo ejecutas con un virtualenv activado, reonoce el ejecutable python y su path, muy util para navegar por las definiciones de las cosas&lt;/p&gt;
-</description>
+      <description>Atom, sublime-text y tal Pues ultimamente se esta poniendo de moda este editor, sobre todo entre los programadores web, yo desde hace tiempo venia usando sublime-text y despues atom asi que me he cambiado. Si vienes de atom/subl tienes el ctrl+shif+p donde tienes el buscador de cualquier accion que se te ocurra. Yo creo que ahi sobre todo reside la gracia de estos editores.
+Visual Studio code Ahora puedes instalarte este editor en arch:</description>
     </item>
     
     <item>
@@ -468,63 +106,9 @@ es que si lo ejecutas con un virtualenv activado, reonoce el ejecutable python y
       <pubDate>Wed, 12 Oct 2016 19:05:03 +0200</pubDate>
       
       <guid>http://blog.fabio.xyz/post/congelar-un-paquete-en-arch-linux/</guid>
-      <description>
-
-&lt;h1 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h1&gt;
-
-&lt;p&gt;Creo que es una de las cosas que se dice muy poco de Arch Linux y que me ha hecho enamorarme mas aun de esta distribucion, se trata del downgrade de paquetes.&lt;/p&gt;
-
-&lt;p&gt;Mi problema ha sido este, Yo uso postgresql, para guardar datos, mapas etc, para las webs que hago en django y en general para &lt;a href=&#34;https://www.depesz.com/&#34;&gt;trastear&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;El postgresql almacena los datos en un formato que cambia entre versiones, asi que si tienes un postgresql 9.4 en tu ordenador funcionando, con sus bases de datos, y lo actualizas a 9.5, el nuevo no arrancará, necesitas actualizar el formato de los datos que almacenaba el 9.4.&lt;/p&gt;
-
-&lt;p&gt;Arch linux es una &lt;a href=&#34;https://en.wikipedia.org/wiki/Rolling_release&#34;&gt;rolling release&lt;/a&gt;, que hablando mal es que esto no para de actualizarse sin parar,digo hablando mal (yo me incluyo,hasta no hace mucho decia lo mismo) porque no es asi para nada. Si eres usuario de arch linux conoceras el comando &lt;code&gt;pacman -Syu&lt;/code&gt;, sirve para actualizar tus paquetes, es como &lt;code&gt;apt-get upgrade&lt;/code&gt; en los sistemas debian. Pues si pacman detecta que hay un paquete llamado postgresql-9.5 que actualiza a tu instalado postgresql-9.4, lo cambiara y pondra el nuevo. Lo correcto es siempre saber que estas actualizando y tener un control, sobre todo en el entorno de la empresa, en nuestras casas somos mas de actualizar todo y tener el asunto bien nuevecito.&lt;/p&gt;
-
-&lt;p&gt;Pero claro hay ciertos paquetes que no son el &lt;code&gt;htop&lt;/code&gt; y que actualizarlos no puede ser tan sencillo, es el caso de postgresql. Siguiendo con nuestro problema, en este punto hemos actualizado y tenemos un flamante postgresql-9.5 que no arranca, ya que su configuracion apunta a un directorio de datos con &lt;em&gt;formato&lt;/em&gt; de 9.4.&lt;/p&gt;
-
-&lt;h1 id=&#34;downgrade-de-un-paquete&#34;&gt;Downgrade de un paquete&lt;/h1&gt;
-
-&lt;p&gt;Hemos actualizado a postgresql-9.5 pero necesitamos volver a 9.4 para actualizar los datos, este paso se sale del proposito de este post, hay muchas formas, pero la que me gusta a mi ya que no tengo muchos datos es volcar toda la base de datos en texto a un fichero con &lt;code&gt;pg_dumpall&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Necesitamos postgresql-9.4 para arrancar y hacer el dump, pero hemos actualizado a 9.5,&lt;a href=&#34;https://wiki.archlinux.org/index.php/Downgrading_packages&#34;&gt;hay que volver&lt;/a&gt;, como se hace esto? pues realemente es muy sencillo y elegante.&lt;/p&gt;
-
-&lt;h2 id=&#34;arch-linux-archive&#34;&gt;Arch Linux Archive&lt;/h2&gt;
-
-&lt;p&gt;ALA es una coleccion de snapshots de los repositorios, por fecha. Es decir guarda como eran los repos de nuestros paquetes para un dia determinado.&lt;/p&gt;
-
-&lt;p&gt;Para pillar nuestro postgresql-94, buscamos en la carpeta &lt;a href=&#34;https://archive.archlinux.org/packages&#34;&gt;packages&lt;/a&gt; donde estan todos los paquetes y sus versiones. Nos lo bajamos y lo instalamos asi&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd /tmp/
-wget https://archive.archlinux.org/packages/p/postgresql/postgresql-9.4.5-1-x86_64.pkg.tar.xz
-sudo pacman -U postgresql-9.4.5-1-x86_64.pkg.tar.xz
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;forzar-una-version-de-un-paquete-y-no-actualizarla&#34;&gt;Forzar una version de un paquete y no actualizarla&lt;/h1&gt;
-
-&lt;p&gt;Bueno ya vamos arreglando el embrollo, una vez hecho el dump a texto, volvemos a postgresql-9.5 y lo cargamos y ya tenemos nuestro postgresql nuevecito con nuestros datos. Ahora queremos que no nos vuelva a suceder en la 9.6. Vamos a forzar a quedarnos con esta version de postgresql y que pacman pase de actualizar a 9.6 aunque lo encuentre, porque cuando esto suceda, nos saldra por pantalla, haremos el dump a texto, y podremos actualizar nuestros datos.&lt;/p&gt;
-
-&lt;p&gt;En nuestro &lt;code&gt;/etc/pacman.conf&lt;/code&gt; editamos esta linea:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;IgnorePkg   = postgresql postgresql-libs postgis
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y listo, ya no nos volvera a pasar el mismo problema.&lt;/p&gt;
-
-&lt;h1 id=&#34;dejar-de-ser-una-rolling-release&#34;&gt;Dejar de ser una rolling release&lt;/h1&gt;
-
-&lt;p&gt;Gracias a ALA, nuestro mirrorlist puede estar puesto a un dia fijo, esto significara que nunca veremos actualizaciones nuevas, tendremos un sistema estable y seguro, donde conocemos todas las versiones de los paquetes y estamos conformes.&lt;/p&gt;
-
-&lt;p&gt;Basta con actualizar nuestros repos a ese dia en ALA, actualizando nuestro &lt;code&gt;/etc/pacman.d/mirrorlist&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;##
-## Arch Linux repository mirrorlist
-## Generated on 2042-01-01
-##
-Server=https://archive.archlinux.org/repos/2014/03/30/$repo/os/$arch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El dia queramos gastar tiempo de nuestro equipo en actualizar todo el sistema operativo, tendriamos que cambiar la fecha en la url de nuestro mirror y trabajar para que la actualizacion funcione. Se acabaron las excusas para no utilizar Arch en produccion!&lt;/p&gt;
-</description>
+      <description>Introduccion Creo que es una de las cosas que se dice muy poco de Arch Linux y que me ha hecho enamorarme mas aun de esta distribucion, se trata del downgrade de paquetes.
+Mi problema ha sido este, Yo uso postgresql, para guardar datos, mapas etc, para las webs que hago en django y en general para trastear.
+El postgresql almacena los datos en un formato que cambia entre versiones, asi que si tienes un postgresql 9.</description>
     </item>
     
     <item>
@@ -533,39 +117,7 @@ Server=https://archive.archlinux.org/repos/2014/03/30/$repo/os/$arch
       <pubDate>Wed, 05 Oct 2016 18:29:06 +0200</pubDate>
       
       <guid>http://blog.fabio.xyz/post/polymerfire-firebase-storage/</guid>
-      <description>
-
-&lt;h1 id=&#34;motivacion&#34;&gt;Motivacion&lt;/h1&gt;
-
-&lt;p&gt;Como siempre empiezo con algo personal y nada tecnico, esta vez me propongo hacer una web prescindiendo totalmente de AWS, google sigue impulsando &lt;a href=&#34;https://firebase.google.com/&#34;&gt;firebase&lt;/a&gt;, asi que voy a utilizar su base de datos para mi app, como siempre la parte de permisos para la db sigue siendo lo mas engorroso y aun no he tocado bien, llegado el momento escribire otro post acerca de ese &amp;ldquo;maldito&amp;rdquo; json de configuracion.&lt;/p&gt;
-
-&lt;p&gt;Ya use los elementos antiguos creados por google mismo para firebase de polymer, ahora los han renovado para la nueva API de firebase y lo han llamado &lt;a href=&#34;https://elements.polymer-project.org/elements/polymerfire&#34;&gt;polymerfire&lt;/a&gt;. La interaccion con la base de datos sigue siendo maravillosa, pero ahora firebase tiene un sistema donde dejar blobs creados por el usuario, normalmente fotos, un S3, pero sin tener que ir a AWS y manteniendo un solo proveedor para tu backend, firebase.&lt;/p&gt;
-
-&lt;h1 id=&#34;que-es-firebase-storage&#34;&gt;Que es firebase-storage&lt;/h1&gt;
-
-&lt;p&gt;Pues es la competencia de google a S3 de Amazon. El servicio que presta google para almacenar ficheros en la nube, se suele usar para subir los estaticos de nuestras apps, o para que nuestros usuarios suban sus fotos, tipica feature de &amp;ldquo;upload your avatar&amp;rdquo; que tienen las apps.&lt;/p&gt;
-
-&lt;p&gt;El servicio como tal se llama &lt;a href=&#34;https://cloud.google.com/storage/&#34;&gt;Cloud Storage&lt;/a&gt; y si creas un proyecto de firebase, lo tendras a tu disposicion como &lt;a href=&#34;https://firebase.google.com/docs/storage/&#34;&gt;Firebase Storage&lt;/a&gt;, no deja de usar la infraestructura del primero pero ya viene perfectamente preparado para poder utilizarlo con las credenciales de tu proyecto.&lt;/p&gt;
-
-&lt;p&gt;Por defecto, los permisos para subir ficheros (imagen,audio,video,texto, etc.) son para usuarios autenticados en este proyecto, cosa que en polymer con firebase-auth es algo trivial. De hecho funciona tan bien que tardas en pensar en los permisos ya que todo esta perfectamente preparado a unos requisitos mas o menos normales, en los que solo los usuarios registrados pueden subir ficheros.&lt;/p&gt;
-
-&lt;h1 id=&#34;como-se-sube-un-fichero-a-firebase-storage-con-polymerfire&#34;&gt;Como se sube un fichero a firebase-storage con polymerfire&lt;/h1&gt;
-
-&lt;p&gt;Pues yo no he visto la forma, no hay un elemento para eso aun, pero seguramente lo habra, en todo caso, polymerfire tiene un fichero llamado polymer-app.html que importas para inicializar el objeto firebase, objeto que es el que aparece en toda la documentacion de la libreria js de firebase y que podemos usar en nuestra app de polymer llamandolo simplemente en nuestro codigo.&lt;/p&gt;
-
-&lt;p&gt;Si escribimos esto en cualquier html en el que hayamos importado polymerfire/firebase-app.html, funcionara, y a partir de ahi, podemos seguir con la &lt;a href=&#34;https://firebase.google.com/docs/storage/web/upload-files?hl=es&#34;&gt;documentacion oficial&lt;/a&gt; para subir ficheros a firebase-storage&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var storageRef = firebase.storage().ref();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;metadatos&#34;&gt;Metadatos&lt;/h2&gt;
-
-&lt;p&gt;Ademas puedes almacenar parejas de clave-valor (metadatos) al fichero que se esta subiendo, cosa que me ha encantado, porque puede la imagen llevar asociados datos que quiza puedan ser utiles, de momento no lo he usado pero creo que S3 no tiene algo parecido.&lt;/p&gt;
-
-&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Pues con firebase-storage parece que ahora se puede hacer una app sin pasar por AWS, yo antes guardaba las imagenes en base64 en el propio documento en la base de datos, o subia a S3, supongo que habria mas formas de hacerlo, pero sin duda ahora, este paso critico que muchas apps tendran como subir por parte de los usuarios, queda totalmente cubierto.&lt;/p&gt;
-</description>
+      <description>Motivacion Como siempre empiezo con algo personal y nada tecnico, esta vez me propongo hacer una web prescindiendo totalmente de AWS, google sigue impulsando firebase, asi que voy a utilizar su base de datos para mi app, como siempre la parte de permisos para la db sigue siendo lo mas engorroso y aun no he tocado bien, llegado el momento escribire otro post acerca de ese &amp;ldquo;maldito&amp;rdquo; json de configuracion.</description>
     </item>
     
     <item>
@@ -574,329 +126,16 @@ Server=https://archive.archlinux.org/repos/2014/03/30/$repo/os/$arch
       <pubDate>Thu, 14 Apr 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/post/nftables-archlinux/</guid>
-      <description>
-
-&lt;h1 id=&#34;montar-un-firewall-con-nftables-para-nuestro-servidor&#34;&gt;Montar un firewall con nftables para nuestro servidor&lt;/h1&gt;
-
-&lt;p&gt;Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.&lt;/p&gt;
-
-&lt;p&gt;Es necesario tener un kernel &amp;gt;=3.13&lt;/p&gt;
-
-&lt;h2 id=&#34;instalacion&#34;&gt;Instalacion&lt;/h2&gt;
-
-&lt;p&gt;Asi de sencillo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ pacman -S nftables
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;desactivacion-de-iptables&#34;&gt;Desactivacion de iptables&lt;/h2&gt;
-
-&lt;p&gt;Yo estaba usando iptables con un conjunto de reglas, vamos a deshabilitarlo en el systemd y a comprobar que no tenemos ninguna regla activa:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ systemctl stop iptables
-$ systemctl disable iptables
-$ iptables -nvL
-Chain INPUT (policy ACCEPT 72M packets, 83G bytes)
- pkts bytes target     prot opt in     out     source               destination
-
-Chain FORWARD (policy ACCEPT 1639K packets, 230M bytes)
- pkts bytes target     prot opt in     out     source               destination
-
-Chain OUTPUT (policy ACCEPT 52M packets, 10G bytes)
- pkts bytes target     prot opt in     out     source               destination
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.&lt;/p&gt;
-
-&lt;h2 id=&#34;configuracion-de-nftables&#34;&gt;Configuracion de nftables&lt;/h2&gt;
-
-&lt;p&gt;Por supuesto no voy a competir con la estupenda documentacion de arch linux sobre &lt;a href=&#34;https://wiki.archlinux.org/index.php/nftables&#34;&gt;nftables&lt;/a&gt;. Voy a empezar con el fichero de ejemplo que esta en &lt;code&gt;/etc/nftables.conf&lt;/code&gt;. En este fichero viene la tipica configuracion de te capo todo menos el ssh para que sigas configurando y no se te quede cara de pipas.&lt;/p&gt;
-
-&lt;p&gt;Segun abrimos el fichero no entendemos mucho, pero el caso es pensar igual que con iptables, es exactamente igual pero digamos que puedes escribir cosas en mas sitios para mejorar la organizacion, pero los conceptos son los mismos.&lt;/p&gt;
-
-&lt;p&gt;Estan las &lt;em&gt;rules&lt;/em&gt; que son la tipica linea de iptables, donde segun el paquete que venga, si hace match , hacemos cosas (solemos aceptarlo o rechazarlo).
-Estan las &lt;em&gt;chains&lt;/em&gt; que son agrupaciones de rules, solo que en lugar de tenerlas mas o menos fijas, aqui podemos tener tantas como queramos llamarlas como queramos y en general, son mas flexibles, en el fichero por ejemplo tenemos tres chains que se llaman como las antiguas de iptables, pero se podrian llamar de otra manera, el caso es, cuando entrara un paquete por ella? bueno porque en la primera de una chain de nftables debes definir sus propiedades, es decir escribir una linea de este tipo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;type filter hook input priority 0;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks &lt;code&gt;output,forward,prerouting y postrouting&lt;/code&gt; como en iptables.&lt;/p&gt;
-
-&lt;h2 id=&#34;activar-al-inicio&#34;&gt;Activar al inicio&lt;/h2&gt;
-
-&lt;p&gt;Una vez tengamos nuestras reglas puestas en &lt;code&gt;/etc/nftables.conf&lt;/code&gt; podemos cargarlas en cada arranque.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ systemctl enable nftables
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Montar un firewall con nftables para nuestro servidor Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.</description>
     </item>
     
     <item>
       <title>Tablas hash en C,Javascript y Python</title>
-      <link>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</link>
+      <link>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-c-javascript-python/</link>
       <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-C-javascript-python/</guid>
-      <description>
-
-&lt;p&gt;Un amigo necesitaba hacer una &lt;a href=&#34;http://es.wikipedia.org/wiki/Tabla_hash&#34;&gt;funcion hash&lt;/a&gt; para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.&lt;/p&gt;
-
-&lt;h3 id=&#34;descripcion-del-problema&#34;&gt;Descripcion del problema&lt;/h3&gt;
-
-&lt;p&gt;Tenemos un fichero de texto con miles de lineas del tipo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;x|y  |z |v  |w         |value
-9|100|33|100|2014010100|1
-9|100|33|100|2014010106|5
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Nuestro objectivo es crear una tabla hash para poder buscar segun los campos de arriba, excepto el ultimo, que es el valor que queremos extraer. Es decir la clave de busqueda seran los valores &lt;em&gt;x,y,z,v,w&lt;/em&gt; y el valor el campo &lt;em&gt;value&lt;/em&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;javascript&#34;&gt;Javascript&lt;/h3&gt;
-
-&lt;p&gt;En javascript un diccionario, es un &lt;a href=&#34;http://ecma262-5.com/ELS5_HTML.htm#Section_8.6&#34;&gt;objeto&lt;/a&gt;, es decir llenariamos un objeto cuyas propiedades son nuestras claves, no entiendo mucho la implementacion de los objetos/diccionarios en javascript asi que cualquier comentario clarificador lo agradeceria mucho.&lt;/p&gt;
-
-&lt;p&gt;Creamos las claves concatenando los numeros como un string y le asignamos su valor.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var csv = require(&amp;quot;fast-csv&amp;quot;),
-    table = {};
-
-csv.fromPath(&amp;quot;problema.txt&amp;quot;, { headers: true, delimiter: &#39;|&#39; })
- .on(&amp;quot;record&amp;quot;, function(data) {
-    arr.push(data);
-    table[data.x + data.y + data.z + data.v + data.w] = data.value
- })
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y recorremos el diccionario:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var keys = Object.keys(table);
-for (var m = 0; m &amp;lt; keys.length; m++) {
- value = table[keys[m]];
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Cabe repetir que lejos de entender la implementacion interna de los objetos en javascript, no parece que sea una tabla hash sino un array asociativo, no podemos decidir una funcion hash especifica para nuestro problema.&lt;/p&gt;
-
-&lt;h3 id=&#34;python&#34;&gt;Python&lt;/h3&gt;
-
-&lt;p&gt;En python los &lt;a href=&#34;http://hg.python.org/cpython/file/52f68c95e025/Objects/dictobject.c&#34;&gt;diccionarios&lt;/a&gt; son tablas hash, ademas, nuestras claves no tienen por que ser tipos basicos, si lo fueran seria bastante parecido al ejemplo de javascript, excepto que son tablas hash reales,aqui esta la implementacion de tuplas como claves. Cualquier objeto puede ser una clave de un diccionario, basta con que cumpla una serie de requisitos en su definicion, debemos especificar un par de cosas:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Como sabremos que un objeto es igual a otro, para ello usaremos el metodo eq en su clase, necesitamos saberlo para decidir cuando hay una colision&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Definiremos un metodo &lt;a href=&#34;https://docs.python.org/2/reference/datamodel.html#object.__hash__&#34;&gt;hash&lt;/a&gt; para aplicar cualquier funcion que queramos en la construccion/lectura del diccionario.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Vamos a definir nuestra clase para las claves de busqueda:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class Key():
-    def __init__(self,x,y,z,v,w):
-        self.x = int(x)
-        self.y = int(y)
-        self.z = int(z)
-        self.v = int(v)
-        self.w = int(w)
-
-    def __str__(self):
-        return str(self.x) + str(self.y) + str(self.z) + str(self.v) + str(self.w)
-
-    def __repr__(self):
-        return str(self)
-
-    def __eq__(self,other):
-        return  self.x == other.x
-                and self.y == other.y
-                and self.z == other.z
-                and self.v == other.v
-                and self.w == other.w
-
-    def __hash__(self):
-        &amp;quot;&amp;quot;&amp;quot;
-        En esta funcion debemos devolver un entero, sera nuestra funcion hash
-        &amp;quot;&amp;quot;&amp;quot;
-        return hash((req.x,req.y,req.z,req.v,req.w))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Como podemos ver, la funcion hash, nos permite contruir nuestra tabla hash con facilidad, otros ejemplos de funciones hash para este problema:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def custom(self):
-  return abs(req.x * (req.y + 1) * (req.z + 1) + req.v) % 1572869
-
-def integer(self):
-  return int(str(self)) # el hash de un entero en python es el propio numero
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Favoreciendonos del lenguaje y de este metodo hash, podemos cambiar su definicion en tiempo de ejecucion, esto nos servira para comparar muchas funciones hash de manera sencilla, pero eso sera en otro post aparte.&lt;/p&gt;
-
-&lt;p&gt;Leemos todas las claves&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def dict_scan(d):
-    for key in d.keys():
-        d[key]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;c&#34;&gt;C&lt;/h3&gt;
-
-&lt;p&gt;En C no existe la estructura diccionario dentro del lenguaje, lo tenemos que hacer nosotros, esto tiene como ventaja que tenemos un control absoluto de como se tiene que comportar, ademas del rendimiento insuperable que tiene un lenguaje compilado como C. No hace falta que igual de insuperable es el tiempo que nos cuesta implementar este problema comparado con los otros dos contendientes, digamos que tenemos tiempo infinito para hacerlo.&lt;/p&gt;
-
-&lt;p&gt;La creacion de la estructura de datos la tabla hash es la siguiente:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;sys/types.h&amp;gt;
-#include &amp;lt;sys/stat.h&amp;gt;
-#include &amp;lt;sys/time.h&amp;gt;
-#include &amp;lt;fcntl.h&amp;gt;
-#include &amp;lt;stdio.h&amp;gt;
-#include &amp;lt;stdlib.h&amp;gt;
-#include &amp;lt;string.h&amp;gt;
-#include &amp;lt;unistd.h&amp;gt;
-
-#define TAMHASH 1572869
-
-typedef struct {
-  int *datos;
-  int num_datos;
-} datos_t;
-
-typedef struct {
-  int k[5];
-  int v;
-} hash_datos_t;
-
-typedef struct
-{
-  hash_datos_t *datos;
-  int num_datos;
-  int num_max_datos;
-} hash_node_t;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;La funcion hash es totalmente como nosotros queramos&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;inline static int hash_key(int x, int y, int z, int v, int w)
-{
-  return (x * y * (z + 1) + v + w) % TAMHASH;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Creamos un hash vacio&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;hash_node_t *hash_create(void)
-{
-  hash_node_t *hash;
-  int i;
-
-  hash = malloc(sizeof(hash_node_t) * TAMHASH);
-  for(i = 0; i &amp;lt; TAMHASH; i++)
-  {
-      hash[i].datos = malloc(sizeof(hash_datos_t) * 2);
-      hash[i].num_datos = 0;
-      hash[i].num_max_datos = 2;
-  }
-
-  return hash;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Lo llenamos&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;inline static void hash_add(hash_node_t *hash, int *p, int valor)
-{
-  int ind;
-  int i;
-
-  ind = hash_key(p[0], p[1], p[2], p[3], p[4]);
-
-  // comprobamos si existe
-  for(i = 0; i &amp;lt; hash[ind].num_datos; i++)
-  {
-    if(hash[ind].datos[i].k[0] == p[0] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[1] == p[1] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[2] == p[2] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[3] == p[3] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[4] == p[4])
-      break;
-  }
-
-  if(i == hash[ind].num_datos)
-  {
-    // no se ha encontrado la información
-    // creamos un elemento nuevo
-    if(hash[ind].num_datos == hash[ind].num_max_datos)
-    {
-      // si hemos llegado al máximo ampliamos
-      hash[ind].num_max_datos += 4;
-      hash[ind].datos = realloc(hash[ind].datos,
-        sizeof(hash_datos_t) * hash[ind].num_max_datos);
-    }
-
-    //memcpy(hash[ind].datos[i].k, p, sizeof(int)*5);
-    hash[ind].datos[i].k[0] = p[0];
-    hash[ind].datos[i].k[1] = p[1];
-    hash[ind].datos[i].k[2] = p[2];
-    hash[ind].datos[i].k[3] = p[3];
-    hash[ind].datos[i].k[4] = p[4];
-    hash[ind].datos[i].v = valor;
-    hash[ind].num_datos++;
-  }
-  else
-  {
-    // lo hemos encontrado.
-    hash[ind].datos[i].v = valor;
-  }
-}
-
-// Metemos cada linea en el hash con la funcion de arriba
-for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
-{
-  hash_add(hash, &amp;amp;datos-&amp;gt;datos[linea], datos-&amp;gt;datos[linea + 5]);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y lo leemos&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;inline static int hash_get(hash_node_t *hash, int *p)
-{
-  int i;
-  int ind;
-  int ret = -1;
-
-  ind = hash_key(p[0], p[1], p[2], p[3], p[4]);
-
-  // comprobamos si existe
-  for(i = 0; i &amp;lt; hash[ind].num_datos; i++)
-  {
-    if(hash[ind].datos[i].k[0] == p[0] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[1] == p[1] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[2] == p[2] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[3] == p[3] &amp;amp;&amp;amp;
-      hash[ind].datos[i].k[4] == p[4])
-    {
-      ret = hash[ind].datos[i].v;
-      break;
-    }
-  }
-
-  return ret;
-}
-
-// consultando datos
-for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
-{
-  v = hash_get(hash, &amp;amp;datos-&amp;gt;datos[linea]);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;metodo-de-resolucion-de-colisiones&#34;&gt;Metodo de resolucion de colisiones&lt;/h3&gt;
-
-&lt;p&gt;En el caso de C, la tabla hash esta creada con un metodo de resolucion de colisiones del tipo &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists&#34;&gt;Separate chaining with linked lists&lt;/a&gt;, mientras que el metodo que python usa es &lt;a href=&#34;http://en.wikipedia.org/wiki/Hash_table#Open_addressing&#34;&gt;Open addressing&lt;/a&gt;, En esta grafica se ve como se comportan los dos metodos segun lo llena que esta la tabla (load factor), ordenadas menores es mejor.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://upload.wikimedia.org/wikipedia/commons/1/1c/Hash_table_average_insertion_time.png&#34; alt=&#34;Grafica collision compare&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;rendimiento&#34;&gt;Rendimiento&lt;/h3&gt;
-
-&lt;p&gt;Aunque no con este codigo (modificado para la explicacion), se hicieron pruebas de los tres lenguajes, siendo vencedor C (con toda optimizacion del codigo posible), y muy cerca quedo &lt;a href=&#34;http://pypy.org/&#34;&gt;pypy&lt;/a&gt; con su funcion built-in de hashear tuplas, mas de tres veces mas lento quedo el cpython 2.7, y javascript en nodejs.&lt;/p&gt;
-</description>
+      <guid>http://blog.fabio.xyz/post/antiguos/rendimiento-tablas-hash-en-c-javascript-python/</guid>
+      <description>Un amigo necesitaba hacer una funcion hash para un problema concreto, como os podeis imaginar, el problema consistia en que necesitaba buscar en un diccionario muchisimas claves, este proceso necesitaba ser lo mas rapido posible, y segun nuestro cariño a distintos lenguajes ,entre varios decidimos hacer un estudio sobre como resolver el problema usando varios: C, javascript y python, sin usar ninguna cosa rara, simplemente usando lo que el lenguaje permita hacer.</description>
     </item>
     
     <item>
@@ -905,91 +144,9 @@ for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
       <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/montecarlo-y-el-problema-de-las-3-puertas/</guid>
-      <description>&lt;p&gt;Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el &lt;strong&gt;problema de las tres puertas&lt;/strong&gt;, o de &lt;strong&gt;monty hall&lt;/strong&gt;. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que &lt;strong&gt;no son independientes&lt;/strong&gt; pero lo parecen.&lt;/p&gt;
-
-&lt;p&gt;El enunciado es el siguiente:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras. Escoges una puerta, digamos la nº1, y el presentador, que sabe lo que hay detrás de las puertas, abre otra, digamos la nº3, que contiene una cabra. Entonces te pregunta: &amp;ldquo;¿No prefieres escoger la nº2?&amp;rdquo;. ¿Es mejor para ti cambiar tu elección?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Puedes ver el &lt;a href=&#34;http://es.wikipedia.org/wiki/Problema_de_Monty_Hall&#34;&gt;resultado teorico&lt;/a&gt; desde ya, pero aqui vamos a simularlo muchas veces a ver si es mejor quedarme con la puerta que elegí, o gano mas veces cambiando la puerta. Es un buen ejemplo como en unas pocas lineas de codigo, podemos simular un problema complejo para inferir la probabilidad de un evento. Solo basta con modelar el problema, hacerlo muchas veces y ver que pasa para hacerte una idea.&lt;/p&gt;
-
-&lt;p&gt;Esta funcion repite un numero &lt;code&gt;numTrials&lt;/code&gt; de veces el concurso, almacena los 3 posibles resultados:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;stickWins&lt;/code&gt; Numero de veces que ganamos quedandonos con la puerta que elegimos la primera vez&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;switchWins&lt;/code&gt; Numero de veces que ganamos cambiando a la otra puerta que queda disponible&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;noWin&lt;/code&gt; Numero de veces que no ganamos&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Despues en cada experimento, colocaremos el premio en una de las tres puertas aleatoriamente, y elegiremos una puerta tambien aleatoriamente,&lt;/p&gt;
-
-&lt;p&gt;Usaremos una funcion para decidir que puerta abre monty, la hemos llamado &lt;code&gt;chooseFcn&lt;/code&gt; y se la pasaremos por parametro, asi podemos hacer un monty mas flexible.&lt;/p&gt;
-
-&lt;p&gt;Contabilizamos el resultado del experimento:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Si monty abre la puerta con el premio has perdido (esto no pasa nunca en el problema original, puesto que en el concurso monty &lt;strong&gt;sabia&lt;/strong&gt; donde estaba el premio y abria la otra puerta sin el)&lt;/li&gt;
-&lt;li&gt;Si la puerta que elegimos es la del premio, hemos ganado sin cambiarnos&lt;/li&gt;
-&lt;li&gt;Si monty no ha abierto la del premio, y no es la que elegimos previamente, significa que hemos cambiado y ganado.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Aqui esta el experimento entero:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def simMontyHall(numTrials,chooseFcn):
-    stickWins, switchWins, noWin = (0, 0, 0)
-    prizeDoorChoices = [1,2,3]
-    guessChoices = [1,2,3]
-    for t in range(numTrials):
-        prizeDoor = random.choice([1, 2, 3])
-        guess = random.choice([1, 2, 3])
-        toOpen = chooseFcn(guess, prizeDoor)
-        if toOpen == prizeDoor:
-            noWin += 1
-        elif guess == prizeDoor:
-            stickWins += 1
-        else:
-            switchWins += 1
-    return (stickWins, switchWins)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;La funcion que determina el comportamiento de monty es la siguiente:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Si no he elegido la 1 ni tiene el premio, me da la 1&lt;/li&gt;
-&lt;li&gt;Lo mismo para la 2&lt;/li&gt;
-&lt;li&gt;Lo mismo para la 3&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;En general devuelve &lt;em&gt;la puerta que no tiene premio y no es la mia&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def montyChoose(guessDoor, prizeDoor):
-    if 1 != guessDoor and 1 != prizeDoor:
-        return 1
-    if 2 != guessDoor and 2 != prizeDoor:
-        return 2
-    return 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ya solo nos falta ejecutar el experimento muchas veces y ver los resultados, ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall1.png&#34; alt=&#34;Resultados cuando monty elige una puerta adrede&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Queda claro que si te cambias tienes mas posibilidades de ganar. Pero que pasaria si monty abre una puerta &lt;strong&gt;sin conocer&lt;/strong&gt; lo que hay detras, es decir aleatoriamente? En ese caso podria abrir la que tiene el premio y tu, perder automaticamente. Veamos la funcion que lo implementa, es muy sencilla:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def randomChoose(guessDoor, prizeDoor):
-    if guessDoor == 1:
-        return random.choice([2,3])
-    if guessDoor == 2:
-        return random.choice([1,3])
-    return random.choice([1,2])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Simplemente abre aleatoriamente una de las otras dos puertas que no elegi. Ganare mas veces plantandome, ganare mas veces aceptando la opcion de monty de cambiar de puerta? dara igual?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.fabio.xyz/images/montyhall2.png&#34; alt=&#34;Resultados cuando monty elige una puerta aleatoriamente&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>Vamos a hacer una simulacion para averiguar un problema famoso de probabilidad, el problema de las tres puertas, o de monty hall. Este problema siempre resulta controvertido, o al menos divertido, ya que esconde una serie de eventos con cierta probabilidad que no son independientes pero lo parecen.
+El enunciado es el siguiente:
+ Supón que estás en un concurso, y se te ofrece escoger entre tres puertas: detrás de una de ellas hay un coche, y detrás de las otras, cabras.</description>
     </item>
     
     <item>
@@ -998,82 +155,8 @@ for(linea = 0; linea &amp;lt; datos-&amp;gt;num_datos; linea+=6)
       <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</guid>
-      <description>
-
-&lt;ul&gt;
-&lt;li&gt;Hace ya un tiempo que estoy usando &lt;a href=&#34;https://github.com/dbcli/pgcli&#34;&gt;pgcli&lt;/a&gt;, mejora bastante el uso con autocompletado y mas cosas&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;psql&#34;&gt;psql&lt;/h2&gt;
-
-&lt;p&gt;Para los que usamos el cliente psql, hay ciertas &amp;ldquo;mejoras&amp;rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el &lt;a href=&#34;https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc&#34;&gt;mio&lt;/a&gt; si quieres!&lt;/p&gt;
-
-&lt;h3 id=&#34;distintos-historicos&#34;&gt;Distintos historicos&lt;/h3&gt;
-
-&lt;p&gt;Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set HISTFILE ~/.psql_history- :DBNAME
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;aumentar-las-lineas-de-historico&#34;&gt;Aumentar las lineas de historico&lt;/h4&gt;
-
-&lt;p&gt;Almacenamos mas queries que por defecto&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set HISTSIZE 20000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;mejoramos-el-prompt&#34;&gt;Mejoramos el prompt&lt;/h4&gt;
-
-&lt;p&gt;En la linea de comandos podremos ver a que base de datos y host estamos conectados:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set PROMPT1 &#39;%M %n@%/%R%#%x &#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[local] fabio@tests=#
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;coloreamos-el-null&#34;&gt;Coloreamos el null&lt;/h4&gt;
-
-&lt;p&gt;Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\pset null &#39;[NULL]&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[local] fabio@tests=# insert into foo values (1,null) ;
-INSERT 0 1
-[local] fabio@tests=# select * from foo;
- id |  bar
-----+--------
-  1 | [NULL]
-(1 fila)
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;demasiadas-columnas-para-mi-consola&#34;&gt;Demasiadas columnas para mi consola&lt;/h4&gt;
-
-&lt;p&gt;Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\x auto
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;confirmar-la-salida&#34;&gt;Confirmar la salida&lt;/h4&gt;
-
-&lt;p&gt;Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set IGNOREEOF 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es este:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[local] fabio@tests=# Use «\q» para salir de psql.
-[local] fabio@tests=# Use «\q» para salir de psql.
-[local] fabio@tests=# \q
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Hace ya un tiempo que estoy usando pgcli, mejora bastante el uso con autocompletado y mas cosas  psql Para los que usamos el cliente psql, hay ciertas &amp;ldquo;mejoras&amp;rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el mio si quieres!
+Distintos historicos Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.</description>
     </item>
     
     <item>
@@ -1082,90 +165,9 @@ INSERT 0 1
       <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</guid>
-      <description>
-
-&lt;h1 id=&#34;haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas&#34;&gt;Haciendo tests e2e en apps que ya tenemos hechas&lt;/h1&gt;
-
-&lt;h2 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h2&gt;
-
-&lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
-
-&lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
-
-&lt;h2 id=&#34;webdriverjs-selenium&#34;&gt;WebdriverJs (Selenium)&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.seleniumhq.org/projects/webdriver/&#34;&gt;Selenium&lt;/a&gt; es un driver que automatiza interacciones con el explorador&lt;/p&gt;
-
-&lt;p&gt;Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g webdriver-manager
-$ sudo webdriber-manager update
-$ sudo webdriber-manager start
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;protractor&#34;&gt;Protractor&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.npmjs.org/package/protractor&#34;&gt;Protractor&lt;/a&gt; es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs&lt;/p&gt;
-
-&lt;p&gt;Lo instalamos en el sistema:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g protractor
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs&lt;/li&gt;
-&lt;li&gt;Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;exports.config = {
-  seleniumAddress: &#39;http://localhost:4444/wd/hub&#39;,
-  specs: [&#39;spec.js&#39;],
-
-  onPrepare: function() {
-    // implicit and page load timeouts
-    browser.manage().timeouts().pageLoadTimeout(20000);
-    browser.manage().timeouts().implicitlyWait(10000);
-
-    // for non-angular page
-    browser.ignoreSynchronization = true;
-
-    // Maximized chrome window
-    browser.driver.manage().window().maximize();
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;un-test-sencillo&#34;&gt;Un test sencillo&lt;/h2&gt;
-
-&lt;p&gt;Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;describe(&#39;angularjs homepage&#39;, function() {
-  it(&#39;should have a title&#39;, function() {
-    browser.get(&#39;http://juliemr.github.io/protractor-demo/&#39;);
-
-    expect(browser.getTitle()).toEqual(&#39;Super Calculator&#39;);
-  });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y ejecutamos protractor:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protractor conf.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;chrome-y-phantomjs&#34;&gt;Chrome y PhantomJS&lt;/h2&gt;
-
-&lt;p&gt;Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.&lt;/p&gt;
-
-&lt;p&gt;Para eso usaremos phantomjs, como en los anteriores paquetes:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g phantomjs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.&lt;/p&gt;
-</description>
+      <description>Haciendo tests e2e en apps que ya tenemos hechas Introduccion Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.
+Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.
+WebdriverJs (Selenium) Selenium es un driver que automatiza interacciones con el explorador</description>
     </item>
     
     <item>
@@ -1174,202 +176,8 @@ $ sudo webdriber-manager start
       <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/full-text-search-postgresql/</guid>
-      <description>
-
-&lt;h1 id=&#34;buscando-texto-con-postgresql&#34;&gt;Buscando texto con postgresql&lt;/h1&gt;
-
-&lt;p&gt;Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo &lt;em&gt;camion&lt;/em&gt; sin acento y no me sale &amp;ldquo;camión&amp;rdquo;, bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/textsearch.html&#34;&gt;full text search&lt;/a&gt; que nos ofrece. Os adelanto que este es un ejemplo sencillisimo de todo lo que soporta.&lt;/p&gt;
-
-&lt;h2 id=&#34;tengo-una-columna-con-texto-donde-quiero-buscar&#34;&gt;Tengo una columna con texto donde quiero buscar&lt;/h2&gt;
-
-&lt;p&gt;El caso de uso mas común, tengo una tabla con texto, y al buscar puedo usar LIKE o incluso ILIKE, pero eso no nos hace encontrar las palabras como un humano quiere realmente, no vamos a lograr hacer el &lt;em&gt;quiso decir&lt;/em&gt; de google, pero al menos vamos a poder buscar entre texto con o sin acentos, mayusculas, nexos y cosas asi que nos molestan.&lt;/p&gt;
-
-&lt;p&gt;Vamos a crear una base de datos y una tabla de prueba:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE DATABASE tss;
-CREATE TABLE textos (
-     texto   text
-);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ahora insertamos texto de ejemplo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;INSERT INTO textos VALUES (&#39;En un lugar de la Mancha&#39;);
-INSERT INTO textos VALUES (&#39;de cuyo nombre no quiero acordarme,&#39;);
-INSERT INTO textos VALUES (&#39;no ha mucho que vivía&#39;);
-INSERT INTO textos VALUES (&#39;un hidalgo de los de lanza en astillero&#39;);
-INSERT INTO textos VALUES (&#39;adarga antigua&#39;);
-INSERT INTO textos VALUES (&#39;rocín flaco y galgo corredor.&#39;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Podemos buscar texto de manera precaria:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select * from textos where texto like &#39;mancha&#39;;
- texto
--------
-(0 filas)
-
-ts=# select * from textos where texto like &#39;%mancha%&#39;;
- texto
--------
-(0 filas)
-
-ts=# select * from textos where texto ilike &#39;%mancha%&#39;;
-          texto
---------------------------
- En un lugar de la Mancha
-(1 fila)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y si quiere buscar &lt;em&gt;rocín&lt;/em&gt; sin acento? Vamos a hacerlo bien.&lt;/p&gt;
-
-&lt;h2 id=&#34;full-text-search-en-nuestra-columna&#34;&gt;Full-text search en nuestra columna&lt;/h2&gt;
-
-&lt;p&gt;Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select to_tsvector(texto) from textos ;
-               to_tsvector
-------------------------------------------
- &#39;lug&#39;:3 &#39;manch&#39;:6
- &#39;acord&#39;:6 &#39;cuy&#39;:2 &#39;nombr&#39;:3 &#39;quier&#39;:5
- &#39;viv&#39;:5
- &#39;astiller&#39;:8 &#39;hidalg&#39;:2 &#39;lanz&#39;:6
- &#39;adarg&#39;:1 &#39;antigu&#39;:2
- &#39;corredor&#39;:5 &#39;flac&#39;:2 &#39;galg&#39;:4 &#39;rocin&#39;:1
-(6 filas)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Muy raro todo no?, &lt;strong&gt;En un lugar de la Mancha&lt;/strong&gt; se ha convertido en &lt;strong&gt;&amp;lsquo;lug&amp;rsquo;:3 &amp;lsquo;manch&amp;rsquo;:6&lt;/strong&gt; . Un tsvector es una lista de lexemas, digamos de palabras que pueden derivar en nuestra palabra real u otras parecidas, Hemos &lt;strong&gt;normalizado&lt;/strong&gt; nuestras palabras, es decir, las hemos puesto en minusculas, quitado los plurales, etc. Los numeros asociados, es la posicion de estas palabras en nuestro string original, En un &lt;strong&gt;lug&lt;/strong&gt;(3) de la &lt;strong&gt;manch&lt;/strong&gt;(6)&lt;/p&gt;
-
-&lt;p&gt;TODO Poner en que lenguaje esta el postgresql&lt;/p&gt;
-
-&lt;h2 id=&#34;pasarle-una-busqueda&#34;&gt;Pasarle una busqueda&lt;/h2&gt;
-
-&lt;p&gt;Ahora que tenemos nuestros textos &lt;em&gt;arreglados&lt;/em&gt; para las busquedas, podemos meter un string en la caja de busqueda, podemos meter cualquier cosa, y queremos que nos salgan los resultados razonables, para ello nuestra busqueda debemos arreglarla tambien, para ello usaremos el tipo tsquery. Este tipo, esta pensado para operar contra tsvectors como los que hemos creado antes, un ejemplo es:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select to_tsquery(&#39;vivir&#39;);
- to_tsquery
-------------
- &#39;viv&#39;
-(1 fila)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;sacando-resultados&#34;&gt;Sacando resultados&lt;/h2&gt;
-
-&lt;p&gt;Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nuestro where usaremos el operador @@ (uno de los &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/functions-textsearch.html&#34;&gt;muchos&lt;/a&gt; que hay disponibles) entre nuestra tabla pasada a tsvector y nuestra busqueda pasada a tsquery&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select * from textos where to_tsvector(texto) @@ to_tsquery(&#39;vivir&#39;);
-         texto
------------------------
- no ha mucho que vivía
-(1 fila)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;ranking&#34;&gt;Ranking&lt;/h2&gt;
-
-&lt;p&gt;Un motor de busqueda bueno, nos ordenara los resultados por relevancia, segun nos acerquemos mas a lo que queremos buscar. Postgresql tambien nos ofrece &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/textsearch-controls.html#TEXTSEARCH-RANKING&#34;&gt;esta funcionalidad&lt;/a&gt;, por ejemplo, si tenemos un blog, queremos que al buscar , el titulo tengas mas relevancia que el contenido, vamos a verlo:&lt;/p&gt;
-
-&lt;p&gt;Creamos una tabla con datos:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE TABLE blog(
-	titulo varchar(200),
-	contenido text
-);
-INSERT INTO blog VALUES (&#39;Molan las busquedas en postgresql&#39;,&#39;Estoy escribiendo un contenido del post sin la palabra maldita&#39;);
-INSERT INTO blog VALUES (&#39;Molan las busquedas en nuestra db&#39;,&#39;Estoy escribiendo un contenido del post que usa postgresql para buscar&#39;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra &lt;em&gt;postgresql&lt;/em&gt; en el titulo, y otro post la tiene en el contenido.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select to_tsvector(titulo) || to_tsvector(contenido) from blog;
-                                            ?column?
-------------------------------------------------------------------------------------------------
- &#39;busqued&#39;:3 &#39;conten&#39;:9 &#39;escrib&#39;:7 &#39;maldit&#39;:15 &#39;mol&#39;:1 &#39;palabr&#39;:14 &#39;post&#39;:11 &#39;postgresql&#39;:5
- &#39;busc&#39;:17 &#39;busqued&#39;:3 &#39;conten&#39;:10 &#39;db&#39;:6 &#39;escrib&#39;:8 &#39;mol&#39;:1 &#39;post&#39;:12 &#39;postgresql&#39;:15 &#39;usa&#39;:14
-(2 filas)
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Con la funcion &lt;strong&gt;setweight&lt;/strong&gt; podemos decir que relevancia tiene un tsvector, hay pesos desde la &amp;rsquo;D&amp;rsquo; hasta la &amp;lsquo;A&amp;rsquo;, modificamos la consulta para ponerle mas peso al titulo que al contenido:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select setweight(to_tsvector(titulo),&#39;A&#39;) || setweight(to_tsvector(contenido),&#39;B&#39;) from blog;
-                                                ?column?
----------------------------------------------------------------------------------------------------------
- &#39;busqued&#39;:3A &#39;conten&#39;:9B &#39;escrib&#39;:7B &#39;maldit&#39;:15B &#39;mol&#39;:1A &#39;palabr&#39;:14B &#39;post&#39;:11B &#39;postgresql&#39;:5A
- &#39;busc&#39;:17B &#39;busqued&#39;:3A &#39;conten&#39;:10B &#39;db&#39;:6A &#39;escrib&#39;:8B &#39;mol&#39;:1A &#39;post&#39;:12B &#39;postgresql&#39;:15B &#39;usa&#39;:14B
-(2 filas)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ahora vemos como a los numeros de los lexemas, les ha agregado la relevancia. Ahora vamos a buscar y a ordenar los resultados, para nuestro ORDER BY usaremos la funcion ts_rank.&lt;/p&gt;
-
-&lt;p&gt;Nos importa mas el titulo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select * from blog
-where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery(&#39;postgresql&#39;)
-order by ts_rank(setweight(to_tsvector(titulo),&#39;D&#39;) || setweight(to_tsvector(contenido),&#39;A&#39;),to_tsquery(&#39;postgresql&#39;));
-              titulo               |                               contenido
------------------------------------+------------------------------------------------------------------------
- Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita
- Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
-(2 filas)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Nos importa mas el contenido:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ts=# select * from blog
-where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery(&#39;postgresql&#39;)
-order by ts_rank(setweight(to_tsvector(titulo),&#39;A&#39;) || setweight(to_tsvector(contenido),&#39;D&#39;),to_tsquery(&#39;postgresql&#39;));
-              titulo               |                               contenido
------------------------------------+------------------------------------------------------------------------
- Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
- Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita
-(2 filas)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;usando-indices&#34;&gt;Usando indices&lt;/h2&gt;
-
-&lt;p&gt;Vaya turron de consultas las dos ultimas no?, ademas de enfarragoso, algo ineficiente, como en postgresql se pueden definir indices sobre funciones , podemos pasar lo anterior a un indice &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/textsearch-indexes.html&#34;&gt;gin&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE INDEX blog_posts_idx ON blog
-USING gin(( setweight(to_tsvector(&#39;spanish&#39;,titulo),&#39;B&#39;) || setweight(to_tsvector(&#39;spanish&#39;,contenido),&#39;A&#39;)) );
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Hemos creado un indice con la misma funcionalidad que en el anterior ejemplo, esta vez, hemos especificado a tsvector que nuestro idioma del post es español, (podriamos especificar distintos idiomas tambien). Asi nos creara el texto normalizado para nuestro idioma de manera correcta. (and o with en español no lo eliminara, seran palabras &lt;em&gt;importantes&lt;/em&gt; en español).&lt;/p&gt;
-
-&lt;h2 id=&#34;mispelling&#34;&gt;Mispelling&lt;/h2&gt;
-
-&lt;p&gt;Queria buscar Quijote pero he puesto &amp;ldquo;qijote&amp;rdquo;, deberia salir igual no? Para esto, tenemos &lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/pgtrgm.html&#34;&gt;una extension&lt;/a&gt; que podemos ponerla en nuestra db asi:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE EXTENSION pg_trgm;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Esta extension nos da una funcion que nos da un float entre 0 y 1 llamada similarity:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ts=# select similarity(&#39;Quijote&#39;, &#39;Quijote&#39;);
- similarity
-------------
-          1
-(1 fila)
-
-ts=# select similarity(&#39;Quijote&#39;, &#39;Quijota&#39;);
- similarity
-------------
-        0.6
-(1 fila)
-
-ts=# select similarity(&#39;Quijote&#39;, &#39;nada que ver&#39;);
- similarity
-------------
-   0.105263
-(1 fila)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Gracias a esta funcion, podremos buscar entre lexemas de nuestra tabla parecidos, pero eso sera en otro post.&lt;/p&gt;
-
-&lt;h3 id=&#34;fuentes&#34;&gt;Fuentes&lt;/h3&gt;
-
-&lt;p&gt;Me he inspirado, si no a veces copiado de este fantastico &lt;a href=&#34;http://blog.lostpropertyhq.com/postgres-full-text-search-is-good-enough/&#34;&gt;post&lt;/a&gt; acerca de este tema&lt;/p&gt;
-</description>
+      <description>Buscando texto con postgresql Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo camion sin acento y no me sale &amp;ldquo;camión&amp;rdquo;, bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de full text search que nos ofrece. Os adelanto que este es un ejemplo sencillisimo de todo lo que soporta.
+Tengo una columna con texto donde quiero buscar El caso de uso mas común, tengo una tabla con texto, y al buscar puedo usar LIKE o incluso ILIKE, pero eso no nos hace encontrar las palabras como un humano quiere realmente, no vamos a lograr hacer el quiso decir de google, pero al menos vamos a poder buscar entre texto con o sin acentos, mayusculas, nexos y cosas asi que nos molestan.</description>
     </item>
     
   </channel>

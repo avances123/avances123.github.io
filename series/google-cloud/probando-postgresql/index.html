@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="2NHKEM-aqhXa-pfsTc--26GMPb1mGY__SDMKGZqb8KY" />
+  <meta name="keywords" content="google,cloud,sql,postgresql">
+  <meta name="description" content="Un blog con articulos con proyectos en arch linux, python, postgresql algo de GIS.">
+
+
+  <title>
+    Probando postgresql en google | avances123
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.fabio.xyz/series/google-cloud/probando-postgresql/"/>
+
+  
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/sanitize.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/responsive.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/theme.css">
+  <link rel="stylesheet" href="http://blog.fabio.xyz/css/custom.css">
+
+  
+  <link href="http://blog.fabio.xyz/index.xml" rel="alternate" type="application/rss+xml" title="avances123" />
+  <link href="http://blog.fabio.xyz/index.xml" rel="feed" type="application/rss+xml" title="avances123" />
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="cabeza row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://blog.fabio.xyz/">avances123</a></h1>
+        <h2>Instalo algo y opino al respecto</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          <li><a href="https://twitter.com/avances123" target="_blank">Twitter</a></li>
+          
+          <li><a href="https://github.com/avances123" target="_blank">GitHub</a></li>
+          <li><a href="http://blog.fabio.xyz/index.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+          <li><label for="trigger">Amigos</label></li>
+          <input type="checkbox" id="trigger" name="trigger"/>
+          <ul id="menu-amigos">
+              <li><a target="_blank" href="http://www.p.valienteverde.com/">Pedro Valiente</a></li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>Probando postgresql en google</h1>
+      <div class="meta">
+        Apr 15, 2017 &nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/google">google</a>&nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/cloud">cloud</a>&nbsp;
+        
+          #<a href="http://blog.fabio.xyz/tags/postgresql">postgresql</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+
+      
+
+<h1 id="dando-de-alta-la-base-de-datos">Dando de alta la base de datos</h1>
+
+<p>Pues basta con hacer un nuevo proyecto en la <a href="https://console.cloud.google.com">Consola</a>, poner nuestra tarjeta de credito, y despues arrancar una instancia de postgresql 9.6
+ una vez arrancada, te dice la ip que tiene, y te puedes conectar a ella como siempre:</p>
+
+<pre><code class="language-bash"> pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA
+</code></pre>
+
+<p># Poniendo postgis
+ Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel. En lugar de guardarlo en un fichero GeoTiff u otro
+ formato, lo guardaremos en una tabla postgis con tipo raster.</p>
+
+<p>Google cloud platform viene con postgresql 9.6 y postgis 2.3 disponible, asi que podremos hacer uso de esta tecnologia:</p>
+
+<pre><code class="language-sql"> $ CREATE EXTENSION postgis;
+</code></pre>
+
+<p>y ya tenemos postgis en la nube de google. xd</p>
+
+
+    </article>
+    
+ <aside><div id="disqus_thread"></div></aside> 
+
+<script type="text/javascript">
+     
+    var disqus_shortname = 'avances123';
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </main>
+
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/" rel="prev">Introduccion, que tenia antes y que he comprado</a></span>
+    
+    
+      <span class="next"><a href="http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/" rel="next">Montando el almacenamiento con btrfs</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://blog.fabio.xyz/images/profile.png" width="64" height="64"><br>
+      Escrito por Fabio Rueda
+    </div>
+
+  </footer>
+
+
+</div>
+
+<script src="http://blog.fabio.xyz/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-18805523-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>
+

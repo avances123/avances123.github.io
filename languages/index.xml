@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Languages on avances123</title>
+    <link>http://blog.fabio.xyz/languages/</link>
+    <description>Recent content in Languages on avances123</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <copyright>Escrito por Fabio Rueda</copyright>
+    <lastBuildDate>Fri, 04 Mar 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://blog.fabio.xyz/languages/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bash</title>
+      <link>http://blog.fabio.xyz/languages/bash/</link>
+      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/languages/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C</title>
+      <link>http://blog.fabio.xyz/languages/c/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/languages/c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>http://blog.fabio.xyz/languages/javascript/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/languages/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://blog.fabio.xyz/languages/python/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/languages/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sql</title>
+      <link>http://blog.fabio.xyz/languages/sql/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/languages/sql/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

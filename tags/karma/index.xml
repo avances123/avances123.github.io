@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>karma on avances123</title>
-    <link>http://blog.fabio.xyz/tags/karma/index.xml</link>
-    <description>Recent content in karma on avances123</description>
+    <title>Karma on avances123</title>
+    <link>http://blog.fabio.xyz/tags/karma/</link>
+    <description>Recent content in Karma on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <copyright>Escrito por Fabio Rueda</copyright>
-    <atom:link href="http://blog.fabio.xyz/tags/karma/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Mar 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://blog.fabio.xyz/tags/karma/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Protractor en legacy code</title>
@@ -15,90 +18,9 @@
       <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/karma-y-jasmine-en-legacy-code/</guid>
-      <description>
-
-&lt;h1 id=&#34;haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas&#34;&gt;Haciendo tests e2e en apps que ya tenemos hechas&lt;/h1&gt;
-
-&lt;h2 id=&#34;introduccion&#34;&gt;Introduccion&lt;/h2&gt;
-
-&lt;p&gt;Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.&lt;/p&gt;
-
-&lt;p&gt;Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.&lt;/p&gt;
-
-&lt;h2 id=&#34;webdriverjs-selenium&#34;&gt;WebdriverJs (Selenium)&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.seleniumhq.org/projects/webdriver/&#34;&gt;Selenium&lt;/a&gt; es un driver que automatiza interacciones con el explorador&lt;/p&gt;
-
-&lt;p&gt;Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g webdriver-manager
-$ sudo webdriber-manager update
-$ sudo webdriber-manager start
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;protractor&#34;&gt;Protractor&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.npmjs.org/package/protractor&#34;&gt;Protractor&lt;/a&gt; es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs&lt;/p&gt;
-
-&lt;p&gt;Lo instalamos en el sistema:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g protractor
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs&lt;/li&gt;
-&lt;li&gt;Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;exports.config = {
-  seleniumAddress: &#39;http://localhost:4444/wd/hub&#39;,
-  specs: [&#39;spec.js&#39;],
-
-  onPrepare: function() {
-    // implicit and page load timeouts
-    browser.manage().timeouts().pageLoadTimeout(20000);
-    browser.manage().timeouts().implicitlyWait(10000);
-
-    // for non-angular page
-    browser.ignoreSynchronization = true;
-
-    // Maximized chrome window
-    browser.driver.manage().window().maximize();
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;un-test-sencillo&#34;&gt;Un test sencillo&lt;/h2&gt;
-
-&lt;p&gt;Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;describe(&#39;angularjs homepage&#39;, function() {
-  it(&#39;should have a title&#39;, function() {
-    browser.get(&#39;http://juliemr.github.io/protractor-demo/&#39;);
-
-    expect(browser.getTitle()).toEqual(&#39;Super Calculator&#39;);
-  });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Y ejecutamos protractor:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protractor conf.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;chrome-y-phantomjs&#34;&gt;Chrome y PhantomJS&lt;/h2&gt;
-
-&lt;p&gt;Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.&lt;/p&gt;
-
-&lt;p&gt;Para eso usaremos phantomjs, como en los anteriores paquetes:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo npm install -g phantomjs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.&lt;/p&gt;
-</description>
+      <description>Haciendo tests e2e en apps que ya tenemos hechas Introduccion Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.
+Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.
+WebdriverJs (Selenium) Selenium es un driver que automatiza interacciones con el explorador</description>
     </item>
     
   </channel>
