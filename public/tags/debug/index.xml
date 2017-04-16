@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>debug on avances123</title>
-    <link>http://blog.fabio.xyz/tags/debug/index.xml</link>
-    <description>Recent content in debug on avances123</description>
+    <title>Debug on avances123</title>
+    <link>http://blog.fabio.xyz/tags/debug/</link>
+    <description>Recent content in Debug on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <copyright>Escrito por Fabio Rueda</copyright>
-    <atom:link href="http://blog.fabio.xyz/tags/debug/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Dec 2016 11:32:31 +0100</lastBuildDate>
+    
+	<atom:link href="http://blog.fabio.xyz/tags/debug/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Como depurar webs con el movil</title>
@@ -15,65 +18,8 @@
       <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/post/depurar-webs-con-el-movil/</guid>
-      <description>
-
-&lt;h2 id=&#34;viendo-la-web-que-estas-haciendo-directamente-en-tu-movil&#34;&gt;Viendo la web que estas haciendo directamente en tu movil&lt;/h2&gt;
-
-&lt;p&gt;Como ya sabreis, el chrome (y quiza otros navegadores) pueden poner su viewport como el de un movil
-para hacernos mas facil depurar la responsividad de nuestra web y poder ir viendo todo tipo de tamaño y forma
-de pantallas.&lt;/p&gt;
-
-&lt;p&gt;Eso esta muy bien porque es rapidisimo, y podemos depurar como siempre con nuestro f12, aun asi, si queremos
-visualizarla desde nuestro movil, con su chrome nativo de android y tal, podemos.  Es lo que vamos a hacer hoy.&lt;/p&gt;
-
-&lt;p&gt;La gracia, ademas de poder ver en un movil real tu aplicacion, es que la puedes depurar en el chrome de tu pc,
-con tu pantalla grande, tu raton y teclado, y eso siempre es un puntazo.&lt;/p&gt;
-
-&lt;h2 id=&#34;montando-el-todo-en-tu-pc&#34;&gt;Montando el todo en tu pc&lt;/h2&gt;
-
-&lt;p&gt;Pues como casi siempre lo voy a montar yo en mi pc y a la vez ire escribiendo aqui, para calentar os comento que
-google tiene &lt;a href=&#34;https://developers.google.com/web/tools/chrome-devtools/remote-debugging/&#34;&gt;una web&lt;/a&gt;
-para hacer especificamente esto, asi que si quereis os podeis ir alli.&lt;/p&gt;
-
-&lt;h3 id=&#34;preparando-el-pc-con-arch-linux&#34;&gt;Preparando el pc con Arch linux&lt;/h3&gt;
-
-&lt;p&gt;Necesitamos el SDK de android, siempre es bueno tenerlo instalado si tienes un movil android.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ yaourt android-tools android-sdk
-.... instalamos.... 
-$ adb version
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Si funciona este ultimo comando podemos seguir.&lt;/p&gt;
-
-&lt;h3 id=&#34;preparando-el-movil&#34;&gt;Preparando el movil&lt;/h3&gt;
-
-&lt;p&gt;Si usas &lt;code&gt;adb&lt;/code&gt; o algun comando con de las android tools desde tu movil ya lo tendras activado, si no,
-aqui te dejo un video de como hacerlo&lt;/p&gt;
-
-
-&lt;div style=&#34;position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;&#34;&gt;
-  &lt;iframe src=&#34;//www.youtube.com/embed/PA135Z23sek&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%;&#34; allowfullscreen frameborder=&#34;0&#34;&gt;&lt;/iframe&gt;
- &lt;/div&gt;
-
-
-&lt;h3 id=&#34;devtools&#34;&gt;devtools&lt;/h3&gt;
-
-&lt;p&gt;Una vez enchufado el movil ya solo falta configurar nuestro chrome en el pc para que descubra nuestro movil.
-Abrimos las devtools con f12 y clickamos esta opcion.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://developers.google.com/web/tools/chrome-devtools/remote-debugging/imgs/open-inspect-devices.png&#34; alt=&#34;elegir device&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Una vez emparejado ya esta le lio montao, podremos ir a cualquier url que pongamos en nuestras devtools y se visitara en el movil,
-depurando la web, e incluso capturando la pantalla de lo que se ve en el movil y viendolo en nuestro pantallon de developa con
-nuestro teclado y raton.&lt;/p&gt;
-
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Para hacer una progressive web app siempre podemos usar solo el pc e ir viendo los tamaños de la pantalla mientras desarrollamos, pero
-llegado el momento, esta funcionalidad de chrome se hace vital, para estar bien seguros de que en moviles (al menos en el tuyo propio),
-la app va a funcionar correctamente. Es gratis y solo necesitas un cable usb que lo tienes ya, rata. Asi que a depurar en el movil nativamente!&lt;/p&gt;
-</description>
+      <description>Viendo la web que estas haciendo directamente en tu movil Como ya sabreis, el chrome (y quiza otros navegadores) pueden poner su viewport como el de un movil para hacernos mas facil depurar la responsividad de nuestra web y poder ir viendo todo tipo de tamaño y forma de pantallas.
+Eso esta muy bien porque es rapidisimo, y podemos depurar como siempre con nuestro f12, aun asi, si queremos visualizarla desde nuestro movil, con su chrome nativo de android y tal, podemos.</description>
     </item>
     
   </channel>

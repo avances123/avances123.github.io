@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>bash on avances123</title>
-    <link>http://blog.fabio.xyz/languages/bash/index.xml</link>
-    <description>Recent content in bash on avances123</description>
+    <title>Bash on avances123</title>
+    <link>http://blog.fabio.xyz/languages/bash/</link>
+    <description>Recent content in Bash on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <copyright>Escrito por Fabio Rueda</copyright>
-    <atom:link href="http://blog.fabio.xyz/languages/bash/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Mar 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://blog.fabio.xyz/languages/bash/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Haciendo la vida facil al psql</title>
@@ -15,82 +18,8 @@
       <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/post/antiguos/mejorando-psql-con-su-psqlrc/</guid>
-      <description>
-
-&lt;ul&gt;
-&lt;li&gt;Hace ya un tiempo que estoy usando &lt;a href=&#34;https://github.com/dbcli/pgcli&#34;&gt;pgcli&lt;/a&gt;, mejora bastante el uso con autocompletado y mas cosas&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;psql&#34;&gt;psql&lt;/h2&gt;
-
-&lt;p&gt;Para los que usamos el cliente psql, hay ciertas &amp;ldquo;mejoras&amp;rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el &lt;a href=&#34;https://raw.githubusercontent.com/avances123/dotfiles/master/postgresql/psqlrc&#34;&gt;mio&lt;/a&gt; si quieres!&lt;/p&gt;
-
-&lt;h3 id=&#34;distintos-historicos&#34;&gt;Distintos historicos&lt;/h3&gt;
-
-&lt;p&gt;Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.psql_history, con esta linea los separaremos por base de datos. Asi tendremos un ~/.psql_history-mydb1,~/.psql_history-mydb2 y no se mezclaran entre varias bases de datos.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set HISTFILE ~/.psql_history- :DBNAME
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;aumentar-las-lineas-de-historico&#34;&gt;Aumentar las lineas de historico&lt;/h4&gt;
-
-&lt;p&gt;Almacenamos mas queries que por defecto&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set HISTSIZE 20000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;mejoramos-el-prompt&#34;&gt;Mejoramos el prompt&lt;/h4&gt;
-
-&lt;p&gt;En la linea de comandos podremos ver a que base de datos y host estamos conectados:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set PROMPT1 &#39;%M %n@%/%R%#%x &#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[local] fabio@tests=#
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;coloreamos-el-null&#34;&gt;Coloreamos el null&lt;/h4&gt;
-
-&lt;p&gt;Cuando usamos pgsl, los nulos salen como una cadena vacia y no vemos nada, podremos reemplazar el null por cualquier valor que queramos:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\pset null &#39;[NULL]&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[local] fabio@tests=# insert into foo values (1,null) ;
-INSERT 0 1
-[local] fabio@tests=# select * from foo;
- id |  bar
-----+--------
-  1 | [NULL]
-(1 fila)
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;demasiadas-columnas-para-mi-consola&#34;&gt;Demasiadas columnas para mi consola&lt;/h4&gt;
-
-&lt;p&gt;Si queremos que psql nos cambie a formato extendido automaticamente cuando haya demasiadas columnas pondremos esto:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\x auto
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;confirmar-la-salida&#34;&gt;Confirmar la salida&lt;/h4&gt;
-
-&lt;p&gt;Si hemos creado tablas temporales o cosas propias de nuestra sesion, no queremos salirnos por error, para ello tendremos que pulsar ctrl+D 3 veces en lugar de una.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;\set IGNOREEOF 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;El resultado es este:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[local] fabio@tests=# Use «\q» para salir de psql.
-[local] fabio@tests=# Use «\q» para salir de psql.
-[local] fabio@tests=# \q
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Hace ya un tiempo que estoy usando pgcli, mejora bastante el uso con autocompletado y mas cosas  psql Para los que usamos el cliente psql, hay ciertas &amp;ldquo;mejoras&amp;rdquo; o customizaciones que me gustaria compartir, todas (como muchas otras) se escriben en el fichero ~/.psqlrc, puedes descargar el mio si quieres!
+Distintos historicos Al igual que el bash_history, guardaremos un historial de los comandos en un fichero, pero por defecto los guardamos en ~/.</description>
     </item>
     
   </channel>
