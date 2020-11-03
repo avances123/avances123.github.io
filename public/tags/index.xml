@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on avances123</title>
@@ -6,131 +6,81 @@
     <description>Recent content in Tags on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Tue, 08 Mar 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 11 Apr 2020 11:32:31 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Acertijo</title>
-      <link>http://blog.fabio.xyz/tags/acertijo/</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/acertijo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Android</title>
-      <link>http://blog.fabio.xyz/tags/android/</link>
-      <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/android/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Arch</title>
-      <link>http://blog.fabio.xyz/tags/arch/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/arch/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Bower</title>
-      <link>http://blog.fabio.xyz/tags/bower/</link>
-      <pubDate>Tue, 15 Nov 2016 11:32:31 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/bower/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Btrfs</title>
-      <link>http://blog.fabio.xyz/tags/btrfs/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/btrfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Busqueda</title>
-      <link>http://blog.fabio.xyz/tags/busqueda/</link>
-      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/busqueda/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Chrome</title>
-      <link>http://blog.fabio.xyz/tags/chrome/</link>
-      <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/chrome/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cloud</title>
+      <title>cloud</title>
       <link>http://blog.fabio.xyz/tags/cloud/</link>
-      <pubDate>Sat, 15 Apr 2017 11:30:57 +0100</pubDate>
+      <pubDate>Sat, 11 Apr 2020 11:32:31 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/tags/cloud/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Collectd</title>
-      <link>http://blog.fabio.xyz/tags/collectd/</link>
-      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
+      <title>docker</title>
+      <link>http://blog.fabio.xyz/tags/docker/</link>
+      <pubDate>Sat, 11 Apr 2020 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/collectd/</guid>
+      <guid>http://blog.fabio.xyz/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Comparativa</title>
-      <link>http://blog.fabio.xyz/tags/comparativa/</link>
-      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      <title>gce</title>
+      <link>http://blog.fabio.xyz/tags/gce/</link>
+      <pubDate>Sat, 11 Apr 2020 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/comparativa/</guid>
+      <guid>http://blog.fabio.xyz/tags/gce/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Configuracion</title>
-      <link>http://blog.fabio.xyz/tags/configuracion/</link>
-      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
+      <title>kubernetes</title>
+      <link>http://blog.fabio.xyz/tags/kubernetes/</link>
+      <pubDate>Sat, 11 Apr 2020 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/configuracion/</guid>
+      <guid>http://blog.fabio.xyz/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Debug</title>
-      <link>http://blog.fabio.xyz/tags/debug/</link>
-      <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
+      <title>web</title>
+      <link>http://blog.fabio.xyz/tags/web/</link>
+      <pubDate>Sat, 11 Apr 2020 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/debug/</guid>
+      <guid>http://blog.fabio.xyz/tags/web/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Diccionarios</title>
-      <link>http://blog.fabio.xyz/tags/diccionarios/</link>
-      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      <title>google</title>
+      <link>http://blog.fabio.xyz/tags/google/</link>
+      <pubDate>Sat, 15 Apr 2017 11:30:57 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/diccionarios/</guid>
+      <guid>http://blog.fabio.xyz/tags/google/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Django</title>
+      <title>postgresql</title>
+      <link>http://blog.fabio.xyz/tags/postgresql/</link>
+      <pubDate>Sat, 15 Apr 2017 11:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proyecto</title>
+      <link>http://blog.fabio.xyz/tags/proyecto/</link>
+      <pubDate>Sat, 15 Apr 2017 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/proyecto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>django</title>
       <link>http://blog.fabio.xyz/tags/django/</link>
       <pubDate>Tue, 24 Jan 2017 17:26:09 +0100</pubDate>
       
@@ -139,65 +89,56 @@
     </item>
     
     <item>
-      <title>Dotfiles</title>
-      <link>http://blog.fabio.xyz/tags/dotfiles/</link>
-      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
+      <title>migraciones</title>
+      <link>http://blog.fabio.xyz/tags/migraciones/</link>
+      <pubDate>Tue, 24 Jan 2017 17:26:09 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/dotfiles/</guid>
+      <guid>http://blog.fabio.xyz/tags/migraciones/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Firebase</title>
-      <link>http://blog.fabio.xyz/tags/firebase/</link>
-      <pubDate>Wed, 05 Oct 2016 18:29:06 +0200</pubDate>
+      <title>android</title>
+      <link>http://blog.fabio.xyz/tags/android/</link>
+      <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/firebase/</guid>
+      <guid>http://blog.fabio.xyz/tags/android/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Firewall</title>
-      <link>http://blog.fabio.xyz/tags/firewall/</link>
-      <pubDate>Thu, 14 Apr 2016 10:30:57 +0100</pubDate>
+      <title>chrome</title>
+      <link>http://blog.fabio.xyz/tags/chrome/</link>
+      <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/firewall/</guid>
+      <guid>http://blog.fabio.xyz/tags/chrome/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Google</title>
-      <link>http://blog.fabio.xyz/tags/google/</link>
-      <pubDate>Sat, 15 Apr 2017 10:30:57 +0100</pubDate>
+      <title>debug</title>
+      <link>http://blog.fabio.xyz/tags/debug/</link>
+      <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/google/</guid>
+      <guid>http://blog.fabio.xyz/tags/debug/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Grafana</title>
-      <link>http://blog.fabio.xyz/tags/grafana/</link>
-      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
+      <title>bower</title>
+      <link>http://blog.fabio.xyz/tags/bower/</link>
+      <pubDate>Tue, 15 Nov 2016 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/grafana/</guid>
+      <guid>http://blog.fabio.xyz/tags/bower/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Hardware</title>
-      <link>http://blog.fabio.xyz/tags/hardware/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      <title>versiones</title>
+      <link>http://blog.fabio.xyz/tags/versiones/</link>
+      <pubDate>Tue, 15 Nov 2016 11:32:31 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/hardware/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hash</title>
-      <link>http://blog.fabio.xyz/tags/hash/</link>
-      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/hash/</guid>
+      <guid>http://blog.fabio.xyz/tags/versiones/</guid>
       <description></description>
     </item>
     
@@ -211,133 +152,7 @@
     </item>
     
     <item>
-      <title>Influxdb</title>
-      <link>http://blog.fabio.xyz/tags/influxdb/</link>
-      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/influxdb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Jasmine</title>
-      <link>http://blog.fabio.xyz/tags/jasmine/</link>
-      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/jasmine/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Karma</title>
-      <link>http://blog.fabio.xyz/tags/karma/</link>
-      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/karma/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Legacy</title>
-      <link>http://blog.fabio.xyz/tags/legacy/</link>
-      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/legacy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Migraciones</title>
-      <link>http://blog.fabio.xyz/tags/migraciones/</link>
-      <pubDate>Tue, 24 Jan 2017 17:26:09 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/migraciones/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Monitorizacion</title>
-      <link>http://blog.fabio.xyz/tags/monitorizacion/</link>
-      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/monitorizacion/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Montecarlo</title>
-      <link>http://blog.fabio.xyz/tags/montecarlo/</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/montecarlo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Montyhall</title>
-      <link>http://blog.fabio.xyz/tags/montyhall/</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/montyhall/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pacman</title>
-      <link>http://blog.fabio.xyz/tags/pacman/</link>
-      <pubDate>Wed, 12 Oct 2016 19:05:03 +0200</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/pacman/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Polymer</title>
-      <link>http://blog.fabio.xyz/tags/polymer/</link>
-      <pubDate>Wed, 05 Oct 2016 18:29:06 +0200</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/polymer/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Postgresql</title>
-      <link>http://blog.fabio.xyz/tags/postgresql/</link>
-      <pubDate>Sat, 15 Apr 2017 11:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/postgresql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Probabilidad</title>
-      <link>http://blog.fabio.xyz/tags/probabilidad/</link>
-      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/probabilidad/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Protractor</title>
-      <link>http://blog.fabio.xyz/tags/protractor/</link>
-      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/protractor/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Proyecto</title>
-      <link>http://blog.fabio.xyz/tags/proyecto/</link>
-      <pubDate>Sat, 15 Apr 2017 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/proyecto/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
+      <title>python</title>
       <link>http://blog.fabio.xyz/tags/python/</link>
       <pubDate>Wed, 02 Nov 2016 18:29:06 +0200</pubDate>
       
@@ -346,16 +161,79 @@
     </item>
     
     <item>
-      <title>Rendimiento</title>
-      <link>http://blog.fabio.xyz/tags/rendimiento/</link>
-      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      <title>arch</title>
+      <link>http://blog.fabio.xyz/tags/arch/</link>
+      <pubDate>Wed, 12 Oct 2016 19:05:03 +0200</pubDate>
       
-      <guid>http://blog.fabio.xyz/tags/rendimiento/</guid>
+      <guid>http://blog.fabio.xyz/tags/arch/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>S3</title>
+      <title>pacman</title>
+      <link>http://blog.fabio.xyz/tags/pacman/</link>
+      <pubDate>Wed, 12 Oct 2016 19:05:03 +0200</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/pacman/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>collectd</title>
+      <link>http://blog.fabio.xyz/tags/collectd/</link>
+      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/collectd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>grafana</title>
+      <link>http://blog.fabio.xyz/tags/grafana/</link>
+      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/grafana/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>influxdb</title>
+      <link>http://blog.fabio.xyz/tags/influxdb/</link>
+      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/influxdb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>monitorizacion</title>
+      <link>http://blog.fabio.xyz/tags/monitorizacion/</link>
+      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/monitorizacion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>firebase</title>
+      <link>http://blog.fabio.xyz/tags/firebase/</link>
+      <pubDate>Wed, 05 Oct 2016 18:29:06 +0200</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/firebase/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>polymer</title>
+      <link>http://blog.fabio.xyz/tags/polymer/</link>
+      <pubDate>Wed, 05 Oct 2016 18:29:06 +0200</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/polymer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>s3</title>
       <link>http://blog.fabio.xyz/tags/s3/</link>
       <pubDate>Wed, 05 Oct 2016 18:29:06 +0200</pubDate>
       
@@ -364,7 +242,106 @@
     </item>
     
     <item>
-      <title>Simulacion</title>
+      <title>firewall</title>
+      <link>http://blog.fabio.xyz/tags/firewall/</link>
+      <pubDate>Thu, 14 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/firewall/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>btrfs</title>
+      <link>http://blog.fabio.xyz/tags/btrfs/</link>
+      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/btrfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hardware</title>
+      <link>http://blog.fabio.xyz/tags/hardware/</link>
+      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/hardware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>comparativa</title>
+      <link>http://blog.fabio.xyz/tags/comparativa/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/comparativa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>diccionarios</title>
+      <link>http://blog.fabio.xyz/tags/diccionarios/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/diccionarios/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hash</title>
+      <link>http://blog.fabio.xyz/tags/hash/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/hash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rendimiento</title>
+      <link>http://blog.fabio.xyz/tags/rendimiento/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/rendimiento/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>acertijo</title>
+      <link>http://blog.fabio.xyz/tags/acertijo/</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/acertijo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>montecarlo</title>
+      <link>http://blog.fabio.xyz/tags/montecarlo/</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/montecarlo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>montyhall</title>
+      <link>http://blog.fabio.xyz/tags/montyhall/</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/montyhall/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>probabilidad</title>
+      <link>http://blog.fabio.xyz/tags/probabilidad/</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/probabilidad/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>simulacion</title>
       <link>http://blog.fabio.xyz/tags/simulacion/</link>
       <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
       
@@ -373,7 +350,61 @@
     </item>
     
     <item>
-      <title>Tests</title>
+      <title>configuracion</title>
+      <link>http://blog.fabio.xyz/tags/configuracion/</link>
+      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/configuracion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dotfiles</title>
+      <link>http://blog.fabio.xyz/tags/dotfiles/</link>
+      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/dotfiles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jasmine</title>
+      <link>http://blog.fabio.xyz/tags/jasmine/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/jasmine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>karma</title>
+      <link>http://blog.fabio.xyz/tags/karma/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/karma/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>legacy</title>
+      <link>http://blog.fabio.xyz/tags/legacy/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/legacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>protractor</title>
+      <link>http://blog.fabio.xyz/tags/protractor/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/protractor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tests</title>
       <link>http://blog.fabio.xyz/tags/tests/</link>
       <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
       
@@ -382,29 +413,20 @@
     </item>
     
     <item>
-      <title>Texto</title>
+      <title>busqueda</title>
+      <link>http://blog.fabio.xyz/tags/busqueda/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.fabio.xyz/tags/busqueda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>texto</title>
       <link>http://blog.fabio.xyz/tags/texto/</link>
       <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>http://blog.fabio.xyz/tags/texto/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Versiones</title>
-      <link>http://blog.fabio.xyz/tags/versiones/</link>
-      <pubDate>Tue, 15 Nov 2016 11:32:31 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/versiones/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Web</title>
-      <link>http://blog.fabio.xyz/tags/web/</link>
-      <pubDate>Thu, 01 Dec 2016 11:32:31 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/tags/web/</guid>
       <description></description>
     </item>
     

@@ -81,36 +81,23 @@
     </div>
     <article>
 
-      
-
-<h1 id="buscando-texto-con-postgresql">Buscando texto con postgresql</h1>
-
+      <h1 id="buscando-texto-con-postgresql">Buscando texto con postgresql</h1>
 <p>Tengo una aplicacion que usa postgresql y quiero buscar texto en ella, pero pongo <em>camion</em> sin acento y no me sale &ldquo;camión&rdquo;, bastante tipico no?. Postgresql puede buscar entre texto como a nosotros nos gustaria, vamos a probar las funcionalidades de <a href="http://www.postgresql.org/docs/9.3/static/textsearch.html">full text search</a> que nos ofrece. Os adelanto que este es un ejemplo sencillisimo de todo lo que soporta.</p>
-
 <h2 id="tengo-una-columna-con-texto-donde-quiero-buscar">Tengo una columna con texto donde quiero buscar</h2>
-
 <p>El caso de uso mas común, tengo una tabla con texto, y al buscar puedo usar LIKE o incluso ILIKE, pero eso no nos hace encontrar las palabras como un humano quiere realmente, no vamos a lograr hacer el <em>quiso decir</em> de google, pero al menos vamos a poder buscar entre texto con o sin acentos, mayusculas, nexos y cosas asi que nos molestan.</p>
-
 <p>Vamos a crear una base de datos y una tabla de prueba:</p>
-
-<pre><code class="language-sql">CREATE DATABASE tss;
-CREATE TABLE textos (
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> tss;
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> textos (
      texto   text
 );
-</code></pre>
-
-<p>Ahora insertamos texto de ejemplo:</p>
-
-<pre><code class="language-sql">INSERT INTO textos VALUES ('En un lugar de la Mancha');
-INSERT INTO textos VALUES ('de cuyo nombre no quiero acordarme,');
-INSERT INTO textos VALUES ('no ha mucho que vivía');
-INSERT INTO textos VALUES ('un hidalgo de los de lanza en astillero');
-INSERT INTO textos VALUES ('adarga antigua');
-INSERT INTO textos VALUES ('rocín flaco y galgo corredor.');
-</code></pre>
-
-<p>Podemos buscar texto de manera precaria:</p>
-
+</code></pre></div><p>Ahora insertamos texto de ejemplo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> textos <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;En un lugar de la Mancha&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> textos <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;de cuyo nombre no quiero acordarme,&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> textos <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;no ha mucho que vivía&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> textos <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;un hidalgo de los de lanza en astillero&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> textos <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;adarga antigua&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> textos <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;rocín flaco y galgo corredor.&#39;</span>);
+</code></pre></div><p>Podemos buscar texto de manera precaria:</p>
 <pre><code>ts=# select * from textos where texto like 'mancha';
  texto
 -------
@@ -126,14 +113,9 @@ ts=# select * from textos where texto ilike '%mancha%';
 --------------------------
  En un lugar de la Mancha
 (1 fila)
-</code></pre>
-
-<p>Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y si quiere buscar <em>rocín</em> sin acento? Vamos a hacerlo bien.</p>
-
+</code></pre><p>Pero pronto veremos que esto no es manera, y si el usuario mete dos palabras , y si quiere buscar <em>rocín</em> sin acento? Vamos a hacerlo bien.</p>
 <h2 id="full-text-search-en-nuestra-columna">Full-text search en nuestra columna</h2>
-
 <p>Para empezar nuestros strings deben cambiar a otro tipo llamado tsvector, que postgresql usuara para buscar de una manera eficaz, vamos nuestros strings como tsvectors:</p>
-
 <pre><code>ts=# select to_tsvector(texto) from textos ;
                to_tsvector
 ------------------------------------------
@@ -144,50 +126,32 @@ ts=# select * from textos where texto ilike '%mancha%';
  'adarg':1 'antigu':2
  'corredor':5 'flac':2 'galg':4 'rocin':1
 (6 filas)
-</code></pre>
-
-<p>Muy raro todo no?, <strong>En un lugar de la Mancha</strong> se ha convertido en <strong>&lsquo;lug&rsquo;:3 &lsquo;manch&rsquo;:6</strong> . Un tsvector es una lista de lexemas, digamos de palabras que pueden derivar en nuestra palabra real u otras parecidas, Hemos <strong>normalizado</strong> nuestras palabras, es decir, las hemos puesto en minusculas, quitado los plurales, etc. Los numeros asociados, es la posicion de estas palabras en nuestro string original, En un <strong>lug</strong>(3) de la <strong>manch</strong>(6)</p>
-
+</code></pre><p>Muy raro todo no?, <strong>En un lugar de la Mancha</strong> se ha convertido en <strong>&lsquo;lug&rsquo;:3 &lsquo;manch&rsquo;:6</strong> . Un tsvector es una lista de lexemas, digamos de palabras que pueden derivar en nuestra palabra real u otras parecidas, Hemos <strong>normalizado</strong> nuestras palabras, es decir, las hemos puesto en minusculas, quitado los plurales, etc. Los numeros asociados, es la posicion de estas palabras en nuestro string original, En un <strong>lug</strong>(3) de la <strong>manch</strong>(6)</p>
 <p>TODO Poner en que lenguaje esta el postgresql</p>
-
 <h2 id="pasarle-una-busqueda">Pasarle una busqueda</h2>
-
 <p>Ahora que tenemos nuestros textos <em>arreglados</em> para las busquedas, podemos meter un string en la caja de busqueda, podemos meter cualquier cosa, y queremos que nos salgan los resultados razonables, para ello nuestra busqueda debemos arreglarla tambien, para ello usaremos el tipo tsquery. Este tipo, esta pensado para operar contra tsvectors como los que hemos creado antes, un ejemplo es:</p>
-
 <pre><code>ts=# select to_tsquery('vivir');
  to_tsquery
 ------------
  'viv'
 (1 fila)
-</code></pre>
-
-<h2 id="sacando-resultados">Sacando resultados</h2>
-
+</code></pre><h2 id="sacando-resultados">Sacando resultados</h2>
 <p>Para buscar en nuestra tabla debemos hacer un select normal, excepto que en nuestro where usaremos el operador @@ (uno de los <a href="http://www.postgresql.org/docs/9.3/static/functions-textsearch.html">muchos</a> que hay disponibles) entre nuestra tabla pasada a tsvector y nuestra busqueda pasada a tsquery</p>
-
 <pre><code>ts=# select * from textos where to_tsvector(texto) @@ to_tsquery('vivir');
          texto
 -----------------------
  no ha mucho que vivía
 (1 fila)
-</code></pre>
-
-<h2 id="ranking">Ranking</h2>
-
+</code></pre><h2 id="ranking">Ranking</h2>
 <p>Un motor de busqueda bueno, nos ordenara los resultados por relevancia, segun nos acerquemos mas a lo que queremos buscar. Postgresql tambien nos ofrece <a href="http://www.postgresql.org/docs/9.3/static/textsearch-controls.html#TEXTSEARCH-RANKING">esta funcionalidad</a>, por ejemplo, si tenemos un blog, queremos que al buscar , el titulo tengas mas relevancia que el contenido, vamos a verlo:</p>
-
 <p>Creamos una tabla con datos:</p>
-
-<pre><code class="language-sql">CREATE TABLE blog(
-	titulo varchar(200),
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> blog(
+	titulo varchar(<span style="color:#ae81ff">200</span>),
 	contenido text
 );
-INSERT INTO blog VALUES ('Molan las busquedas en postgresql','Estoy escribiendo un contenido del post sin la palabra maldita');
-INSERT INTO blog VALUES ('Molan las busquedas en nuestra db','Estoy escribiendo un contenido del post que usa postgresql para buscar');
-</code></pre>
-
-<p>Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra <em>postgresql</em> en el titulo, y otro post la tiene en el contenido.</p>
-
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> blog <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;Molan las busquedas en postgresql&#39;</span>,<span style="color:#e6db74">&#39;Estoy escribiendo un contenido del post sin la palabra maldita&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> blog <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;Molan las busquedas en nuestra db&#39;</span>,<span style="color:#e6db74">&#39;Estoy escribiendo un contenido del post que usa postgresql para buscar&#39;</span>);
+</code></pre></div><p>Para buscar creamos un tsvector de nuestros dos campos asi, en el ejemplo un post tiene la palabra <em>postgresql</em> en el titulo, y otro post la tiene en el contenido.</p>
 <pre><code>ts=# select to_tsvector(titulo) || to_tsvector(contenido) from blog;
                                             ?column?
 ------------------------------------------------------------------------------------------------
@@ -195,22 +159,15 @@ INSERT INTO blog VALUES ('Molan las busquedas en nuestra db','Estoy escribiendo 
  'busc':17 'busqued':3 'conten':10 'db':6 'escrib':8 'mol':1 'post':12 'postgresql':15 'usa':14
 (2 filas)
 
-</code></pre>
-
-<p>Con la funcion <strong>setweight</strong> podemos decir que relevancia tiene un tsvector, hay pesos desde la &rsquo;D&rsquo; hasta la &lsquo;A&rsquo;, modificamos la consulta para ponerle mas peso al titulo que al contenido:</p>
-
+</code></pre><p>Con la funcion <strong>setweight</strong> podemos decir que relevancia tiene un tsvector, hay pesos desde la &lsquo;D&rsquo; hasta la &lsquo;A&rsquo;, modificamos la consulta para ponerle mas peso al titulo que al contenido:</p>
 <pre><code>ts=# select setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(contenido),'B') from blog;
                                                 ?column?
 ---------------------------------------------------------------------------------------------------------
  'busqued':3A 'conten':9B 'escrib':7B 'maldit':15B 'mol':1A 'palabr':14B 'post':11B 'postgresql':5A
  'busc':17B 'busqued':3A 'conten':10B 'db':6A 'escrib':8B 'mol':1A 'post':12B 'postgresql':15B 'usa':14B
 (2 filas)
-</code></pre>
-
-<p>Ahora vemos como a los numeros de los lexemas, les ha agregado la relevancia. Ahora vamos a buscar y a ordenar los resultados, para nuestro ORDER BY usaremos la funcion ts_rank.</p>
-
+</code></pre><p>Ahora vemos como a los numeros de los lexemas, les ha agregado la relevancia. Ahora vamos a buscar y a ordenar los resultados, para nuestro ORDER BY usaremos la funcion ts_rank.</p>
 <p>Nos importa mas el titulo:</p>
-
 <pre><code>ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery('postgresql')
 order by ts_rank(setweight(to_tsvector(titulo),'D') || setweight(to_tsvector(contenido),'A'),to_tsquery('postgresql'));
@@ -219,10 +176,7 @@ order by ts_rank(setweight(to_tsvector(titulo),'D') || setweight(to_tsvector(con
  Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita
  Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
 (2 filas)
-</code></pre>
-
-<p>Nos importa mas el contenido:</p>
-
+</code></pre><p>Nos importa mas el contenido:</p>
 <pre><code>ts=# select * from blog
 where to_tsvector(titulo)||to_tsvector(contenido) @@ to_tsquery('postgresql')
 order by ts_rank(setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(contenido),'D'),to_tsquery('postgresql'));
@@ -231,60 +185,44 @@ order by ts_rank(setweight(to_tsvector(titulo),'A') || setweight(to_tsvector(con
  Molan las busquedas en nuestra db | Estoy escribiendo un contenido del post que usa postgresql para buscar
  Molan las busquedas en postgresql | Estoy escribiendo un contenido del post sin la palabra maldita
 (2 filas)
-</code></pre>
-
-<h2 id="usando-indices">Usando indices</h2>
-
+</code></pre><h2 id="usando-indices">Usando indices</h2>
 <p>Vaya turron de consultas las dos ultimas no?, ademas de enfarragoso, algo ineficiente, como en postgresql se pueden definir indices sobre funciones , podemos pasar lo anterior a un indice <a href="http://www.postgresql.org/docs/9.3/static/textsearch-indexes.html">gin</a>:</p>
-
-<pre><code class="language-sql">CREATE INDEX blog_posts_idx ON blog
-USING gin(( setweight(to_tsvector('spanish',titulo),'B') || setweight(to_tsvector('spanish',contenido),'A')) );
-</code></pre>
-
-<p>Hemos creado un indice con la misma funcionalidad que en el anterior ejemplo, esta vez, hemos especificado a tsvector que nuestro idioma del post es español, (podriamos especificar distintos idiomas tambien). Asi nos creara el texto normalizado para nuestro idioma de manera correcta. (and o with en español no lo eliminara, seran palabras <em>importantes</em> en español).</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> blog_posts_idx <span style="color:#66d9ef">ON</span> blog
+<span style="color:#66d9ef">USING</span> gin(( setweight(to_tsvector(<span style="color:#e6db74">&#39;spanish&#39;</span>,titulo),<span style="color:#e6db74">&#39;B&#39;</span>) <span style="color:#f92672">||</span> setweight(to_tsvector(<span style="color:#e6db74">&#39;spanish&#39;</span>,contenido),<span style="color:#e6db74">&#39;A&#39;</span>)) );
+</code></pre></div><p>Hemos creado un indice con la misma funcionalidad que en el anterior ejemplo, esta vez, hemos especificado a tsvector que nuestro idioma del post es español, (podriamos especificar distintos idiomas tambien). Asi nos creara el texto normalizado para nuestro idioma de manera correcta. (and o with en español no lo eliminara, seran palabras <em>importantes</em> en español).</p>
 <h2 id="mispelling">Mispelling</h2>
-
 <p>Queria buscar Quijote pero he puesto &ldquo;qijote&rdquo;, deberia salir igual no? Para esto, tenemos <a href="http://www.postgresql.org/docs/9.3/static/pgtrgm.html">una extension</a> que podemos ponerla en nuestra db asi:</p>
-
-<pre><code class="language-sql">CREATE EXTENSION pg_trgm;
-</code></pre>
-
-<p>Esta extension nos da una funcion que nos da un float entre 0 y 1 llamada similarity:</p>
-
-<pre><code class="language-sql">ts=# select similarity('Quijote', 'Quijote');
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> EXTENSION pg_trgm;
+</code></pre></div><p>Esta extension nos da una funcion que nos da un float entre 0 y 1 llamada similarity:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">ts<span style="color:#f92672">=#</span> <span style="color:#66d9ef">select</span> similarity(<span style="color:#e6db74">&#39;Quijote&#39;</span>, <span style="color:#e6db74">&#39;Quijote&#39;</span>);
  similarity
-------------
-          1
-(1 fila)
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span>          <span style="color:#ae81ff">1</span>
+(<span style="color:#ae81ff">1</span> fila)
 
-ts=# select similarity('Quijote', 'Quijota');
+ts<span style="color:#f92672">=#</span> <span style="color:#66d9ef">select</span> similarity(<span style="color:#e6db74">&#39;Quijote&#39;</span>, <span style="color:#e6db74">&#39;Quijota&#39;</span>);
  similarity
-------------
-        0.6
-(1 fila)
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span>        <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>
+(<span style="color:#ae81ff">1</span> fila)
 
-ts=# select similarity('Quijote', 'nada que ver');
+ts<span style="color:#f92672">=#</span> <span style="color:#66d9ef">select</span> similarity(<span style="color:#e6db74">&#39;Quijote&#39;</span>, <span style="color:#e6db74">&#39;nada que ver&#39;</span>);
  similarity
-------------
-   0.105263
-(1 fila)
-</code></pre>
-
-<p>Gracias a esta funcion, podremos buscar entre lexemas de nuestra tabla parecidos, pero eso sera en otro post.</p>
-
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span>   <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">105263</span>
+(<span style="color:#ae81ff">1</span> fila)
+</code></pre></div><p>Gracias a esta funcion, podremos buscar entre lexemas de nuestra tabla parecidos, pero eso sera en otro post.</p>
 <h3 id="fuentes">Fuentes</h3>
-
 <p>Me he inspirado, si no a veces copiado de este fantastico <a href="http://blog.lostpropertyhq.com/postgres-full-text-search-is-good-enough/">post</a> acerca de este tema</p>
 
 
     </article>
     
- <aside><div id="disqus_thread"></div></aside> 
+
 
 <script type="text/javascript">
      
-    var disqus_shortname = 'avances123';
+    var disqus_shortname = '';
 
      
     (function() {

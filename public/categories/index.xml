@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on avances123</title>
@@ -6,26 +6,22 @@
     <description>Recent content in Categories on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    
-	<atom:link href="http://blog.fabio.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 15 Apr 2017 11:30:57 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Google cloud</title>
       <link>http://blog.fabio.xyz/categories/google-cloud/</link>
-      <pubDate>Sat, 15 Apr 2017 10:30:57 +0100</pubDate>
+      <pubDate>Sat, 15 Apr 2017 11:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/categories/google-cloud/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Linux</title>
-      <link>http://blog.fabio.xyz/categories/linux/</link>
-      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
+      <title>Servidor casero</title>
+      <link>http://blog.fabio.xyz/categories/servidor-casero/</link>
+      <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/categories/linux/</guid>
+      <guid>http://blog.fabio.xyz/categories/servidor-casero/</guid>
       <description></description>
     </item>
     
@@ -39,11 +35,11 @@
     </item>
     
     <item>
-      <title>Servidor casero</title>
-      <link>http://blog.fabio.xyz/categories/servidor-casero/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
+      <title>linux</title>
+      <link>http://blog.fabio.xyz/categories/linux/</link>
+      <pubDate>Fri, 04 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.fabio.xyz/categories/servidor-casero/</guid>
+      <guid>http://blog.fabio.xyz/categories/linux/</guid>
       <description></description>
     </item>
     

@@ -81,47 +81,30 @@
     </div>
     <article>
 
-      
-
-<h1 id="motivacion">Motivacion</h1>
-
+      <h1 id="motivacion">Motivacion</h1>
 <p>Como siempre empiezo con algo personal y nada tecnico, esta vez me propongo hacer una web prescindiendo totalmente de AWS, google sigue impulsando <a href="https://firebase.google.com/">firebase</a>, asi que voy a utilizar su base de datos para mi app, como siempre la parte de permisos para la db sigue siendo lo mas engorroso y aun no he tocado bien, llegado el momento escribire otro post acerca de ese &ldquo;maldito&rdquo; json de configuracion.</p>
-
 <p>Ya use los elementos antiguos creados por google mismo para firebase de polymer, ahora los han renovado para la nueva API de firebase y lo han llamado <a href="https://elements.polymer-project.org/elements/polymerfire">polymerfire</a>. La interaccion con la base de datos sigue siendo maravillosa, pero ahora firebase tiene un sistema donde dejar blobs creados por el usuario, normalmente fotos, un S3, pero sin tener que ir a AWS y manteniendo un solo proveedor para tu backend, firebase.</p>
-
 <h1 id="que-es-firebase-storage">Que es firebase-storage</h1>
-
 <p>Pues es la competencia de google a S3 de Amazon. El servicio que presta google para almacenar ficheros en la nube, se suele usar para subir los estaticos de nuestras apps, o para que nuestros usuarios suban sus fotos, tipica feature de &ldquo;upload your avatar&rdquo; que tienen las apps.</p>
-
 <p>El servicio como tal se llama <a href="https://cloud.google.com/storage/">Cloud Storage</a> y si creas un proyecto de firebase, lo tendras a tu disposicion como <a href="https://firebase.google.com/docs/storage/">Firebase Storage</a>, no deja de usar la infraestructura del primero pero ya viene perfectamente preparado para poder utilizarlo con las credenciales de tu proyecto.</p>
-
 <p>Por defecto, los permisos para subir ficheros (imagen,audio,video,texto, etc.) son para usuarios autenticados en este proyecto, cosa que en polymer con firebase-auth es algo trivial. De hecho funciona tan bien que tardas en pensar en los permisos ya que todo esta perfectamente preparado a unos requisitos mas o menos normales, en los que solo los usuarios registrados pueden subir ficheros.</p>
-
 <h1 id="como-se-sube-un-fichero-a-firebase-storage-con-polymerfire">Como se sube un fichero a firebase-storage con polymerfire</h1>
-
 <p>Pues yo no he visto la forma, no hay un elemento para eso aun, pero seguramente lo habra, en todo caso, polymerfire tiene un fichero llamado polymer-app.html que importas para inicializar el objeto firebase, objeto que es el que aparece en toda la documentacion de la libreria js de firebase y que podemos usar en nuestra app de polymer llamandolo simplemente en nuestro codigo.</p>
-
 <p>Si escribimos esto en cualquier html en el que hayamos importado polymerfire/firebase-app.html, funcionara, y a partir de ahi, podemos seguir con la <a href="https://firebase.google.com/docs/storage/web/upload-files?hl=es">documentacion oficial</a> para subir ficheros a firebase-storage</p>
-
-<pre><code class="language-javascript">var storageRef = firebase.storage().ref();
-</code></pre>
-
-<h2 id="metadatos">Metadatos</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">storageRef</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">firebase</span>.<span style="color:#a6e22e">storage</span>().<span style="color:#a6e22e">ref</span>();
+</code></pre></div><h2 id="metadatos">Metadatos</h2>
 <p>Ademas puedes almacenar parejas de clave-valor (metadatos) al fichero que se esta subiendo, cosa que me ha encantado, porque puede la imagen llevar asociados datos que quiza puedan ser utiles, de momento no lo he usado pero creo que S3 no tiene algo parecido.</p>
-
 <h1 id="conclusion">Conclusion</h1>
-
 <p>Pues con firebase-storage parece que ahora se puede hacer una app sin pasar por AWS, yo antes guardaba las imagenes en base64 en el propio documento en la base de datos, o subia a S3, supongo que habria mas formas de hacerlo, pero sin duda ahora, este paso critico que muchas apps tendran como subir por parte de los usuarios, queda totalmente cubierto.</p>
 
 
     </article>
     
- <aside><div id="disqus_thread"></div></aside> 
+
 
 <script type="text/javascript">
      
-    var disqus_shortname = 'avances123';
+    var disqus_shortname = '';
 
      
     (function() {

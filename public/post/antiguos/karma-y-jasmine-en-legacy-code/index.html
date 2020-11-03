@@ -85,98 +85,66 @@
     </div>
     <article>
 
-      
-
-<h1 id="haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas">Haciendo tests e2e en apps que ya tenemos hechas</h1>
-
+      <h1 id="haciendo-tests-e2e-en-apps-que-ya-tenemos-hechas">Haciendo tests e2e en apps que ya tenemos hechas</h1>
 <h2 id="introduccion">Introduccion</h2>
-
 <p>Digamos que entras en un proyecto donde existe una aplicacion con varios años en produccion, que usa como unicas librerias require y jQuery, todo lo demas esta hecho a mano, ademas como puedes suponer, no tiene ni un solo test.</p>
-
 <p>Nos proponemos hacer tests sobre el codigo existente y asi implantarlos para futuras features.</p>
-
 <h2 id="webdriverjs-selenium">WebdriverJs (Selenium)</h2>
-
 <p><a href="http://docs.seleniumhq.org/projects/webdriver/">Selenium</a> es un driver que automatiza interacciones con el explorador</p>
-
 <p>Lo instalaremos y ejecutaremos como un paquete de nodejs, de esta manera</p>
-
-<pre><code class="language-bash">$ sudo npm install -g webdriver-manager
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo npm install -g webdriver-manager
 $ sudo webdriber-manager update
 $ sudo webdriber-manager start
-</code></pre>
-
-<h2 id="protractor">Protractor</h2>
-
+</code></pre></div><h2 id="protractor">Protractor</h2>
 <p><a href="https://www.npmjs.org/package/protractor">Protractor</a> es un sistemas para ejecutar test e2e de aplicaciones angularjs, es decir, abre un explorador, (o no), y hace cliks, rellena campos y lo que haria el usuario de manera automatica. Como wrapper de selenium para angularjs, diremos que tambien se puede usar para aplicaciones no-angularjs</p>
-
 <p>Lo instalamos en el sistema:</p>
-
-<pre><code class="language-bash">$ sudo npm install -g protractor
-</code></pre>
-
-<p>Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo npm install -g protractor
+</code></pre></div><p>Y despues creamos un fichero de configuracion, como no tenemos angular hay que configurarlo con un par de cosillas</p>
 <ul>
 <li>Diremos donde estan nuestros ficheros con tests de Jasmine en la variable specs</li>
 <li>Y despues le diremos nuestros delays en la aplicacion, y que se olvide de la sincronizacion que hace con una app angular</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">seleniumAddress</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;http://localhost:4444/wd/hub&#39;</span>,
+  <span style="color:#a6e22e">specs</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;spec.js&#39;</span>],
 
-<pre><code class="language-js">exports.config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: ['spec.js'],
+  <span style="color:#a6e22e">onPrepare</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#75715e">// implicit and page load timeouts
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">manage</span>().<span style="color:#a6e22e">timeouts</span>().<span style="color:#a6e22e">pageLoadTimeout</span>(<span style="color:#ae81ff">20000</span>);
+    <span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">manage</span>().<span style="color:#a6e22e">timeouts</span>().<span style="color:#a6e22e">implicitlyWait</span>(<span style="color:#ae81ff">10000</span>);
 
-  onPrepare: function() {
-    // implicit and page load timeouts
-    browser.manage().timeouts().pageLoadTimeout(20000);
-    browser.manage().timeouts().implicitlyWait(10000);
+    <span style="color:#75715e">// for non-angular page
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">ignoreSynchronization</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
 
-    // for non-angular page
-    browser.ignoreSynchronization = true;
-
-    // Maximized chrome window
-    browser.driver.manage().window().maximize();
+    <span style="color:#75715e">// Maximized chrome window
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">driver</span>.<span style="color:#a6e22e">manage</span>().window().<span style="color:#a6e22e">maximize</span>();
   }
 }
-</code></pre>
-
-<h2 id="un-test-sencillo">Un test sencillo</h2>
-
+</code></pre></div><h2 id="un-test-sencillo">Un test sencillo</h2>
 <p>Ahora crearemos un test sencillo, sacado el tutorial de protractor (muy util), en nuestro fichero specs.js:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">describe</span>(<span style="color:#e6db74">&#39;angularjs homepage&#39;</span>, <span style="color:#66d9ef">function</span>() {
+  <span style="color:#a6e22e">it</span>(<span style="color:#e6db74">&#39;should have a title&#39;</span>, <span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://juliemr.github.io/protractor-demo/&#39;</span>);
 
-<pre><code class="language-js">describe('angularjs homepage', function() {
-  it('should have a title', function() {
-    browser.get('http://juliemr.github.io/protractor-demo/');
-
-    expect(browser.getTitle()).toEqual('Super Calculator');
+    <span style="color:#a6e22e">expect</span>(<span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">getTitle</span>()).<span style="color:#a6e22e">toEqual</span>(<span style="color:#e6db74">&#39;Super Calculator&#39;</span>);
   });
 });
-</code></pre>
-
-<p>Y ejecutamos protractor:</p>
-
-<pre><code class="language-bash">$ protractor conf.js
-</code></pre>
-
-<h2 id="chrome-y-phantomjs">Chrome y PhantomJS</h2>
-
+</code></pre></div><p>Y ejecutamos protractor:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ protractor conf.js
+</code></pre></div><h2 id="chrome-y-phantomjs">Chrome y PhantomJS</h2>
 <p>Hasta ahora estamos viendo nuestra ventana de chrome pasando los tests, pero si quisieramos pasarlos en un servidor de integracion continua, deberiamos usar un explorador headless, ya que es posible que este servidor no tenga servidor grafico para GUIs.</p>
-
 <p>Para eso usaremos phantomjs, como en los anteriores paquetes:</p>
-
-<pre><code class="language-bash">$ sudo npm install -g phantomjs
-</code></pre>
-
-<p>Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo npm install -g phantomjs
+</code></pre></div><p>Cambiaremos nuestro conf.js para que use phantomjs y ya lo tendremos headless.</p>
 
 
     </article>
     
- <aside><div id="disqus_thread"></div></aside> 
+
 
 <script type="text/javascript">
      
-    var disqus_shortname = 'avances123';
+    var disqus_shortname = '';
 
      
     (function() {

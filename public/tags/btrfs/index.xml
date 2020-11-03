@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Btrfs on avances123</title>
+    <title>btrfs on avances123</title>
     <link>http://blog.fabio.xyz/tags/btrfs/</link>
-    <description>Recent content in Btrfs on avances123</description>
+    <description>Recent content in btrfs on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0100</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/btrfs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/btrfs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Montando el almacenamiento con btrfs</title>
       <link>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</link>
@@ -19,7 +14,7 @@
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
       <description>Configurar el almacenamiento con btrfs El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux
-$ sudo fdisk -l | grep Disco Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores  Los discos /dev/sd[a,b,c,e] son los discos de 3&amp;rsquo;5 que he pinchado en las bahias y /dev/sdd es el pincho usb donde tenemos nuestro sistema.</description>
+$ sudo fdisk -l | grep Disco Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores Los discos /dev/sd[a,b,c,e] son los discos de 3&#39;5 que he pinchado en las bahias y /dev/sdd es el pincho usb donde tenemos nuestro sistema.</description>
     </item>
     
   </channel>
