@@ -8,53 +8,21 @@
     <language>es-es</language>
     <lastBuildDate>Sat, 15 Apr 2017 11:30:57 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/series/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Vamos a hacer una webapp en google cloud</title>
-      <link>http://blog.fabio.xyz/series/google-cloud/introduccion/</link>
-      <pubDate>Sat, 15 Apr 2017 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/series/google-cloud/introduccion/</guid>
-      <description>Introduccion Este fin de semana he visto que google estaba haciendo una conferencia de las suyas llamada Next. En ella anunciaban su sistema cloud, y hace un par de años entre para ver que tenia pero AWS superaba totalmente a google, de hecho parecia como de coña, se podia levantar un linux y ya.
-Ahora no, ahora ya tiene muchos mas servicios y parecen dispuestos a competir con Amazon en serio, asi que, por que no probar a hacer algo y alojarlo alli?</description>
-    </item>
-    
-    <item>
-      <title>Introduccion, que tenia antes y que he comprado</title>
-      <link>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/series/arch-homeserver/de-raspberry-pi-a-hp-proliant-microserver/</guid>
-      <description>Antecedentes Bueno pues yo tenia en mi casa una raspberry pi, para hacer de media center y algun servicio de red mas, la tipica raspberry con un disco duro enchufado por usb.
-Todo iba genial como muchos que la teneis en casa sabreis, mis pegas eran totalmente menores, que era ARM y que era ubuntu, llevo 1 año ahora que me he cambiado a Archlinux como sistema operativo principal y aunque he usado ubuntu durante años, queria cambiarme a arch linux, por supuesto muchisimo de lo que contare aqui funciona en Archlinux ARM, para vuestras raspberrys, odroids y demas.</description>
-    </item>
-    
-    <item>
-      <title>Probando postgresql en google</title>
-      <link>http://blog.fabio.xyz/series/google-cloud/probando-postgresql/</link>
+      <title>Webapp en google cloud platform</title>
+      <link>http://blog.fabio.xyz/series/webapp-en-google-cloud-platform/</link>
       <pubDate>Sat, 15 Apr 2017 11:30:57 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/series/google-cloud/probando-postgresql/</guid>
-      <description>Dando de alta la base de datos Pues basta con hacer un nuevo proyecto en la Consola, poner nuestra tarjeta de credito, y despues arrancar una instancia de postgresql 9.6 una vez arrancada, te dice la ip que tiene, y te puedes conectar a ella como siempre:
-pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA Poniendo postgis Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel.</description>
+      <guid>http://blog.fabio.xyz/series/webapp-en-google-cloud-platform/</guid>
+      <description></description>
     </item>
     
     <item>
-      <title>Montando el almacenamiento con btrfs</title>
-      <link>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0100</pubDate>
-      
-      <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
-      <description>Configurar el almacenamiento con btrfs El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux
-$ sudo fdisk -l | grep Disco Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores Los discos /dev/sd[a,b,c,e] son los discos de 3&#39;5 que he pinchado en las bahias y /dev/sdd es el pincho usb donde tenemos nuestro sistema.</description>
-    </item>
-    
-    <item>
-      <title>Instalacion de grafana, influxdb y collectd</title>
-      <link>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</link>
+      <title>Servidor casero con Arch Linux</title>
+      <link>http://blog.fabio.xyz/series/servidor-casero-con-arch-linux/</link>
       <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
       
-      <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
-      <description>Sacando graficas de todo en tu red casera Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
- Una base de datos especial para series temporales llamada influxdb Un frontend para pintar las graficas llamado grafana Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd  Vamos a ver la instalacion y configuracion de cada uno de los programas.</description>
+      <guid>http://blog.fabio.xyz/series/servidor-casero-con-arch-linux/</guid>
+      <description></description>
     </item>
     
   </channel>
