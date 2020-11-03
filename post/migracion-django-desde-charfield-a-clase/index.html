@@ -79,95 +79,72 @@
     </div>
     <article>
 
-      
-
-<h2 id="introduccion">Introduccion</h2>
-
+      <h2 id="introduccion">Introduccion</h2>
 <p>Pues nuestra aplicacion esta funcionando en produccion, nuestro modelo funciona muy bien y es bastante flexible, vamos afrontando bien los nuevos requisitos
 y haciendo migraciones con exito, de pronto nos vamos dando cuenta que un campo simple de un modelo, que teniamos puesto como de tipo String, queremos que
 tenga mas vidilla, por ejemplo guardamos el estilo de un disco como un string, pero a la larga nos damos cuenta que Estilo lo podemos generalizar en una clase
 para poder saber mas datos del estilo, como el lugar donde se originó, o si es un subtipo de musica electronica y cosas asi.</p>
-
 <h2 id="origen">Origen</h2>
-
 <p>Partimos de esta base, guardamos el artista del album como una cadena, y ya tenemos muchos asi guardados.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
 
-<pre><code class="language-python">from django.db import models
-
-class Album(models.Model):
-    name = models.CharField(max_length=255)
-    genre = models.CharField(max_length=255)
-</code></pre>
-
-<h2 id="paso-1">Paso 1</h2>
-
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Album</span>(models<span style="color:#f92672">.</span>Model):
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>)
+    genre <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>)
+</code></pre></div><h2 id="paso-1">Paso 1</h2>
 <p>Creamos el modelo nuevo de genero y lo enlazamos en un campo nuevo <code>genre_link</code> sin borrar el antiguo string.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
 
-<pre><code class="language-python">from django.db import models
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Album</span>(models<span style="color:#f92672">.</span>Model):
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>)
+    genre <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>)
+    genre_link <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>ForeignKey(<span style="color:#e6db74">&#39;Genre&#39;</span>, null<span style="color:#f92672">=</span>True)
 
-class Album(models.Model):
-    name = models.CharField(max_length=255)
-    genre = models.CharField(max_length=255)
-    genre_link = models.ForeignKey('Genre', null=True)
-
-class Genre(models.Model):
-    name = models.CharField(max_length=255)
-</code></pre>
-
-<p>y creamos la migracion:</p>
-
-<pre><code class="language-bash">./manage.py makemigrations discography
-</code></pre>
-
-<h2 id="paso-2">Paso 2</h2>
-
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Genre</span>(models<span style="color:#f92672">.</span>Model):
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>)
+</code></pre></div><p>y creamos la migracion:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./manage.py makemigrations discography
+</code></pre></div><h2 id="paso-2">Paso 2</h2>
 <p>Ahora populamos el nuevo campo, creando los objetos nuevos desde la columna antigua, con una migracion vacia</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./manage.py makemigrations --empty --name crea_genres discography
+</code></pre></div><p>Y hacemos el codigo para sacar el texto del tipo, y crear los objetos nuevos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> __future__ <span style="color:#f92672">import</span> unicode_literals
 
-<pre><code class="language-bash">./manage.py makemigrations --empty --name crea_genres discography
-</code></pre>
-
-<p>Y hacemos el codigo para sacar el texto del tipo, y crear los objetos nuevos.</p>
-
-<pre><code class="language-python">from __future__ import unicode_literals
-
-from django.db import migrations
+<span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> migrations
 
 
-def create_genres(apps, schema_editor):
-    Genre = apps.get_model('discography', 'Genre')
-    Album = apps.get_model('discography', 'Album')
-    for album in Album.objects.all():
-        tipo, created = Genre.objects.get_or_create(name=album.artist)
-        album.genre_link = tipo
-        album.save()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_genres</span>(apps, schema_editor):
+    Genre <span style="color:#f92672">=</span> apps<span style="color:#f92672">.</span>get_model(<span style="color:#e6db74">&#39;discography&#39;</span>, <span style="color:#e6db74">&#39;Genre&#39;</span>)
+    Album <span style="color:#f92672">=</span> apps<span style="color:#f92672">.</span>get_model(<span style="color:#e6db74">&#39;discography&#39;</span>, <span style="color:#e6db74">&#39;Album&#39;</span>)
+    <span style="color:#66d9ef">for</span> album <span style="color:#f92672">in</span> Album<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>all():
+        tipo, created <span style="color:#f92672">=</span> Genre<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>get_or_create(name<span style="color:#f92672">=</span>album<span style="color:#f92672">.</span>artist)
+        album<span style="color:#f92672">.</span>genre_link <span style="color:#f92672">=</span> tipo
+        album<span style="color:#f92672">.</span>save()
 
 
-def borra_genres(apps, schema_editor):
-    pass
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">borra_genres</span>(apps, schema_editor):
+    <span style="color:#66d9ef">pass</span>
 
 
-class Migration(migrations.Migration):
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Migration</span>(migrations<span style="color:#f92672">.</span>Migration):
 
-    dependencies = [
+    dependencies <span style="color:#f92672">=</span> [
     ]
 
-    operations = [
-        migrations.RunPython(create_genres, borra_genres),
+    operations <span style="color:#f92672">=</span> [
+        migrations<span style="color:#f92672">.</span>RunPython(create_genres, borra_genres),
     ]
-</code></pre>
-
-<h2 id="paso-3">Paso 3</h2>
-
+</code></pre></div><h2 id="paso-3">Paso 3</h2>
 <p>En este punto ya tenemos nuestro problema solucionado, nos falta hacer limpieza y borrar la columna antigua.</p>
 
 
     </article>
     
- <aside><div id="disqus_thread"></div></aside> 
+
 
 <script type="text/javascript">
      
-    var disqus_shortname = 'avances123';
+    var disqus_shortname = '';
 
      
     (function() {
@@ -181,6 +158,8 @@ class Migration(migrations.Migration):
   </main>
 
   <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://blog.fabio.xyz/post/desde-docker-compose-a-kubernetes/" rel="prev">Migrar una app desde docker-compose a kubernetes</a></span>
     
     
       <span class="next"><a href="http://blog.fabio.xyz/post/depurar-webs-con-el-movil/" rel="next">Como depurar webs con el movil</a> &rarr;</span>

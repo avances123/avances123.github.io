@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Postgresql on avances123</title>
+    <title>postgresql on avances123</title>
     <link>http://blog.fabio.xyz/tags/postgresql/</link>
-    <description>Recent content in Postgresql on avances123</description>
+    <description>Recent content in postgresql on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Sat, 15 Apr 2017 11:30:57 +0100</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 15 Apr 2017 11:30:57 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Probando postgresql en google</title>
       <link>http://blog.fabio.xyz/series/google-cloud/probando-postgresql/</link>
@@ -19,7 +14,7 @@
       
       <guid>http://blog.fabio.xyz/series/google-cloud/probando-postgresql/</guid>
       <description>Dando de alta la base de datos Pues basta con hacer un nuevo proyecto en la Consola, poner nuestra tarjeta de credito, y despues arrancar una instancia de postgresql 9.6 una vez arrancada, te dice la ip que tiene, y te puedes conectar a ella como siempre:
-pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA  # Poniendo postgis Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel.</description>
+pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA Poniendo postgis Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel.</description>
     </item>
     
     <item>

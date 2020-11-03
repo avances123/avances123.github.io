@@ -1,24 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Influxdb on avances123</title>
+    <title>influxdb on avances123</title>
     <link>http://blog.fabio.xyz/tags/influxdb/</link>
-    <description>Recent content in Influxdb on avances123</description>
+    <description>Recent content in influxdb on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Fri, 07 Oct 2016 10:30:57 +0100</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 07 Oct 2016 10:30:57 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Instalacion de grafana, influxdb y collectd</title>
       <link>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</link>
       <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
-      <description>Sacando graficas de todo en tu red casera Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente: 1. Una base de datos especial para series temporales llamada influxdb 2. Un frontend para pintar las graficas llamado grafana 3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd</description>
+      <description>Sacando graficas de todo en tu red casera Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
+ Una base de datos especial para series temporales llamada influxdb Un frontend para pintar las graficas llamado grafana Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd  Vamos a ver la instalacion y configuracion de cada uno de los programas.</description>
     </item>
     
   </channel>

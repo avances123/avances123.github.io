@@ -81,35 +81,25 @@
     </div>
     <article>
 
-      
-
-<h1 id="dando-de-alta-la-base-de-datos">Dando de alta la base de datos</h1>
-
+      <h1 id="dando-de-alta-la-base-de-datos">Dando de alta la base de datos</h1>
 <p>Pues basta con hacer un nuevo proyecto en la <a href="https://console.cloud.google.com">Consola</a>, poner nuestra tarjeta de credito, y despues arrancar una instancia de postgresql 9.6
- una vez arrancada, te dice la ip que tiene, y te puedes conectar a ella como siempre:</p>
-
-<pre><code class="language-bash"> pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA
-</code></pre>
-
-<p># Poniendo postgis
- Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel. En lugar de guardarlo en un fichero GeoTiff u otro
- formato, lo guardaremos en una tabla postgis con tipo raster.</p>
-
+una vez arrancada, te dice la ip que tiene, y te puedes conectar a ella como siempre:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA
+</code></pre></div><h1 id="poniendo-postgis">Poniendo postgis</h1>
+<p>Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel. En lugar de guardarlo en un fichero GeoTiff u otro
+formato, lo guardaremos en una tabla postgis con tipo raster.</p>
 <p>Google cloud platform viene con postgresql 9.6 y postgis 2.3 disponible, asi que podremos hacer uso de esta tecnologia:</p>
-
-<pre><code class="language-sql"> $ CREATE EXTENSION postgis;
-</code></pre>
-
-<p>y ya tenemos postgis en la nube de google. xd</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">CREATE</span> EXTENSION postgis;
+</code></pre></div><p>y ya tenemos postgis en la nube de google. xd</p>
 
 
     </article>
     
- <aside><div id="disqus_thread"></div></aside> 
+
 
 <script type="text/javascript">
      
-    var disqus_shortname = 'avances123';
+    var disqus_shortname = '';
 
      
     (function() {

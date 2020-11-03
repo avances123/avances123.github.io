@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pacman on avances123</title>
+    <title>pacman on avances123</title>
     <link>http://blog.fabio.xyz/tags/pacman/</link>
-    <description>Recent content in Pacman on avances123</description>
+    <description>Recent content in pacman on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Wed, 12 Oct 2016 19:05:03 +0200</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/pacman/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 12 Oct 2016 19:05:03 +0200</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/pacman/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Congelar un paquete en arch linux</title>
       <link>http://blog.fabio.xyz/post/congelar-un-paquete-en-arch-linux/</link>

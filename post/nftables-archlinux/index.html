@@ -79,69 +79,45 @@
     </div>
     <article>
 
-      
-
-<h1 id="montar-un-firewall-con-nftables-para-nuestro-servidor">Montar un firewall con nftables para nuestro servidor</h1>
-
+      <h1 id="montar-un-firewall-con-nftables-para-nuestro-servidor">Montar un firewall con nftables para nuestro servidor</h1>
 <p>Todos conocemos iptables, al menos de oidas, de poner alguna regla normalmente copiada de algun blog como este para enrutar trafico o abrir algun puerto. En este caso vamos a hacer lo mismo, pero con nftables, que es digamos la evolucion de iptables , y tiene soporte para ipv6 y arp mejorada a la que tiene iptables, ademas de una sintaxis mas amigable.</p>
-
 <p>Es necesario tener un kernel &gt;=3.13</p>
-
 <h2 id="instalacion">Instalacion</h2>
-
 <p>Asi de sencillo:</p>
-
-<pre><code class="language-bash">$ pacman -S nftables
-</code></pre>
-
-<h2 id="desactivacion-de-iptables">Desactivacion de iptables</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pacman -S nftables
+</code></pre></div><h2 id="desactivacion-de-iptables">Desactivacion de iptables</h2>
 <p>Yo estaba usando iptables con un conjunto de reglas, vamos a deshabilitarlo en el systemd y a comprobar que no tenemos ninguna regla activa:</p>
-
-<pre><code class="language-bash">$ systemctl stop iptables
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ systemctl stop iptables
 $ systemctl disable iptables
 $ iptables -nvL
-Chain INPUT (policy ACCEPT 72M packets, 83G bytes)
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT 72M packets, 83G bytes<span style="color:#f92672">)</span>
  pkts bytes target     prot opt in     out     source               destination
 
-Chain FORWARD (policy ACCEPT 1639K packets, 230M bytes)
+Chain FORWARD <span style="color:#f92672">(</span>policy ACCEPT 1639K packets, 230M bytes<span style="color:#f92672">)</span>
  pkts bytes target     prot opt in     out     source               destination
 
-Chain OUTPUT (policy ACCEPT 52M packets, 10G bytes)
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT 52M packets, 10G bytes<span style="color:#f92672">)</span>
  pkts bytes target     prot opt in     out     source               destination
-</code></pre>
-
-<p>Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.</p>
-
+</code></pre></div><p>Ahora tenemos nuestro servidor abierto a todo, sin ningun tipo de reglas, y asi seguira porque hemos hecho disable.</p>
 <h2 id="configuracion-de-nftables">Configuracion de nftables</h2>
-
 <p>Por supuesto no voy a competir con la estupenda documentacion de arch linux sobre <a href="https://wiki.archlinux.org/index.php/nftables">nftables</a>. Voy a empezar con el fichero de ejemplo que esta en <code>/etc/nftables.conf</code>. En este fichero viene la tipica configuracion de te capo todo menos el ssh para que sigas configurando y no se te quede cara de pipas.</p>
-
 <p>Segun abrimos el fichero no entendemos mucho, pero el caso es pensar igual que con iptables, es exactamente igual pero digamos que puedes escribir cosas en mas sitios para mejorar la organizacion, pero los conceptos son los mismos.</p>
-
 <p>Estan las <em>rules</em> que son la tipica linea de iptables, donde segun el paquete que venga, si hace match , hacemos cosas (solemos aceptarlo o rechazarlo).
 Estan las <em>chains</em> que son agrupaciones de rules, solo que en lugar de tenerlas mas o menos fijas, aqui podemos tener tantas como queramos llamarlas como queramos y en general, son mas flexibles, en el fichero por ejemplo tenemos tres chains que se llaman como las antiguas de iptables, pero se podrian llamar de otra manera, el caso es, cuando entrara un paquete por ella? bueno porque en la primera de una chain de nftables debes definir sus propiedades, es decir escribir una linea de este tipo:</p>
-
-<pre><code class="language-text">type filter hook input priority 0;
-</code></pre>
-
-<p>Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks <code>output,forward,prerouting y postrouting</code> como en iptables.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">type filter hook input priority 0;
+</code></pre></div><p>Esto significa que esta chain filtrara, (simplificando se dedicara a aceptar o rechazar paquetes), y se lanzara cuando tenga el hook input, es decir cuando en el destino del paquete aparezca la ip de nuestro servidor, es decir, entra en nosotros. Tambien hay hooks <code>output,forward,prerouting y postrouting</code> como en iptables.</p>
 <h2 id="activar-al-inicio">Activar al inicio</h2>
-
 <p>Una vez tengamos nuestras reglas puestas en <code>/etc/nftables.conf</code> podemos cargarlas en cada arranque.</p>
-
 <pre><code>$ systemctl enable nftables
 </code></pre>
 
-
     </article>
     
- <aside><div id="disqus_thread"></div></aside> 
+
 
 <script type="text/javascript">
      
-    var disqus_shortname = 'avances123';
+    var disqus_shortname = '';
 
      
     (function() {

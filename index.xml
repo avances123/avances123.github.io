@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>avances123</title>
@@ -6,12 +6,7 @@
     <description>Recent content on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Sat, 15 Apr 2017 10:30:57 +0100</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 11 Apr 2020 11:32:31 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vamos a hacer una webapp en google cloud</title>
       <link>http://blog.fabio.xyz/series/google-cloud/introduccion/</link>
@@ -39,7 +34,7 @@ Todo iba genial como muchos que la teneis en casa sabreis, mis pegas eran totalm
       
       <guid>http://blog.fabio.xyz/series/google-cloud/probando-postgresql/</guid>
       <description>Dando de alta la base de datos Pues basta con hacer un nuevo proyecto en la Consola, poner nuestra tarjeta de credito, y despues arrancar una instancia de postgresql 9.6 una vez arrancada, te dice la ip que tiene, y te puedes conectar a ella como siempre:
-pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA  # Poniendo postgis Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel.</description>
+pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA Poniendo postgis Para nuestra app necesitamos guardar un raster con el modelo digital del terreno, es decir con las altitudes de cada pixel.</description>
     </item>
     
     <item>
@@ -49,7 +44,7 @@ pgcli -h IP_GOOGLE -U postgres BASE_DATOS_RECIEN_CREADA  # Poniendo postgis Para
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/almacenamiento-con-btrfs/</guid>
       <description>Configurar el almacenamiento con btrfs El siguiente paso sera configurar el almacenamiento, ya tenemos enchufados los discos y los reconoce el Linux
-$ sudo fdisk -l | grep Disco Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores  Los discos /dev/sd[a,b,c,e] son los discos de 3&amp;rsquo;5 que he pinchado en las bahias y /dev/sdd es el pincho usb donde tenemos nuestro sistema.</description>
+$ sudo fdisk -l | grep Disco Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdb: 698,7 GiB, 750156374016 bytes, 1465149168 sectores Disco /dev/sda: 2,7 TiB, 3000592982016 bytes, 5860533168 sectores Disco /dev/sde: 465,8 GiB, 500107862016 bytes, 976773168 sectores Disco /dev/sdd: 14,7 GiB, 15733161984 bytes, 30728832 sectores Los discos /dev/sd[a,b,c,e] son los discos de 3&#39;5 que he pinchado en las bahias y /dev/sdd es el pincho usb donde tenemos nuestro sistema.</description>
     </item>
     
     <item>
@@ -58,7 +53,18 @@ $ sudo fdisk -l | grep Disco Disco /dev/sdc: 465,8 GiB, 500107862016 bytes, 9767
       <pubDate>Fri, 07 Oct 2016 10:30:57 +0100</pubDate>
       
       <guid>http://blog.fabio.xyz/series/arch-homeserver/collectd-influxdb-grafana-en-archlinux/</guid>
-      <description>Sacando graficas de todo en tu red casera Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente: 1. Una base de datos especial para series temporales llamada influxdb 2. Un frontend para pintar las graficas llamado grafana 3. Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd</description>
+      <description>Sacando graficas de todo en tu red casera Hoy vamos a montar el sistema de metricas para nuestro servidor casero, la arquitectura sera la siguiente:
+ Una base de datos especial para series temporales llamada influxdb Un frontend para pintar las graficas llamado grafana Un ligero demonio en cada sistema de nuestra red (incluido nuestro servidor) para sacar los datos y mandarlos a la db, llamado collectd  Vamos a ver la instalacion y configuracion de cada uno de los programas.</description>
+    </item>
+    
+    <item>
+      <title>Migrar una app desde docker-compose a kubernetes</title>
+      <link>http://blog.fabio.xyz/post/desde-docker-compose-a-kubernetes/</link>
+      <pubDate>Sat, 11 Apr 2020 11:32:31 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/desde-docker-compose-a-kubernetes/</guid>
+      <description>Desde donde partimos Tenemos una aplicacion que consta de varios microservicios, entre ellas se comunican via http y funciona correctamente. Toda la infraesctura esta en un docker-compose.yml. Mi plan es migrar toda la aplicacion a la nube, para asi poder tenerla disponible en cualquier sitio, aqui voy a documentar mis pasos que voy dando.
+Google Cloud Creamos un proyecto nuevo Como siempre voy teniendo varias cosas entre manos me gusta tenerlo ordeando asi que en la consola de google creamos un nuevo proyecto solo para este fin.</description>
     </item>
     
     <item>

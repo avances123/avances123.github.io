@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Android on avances123</title>
+    <title>android on avances123</title>
     <link>http://blog.fabio.xyz/tags/android/</link>
-    <description>Recent content in Android on avances123</description>
+    <description>Recent content in android on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Thu, 01 Dec 2016 11:32:31 +0100</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/android/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 01 Dec 2016 11:32:31 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/android/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Como depurar webs con el movil</title>
       <link>http://blog.fabio.xyz/post/depurar-webs-con-el-movil/</link>

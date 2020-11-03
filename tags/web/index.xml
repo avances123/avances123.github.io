@@ -1,16 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Web on avances123</title>
+    <title>web on avances123</title>
     <link>http://blog.fabio.xyz/tags/web/</link>
-    <description>Recent content in Web on avances123</description>
+    <description>Recent content in web on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Thu, 01 Dec 2016 11:32:31 +0100</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/web/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 11 Apr 2020 11:32:31 +0100</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrar una app desde docker-compose a kubernetes</title>
+      <link>http://blog.fabio.xyz/post/desde-docker-compose-a-kubernetes/</link>
+      <pubDate>Sat, 11 Apr 2020 11:32:31 +0100</pubDate>
+      
+      <guid>http://blog.fabio.xyz/post/desde-docker-compose-a-kubernetes/</guid>
+      <description>Desde donde partimos Tenemos una aplicacion que consta de varios microservicios, entre ellas se comunican via http y funciona correctamente. Toda la infraesctura esta en un docker-compose.yml. Mi plan es migrar toda la aplicacion a la nube, para asi poder tenerla disponible en cualquier sitio, aqui voy a documentar mis pasos que voy dando.
+Google Cloud Creamos un proyecto nuevo Como siempre voy teniendo varias cosas entre manos me gusta tenerlo ordeando asi que en la consola de google creamos un nuevo proyecto solo para este fin.</description>
+    </item>
     
     <item>
       <title>Como depurar webs con el movil</title>

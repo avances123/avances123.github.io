@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>IDE on avances123</title>
@@ -6,12 +6,7 @@
     <description>Recent content in IDE on avances123</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <copyright>Escrito por Fabio Rueda</copyright>
-    <lastBuildDate>Wed, 02 Nov 2016 18:29:06 +0200</lastBuildDate>
-    
-	<atom:link href="http://blog.fabio.xyz/tags/ide/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 02 Nov 2016 18:29:06 +0200</lastBuildDate><atom:link href="http://blog.fabio.xyz/tags/ide/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Usando visual studio code para python</title>
       <link>http://blog.fabio.xyz/post/visual-studio-code-con-python/</link>
